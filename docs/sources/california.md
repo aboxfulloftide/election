@@ -35,6 +35,11 @@ First import target:
 
 - 2024 Statement of Vote XLSX files for U.S. Senate, U.S. House, and State Legislature, then work backward.
 
+Current project status:
+
+- Not imported yet.
+- Recommended as the next state-level structured import after the Florida baseline because the Secretary of State publishes Statement of Vote XLSX files with county and district breakdowns.
+
 Importer difficulty:
 
 - Medium. Structured XLSX files are promising, but top-two election rules, nonpartisan offices, district/county splits, and write-ins require careful modeling.
@@ -110,4 +115,3 @@ Coverage notes:
 - Which Secretary of State XLSX layouts are stable across years?
 - How should top-two primary/general history be represented for nonpartisan mayor races?
 - Which county Statement of Vote formats can be parsed generically across California counties?
-

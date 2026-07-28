@@ -35,6 +35,7 @@ Implemented official precinct import:
 - Division of Elections precinct-level general-election ZIPs from 2012, 2014, 2016, 2018, 2020, 2022, and 2024.
 - Imported offices where they appear on the ballot: President, U.S. Senate, U.S. House, Governor, State Senate, and State House.
 - Imported reporting geography: official precinct/polling-location rows, with county FIPS normalization.
+- Current validated import: 672,309 normalized result rows, 922 contests, all 67 counties for every configured year, zero duplicate result keys.
 - Generated files: `public/results/florida-{year}-statewide-summary.json` and `public/results/florida-statewide-summary.json`.
 
 Configured official ZIP URLs:
@@ -111,6 +112,7 @@ Expected geography:
 
 ## Open Questions
 
-- Which Florida archive formats are easiest for scripted import: CSV, XLS, HTML, PDF, or zipped reports?
-- How far back can official county-level governor and U.S. Senate returns be collected without PDF extraction?
+- Which Florida archive formats are easiest for extending official results before 2012: CSV, XLS, HTML, PDF, or zipped reports?
+- How far back can official county-level governor, U.S. Senate, U.S. House, and state legislative returns be collected without PDF extraction?
 - Which counties provide clean precinct-level files for municipal and legislative races?
+- Which geometry sources best match Florida congressional and state legislative districts by redistricting cycle?

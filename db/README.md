@@ -75,3 +75,14 @@ The current frontend summary file is regenerated from MySQL with:
 ```bash
 npm run data:fetch
 ```
+
+Florida summaries are regenerated from MySQL with:
+
+```bash
+npm run florida:fetch
+```
+
+Current validated MySQL-backed datasets:
+
+- MIT county presidential returns, 2000-2024.
+- Florida official precinct general-election returns, 2012-2024, covering President, U.S. Senate, U.S. House, Governor, State Senate, and State House where on ballot.

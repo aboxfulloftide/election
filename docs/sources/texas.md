@@ -35,6 +35,11 @@ First import target:
 
 - Texas statewide official general-election results for governor and U.S. Senate, then U.S. House by district.
 
+Current project status:
+
+- Not imported yet.
+- Likely better after one more structured state import because municipal and precinct detail is county-specific.
+
 Importer difficulty:
 
 - Medium to high. Official state results exist, but municipal and precinct detail is county-specific.
@@ -105,4 +110,3 @@ Coverage notes:
 - Which Texas SOS historical pages can be scraped reliably versus requiring form navigation?
 - How far back can county official precinct data be collected for Harris, Dallas, Travis, Bexar, and Tarrant?
 - Should cast vote record sources be imported into a separate table before contest-result aggregation?
-

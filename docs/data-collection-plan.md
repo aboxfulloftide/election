@@ -100,19 +100,28 @@ Examples:
 
 ### Step 1: Existing Presidential Backbone
 
+Status: complete for the current MIT 2000-2024 county presidential file.
+
 Current source:
 
 - MIT Election Data and Science Lab, County Presidential Election Returns 2000-2024.
 - Harvard Dataverse DOI: `10.7910/DVN/VOQCHQ`
 
+Implemented:
+
+- `npm run data:fetch`
+- MySQL import with source metadata and checksums.
+- Validation for row counts, years, counties, missing source files, and duplicate keys.
+- Generated `public/results/county-presidential-summary.json`.
+
 Next work:
 
-- Load the current file into MySQL.
-- Preserve Dataverse source metadata.
-- Preserve raw file checksum.
-- Generate the existing frontend summary from MySQL.
+- Add older county presidential sources before 2000 where obtainable.
+- Add source comparison checks against official state canvass totals when practical.
 
-### Step 2: Florida Official Statewide Precinct Baseline
+### Step 2: Florida Official Precinct Baseline
+
+Status: complete for configured 2012-2024 general-election files and scoped federal/state offices.
 
 Current source:
 
@@ -125,13 +134,14 @@ Current outputs:
 - Normalized MySQL precinct/polling-location results with official source-file rows and checksums.
 - `public/results/florida-{year}-statewide-summary.json`
 - `public/results/florida-statewide-summary.json`
+- Validation currently covers 672,309 normalized result rows, 922 contests, all 67 counties for every configured year, and zero duplicate result keys.
 
 Next work:
 
 - Decide how district and precinct rows should connect to map geometries for redistricting years.
 - Add Florida mayor contests from county/city archives.
 
-### Step 3: Governor and U.S. Senate
+### Step 3: Other Pilot-State Governor and U.S. Senate
 
 Collect by pilot state.
 
@@ -147,7 +157,7 @@ Target outputs:
 - County-level candidate totals where available.
 - Source quality grade.
 
-### Step 4: U.S. House
+### Step 4: Other Pilot-State U.S. House
 
 Collect district races.
 
@@ -161,7 +171,7 @@ Important issue:
 
 Congressional district boundaries change after redistricting. Data must be tied to the district label and year, not a permanent district geometry assumption.
 
-### Step 5: State Senate and State House
+### Step 5: Other Pilot-State State Senate and State House
 
 Collect district races.
 
@@ -288,14 +298,19 @@ Expected issues:
 
 The database should store notes and quality flags instead of hiding these issues.
 
-## First Data Milestone
+## Completed First Data Milestone
 
-The first milestone should prove the full pipeline with one known dataset:
+Status: complete.
 
-1. Register MIT/Harvard Dataverse as a source.
-2. Register the county presidential source file.
-3. Import 2000-2024 county presidential returns into MySQL.
-4. Validate row counts, years, counties, winners, and margins.
-5. Generate the current frontend JSON from MySQL.
+Completed:
 
-After that, expand one pilot state across governor, U.S. Senate, U.S. House, and state legislature before scaling to all five pilot states.
+1. Registered MIT/Harvard Dataverse as a source.
+2. Registered source files with local paths and checksums.
+3. Imported 2000-2024 county presidential returns into MySQL.
+4. Validated row counts, years, counties, source files, and duplicate keys.
+5. Generated the current frontend JSON from MySQL.
+6. Expanded Florida across President, U.S. Senate, U.S. House, Governor, State Senate, and State House at official precinct/polling-location level for 2012-2024.
+
+Next milestone:
+
+Add either Florida mayor contests or California Statement of Vote imports, then update the frontend to select non-presidential contests.

@@ -33,6 +33,11 @@ First import target:
 
 - Pennsylvania governor and U.S. Senate general-election official returns from state files, then congressional/state legislative district totals.
 
+Current project status:
+
+- Not imported yet.
+- Keep behind Florida mayor or California Statement of Vote unless Pennsylvania source files prove easier to automate.
+
 Importer difficulty:
 
 - Medium to high. State portal is official, but county-submitted returns and changing data products need careful source-file tracking.
@@ -77,4 +82,3 @@ Expected geography:
 - How far back does the Pennsylvania state portal provide structured files by office?
 - Which historical state legislative races are available as county-by-district returns rather than district totals only?
 - Are Philadelphia division-level files stable enough for a reusable municipal importer?
-

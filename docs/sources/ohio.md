@@ -34,6 +34,11 @@ First import target:
 
 - Statewide governor and U.S. Senate general-election results from the Ohio Secretary of State portal, then county detail.
 
+Current project status:
+
+- Not imported yet.
+- Useful candidate for a later pilot because the official data portal and county result directory may help with both state and mayor data.
+
 Importer difficulty:
 
 - Medium. Ohio has strong official sources, but portal-backed pages and county-specific archives need inspection for stable download endpoints.
@@ -105,4 +110,3 @@ Expected geography:
 - What downloadable endpoint backs the Ohio Secretary of State Data Portal?
 - Which county boards expose Excel/CSV versus only interactive reports?
 - How far back can Columbus mayor results be collected from Franklin County without manual PDF extraction?
-

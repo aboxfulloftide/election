@@ -18,7 +18,16 @@ Files:
 - Prefer precinct-level files when official and clean.
 - Fall back to county-by-district, district totals, county totals, statewide totals, or citywide totals as needed.
 
-## First Import Recommendation
+## Current Import Status
 
-After the MIT presidential backbone, the next import should be **Florida statewide general-election returns from the Florida Division of Elections archive**, starting with governor and U.S. Senate. Florida has an official archive back to 1978, and its state office explicitly points local/municipal results to county supervisors, which matches our source model.
+Status: complete for the first Florida official precinct import.
 
+Implemented imports:
+
+- MIT county presidential returns, 2000-2024.
+- Florida Division of Elections precinct-level general-election ZIPs, 2012-2024.
+- Florida offices: President, U.S. Senate, U.S. House, Governor, State Senate, State House where on ballot.
+
+Recommended next import:
+
+- Florida mayor contests for Miami, Jacksonville, Tampa, and Orlando from county/city election archives, or California Statement of Vote files as the next state-level structured import.

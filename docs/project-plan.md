@@ -110,7 +110,9 @@ This lets the project store precinct results when available while still supporti
 
 ## Phase 1: Data Foundation
 
-Define and document the data model before expanding collection.
+Status: implemented for the initial normalized data model.
+
+The current MySQL schema is applied by `npm run db:apply` and includes the normalized tables listed below. It is the system of record for imported results.
 
 Core concepts:
 
@@ -125,17 +127,31 @@ Core concepts:
 - Source file
 - Data quality note
 
-The initial database will use the already installed MySQL server.
+The project uses the already installed MySQL server.
 
-Primary outcomes:
+Completed outcomes:
 
-- MySQL schema.
-- Source-tracking rules.
-- Import conventions.
-- Validation rules.
-- Generated frontend data contracts.
+- MySQL schema in `db/migrations/001_initial_schema.sql`.
+- Seed data in `db/seeds/001_core_reference.sql`.
+- Source-tracking rules in the schema and docs.
+- Repeatable import conventions in the MIT and Florida pipelines.
+- Validation scripts for imported datasets.
+- Generated frontend JSON files under `public/results/`.
 
 ## Phase 2: Pilot Data Collection
+
+Status: partially implemented.
+
+Completed:
+
+- MIT county presidential general-election returns from 2000 through 2024.
+- Florida official precinct-level general-election returns from 2012 through 2024 for President, U.S. Senate, U.S. House, Governor, State Senate, and State House where on ballot.
+
+Next collection targets:
+
+- Florida mayor contests for Miami, Jacksonville, Tampa, and Orlando.
+- Florida district and precinct geometry joins.
+- California statewide/district Statement of Vote import.
 
 Collect pilot-state data for the scoped offices and years.
 
@@ -178,11 +194,14 @@ Quality grades:
 
 The frontend should consume generated files or API responses, not raw import files.
 
-Initial generated products:
+Implemented generated products:
 
-- County presidential summary.
-- Statewide contest summary.
-- District contest summary.
+- County presidential summary: `public/results/county-presidential-summary.json`.
+- Florida year summaries: `public/results/florida-{year}-statewide-summary.json`.
+- Florida combined summary: `public/results/florida-statewide-summary.json`.
+
+Still needed:
+
 - Mayor contest summary.
 - Source index.
 - Data quality index.
@@ -198,6 +217,8 @@ Later generated products:
 ## Phase 5: Interface
 
 The first serious interface should be a decision-desk map, not a landing page.
+
+Status: initial county presidential interface exists. The next interface work should add state drilldown, Florida contest selection, and district/precinct-aware views after data contracts are stabilized.
 
 Core views:
 
@@ -233,10 +254,13 @@ After the pilot is working:
 - Add scanned PDF extraction workflows.
 - Add richer historical commentary and annotations.
 
-## Immediate Next Steps
+## Current Next Steps
 
-1. Create MySQL schema migrations.
-2. Create a source registry for the pilot states.
-3. Convert the current MIT county presidential import into the new database pipeline.
-4. Generate frontend JSON from MySQL instead of directly from raw files.
-5. Expand one pilot state through governor, Senate, House, and state legislative results.
+Use [handoff.md](handoff.md) as the current next-step script.
+
+Current recommended order:
+
+1. Add Florida geometry joins for congressional, State Senate, State House, county, and precinct map views.
+2. Add Florida mayor imports for Miami, Jacksonville, Tampa, and Orlando.
+3. Add California Statement of Vote import as the second pilot-state structured import.
+4. Update the interface to read Florida contest summaries and support contest/year selection beyond presidential county maps.

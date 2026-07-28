@@ -12,6 +12,8 @@ High-level flow:
 source file -> importer -> MySQL normalized tables -> validation -> generated app data -> frontend
 ```
 
+Status: implemented by `db/migrations/001_initial_schema.sql`, `db/seeds/001_core_reference.sql`, and `scripts/db_apply.sh`.
+
 ## Naming Conventions
 
 - Use snake_case table and column names.
@@ -402,21 +404,34 @@ Recommended pattern:
 
 Staging tables can be source-specific, but normalized tables should stay source-agnostic.
 
-## First Migration Target
+## Implemented Pipelines
 
-The first MySQL migration should include:
+Current MySQL-backed pipelines:
+
+- MIT county presidential returns, run with `npm run data:fetch`.
+- Florida official precinct general-election returns, run with `npm run florida:fetch`.
+
+Current schema tables:
 
 - `sources`
 - `source_files`
 - `elections`
 - `jurisdictions`
 - `offices`
-- `contests`
 - `parties`
 - `candidates`
+- `contests`
 - `contest_candidates`
 - `reporting_units`
 - `results`
 - `data_quality_notes`
+- `migration_versions`
 
-Then convert the current MIT county presidential data importer to load MySQL instead of writing only frontend JSON.
+## Next Schema Work
+
+Likely next migrations:
+
+- Geometry/source-file tables for district, county, city, and precinct shapes.
+- Optional import staging tables for large county or city files.
+- Materialized contest totals or generated summary tables if JSON generation becomes slow.
+- Data quality notes tied to known source quirks, such as split precinct rows and district-label aliases.
