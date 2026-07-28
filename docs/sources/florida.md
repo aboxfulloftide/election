@@ -30,14 +30,34 @@ Expected geography:
 - District/legislative contests may require district-aware parsing from state reports.
 - Precinct-level data should be evaluated by county and year.
 
-First import target:
+Implemented official precinct import:
 
-- Governor and U.S. Senate general-election results from the Division of Elections archive.
-- Initial implementation target: official 2022 General Election statewide compiled precinct-level ZIP, filtered to `United States Senator` and `Governor and Lieutenant Governor`.
+- Division of Elections precinct-level general-election ZIPs from 2012, 2014, 2016, 2018, 2020, 2022, and 2024.
+- Imported offices where they appear on the ballot: President, U.S. Senate, and Governor.
+- Imported reporting geography: official precinct/polling-location rows, with county FIPS normalization.
+- Generated files: `public/results/florida-{year}-statewide-summary.json` and `public/results/florida-statewide-summary.json`.
+
+Configured official ZIP URLs:
+
+- 2024 General Election: `https://fldoswebumbracoprod.blob.core.windows.net/media/708761/2024-gen-outputofficial1.zip`
+- 2022 General Election: `https://fldoswebumbracoprod.blob.core.windows.net/media/706300/2022-gen-outputofficial.zip`
+- 2020 General Election: `https://fldoswebumbracoprod.blob.core.windows.net/media/703763/2020-general-election-rev.zip`
+- 2018 General Election: `https://fldoswebumbracoprod.blob.core.windows.net/media/700501/precinctlevelelectionresults2018gen.zip`
+- 2016 General Election: `https://fldoswebumbracoprod.blob.core.windows.net/media/697454/precinctlevelelectionresults2016gen.zip`
+- 2014 General Election: `https://fldoswebumbracoprod.blob.core.windows.net/media/697201/precinctlevelelectionresults2014gen.zip`
+- 2012 General Election: `https://fldoswebumbracoprod.blob.core.windows.net/media/697204/precinctlevelelectionresults2012gen.zip`
+- Data definitions: `https://fldoswebumbracoprod.blob.core.windows.net/media/709209/final-precinct-level-elections-data-definitions-and-field-codes_20250624.pdf`
+
+Remaining Florida collection targets:
+
+- U.S. House.
+- State Senate.
+- State House.
+- Major city mayor contests.
 
 Importer difficulty:
 
-- Medium. Official source is clear, but older formats and district contests need inspection.
+- Medium. Official statewide precinct files are scripted for 2012-2024; district contests and older archive formats still need inspection.
 
 ## Mayor Sources
 

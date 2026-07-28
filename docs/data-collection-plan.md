@@ -112,7 +112,26 @@ Next work:
 - Preserve raw file checksum.
 - Generate the existing frontend summary from MySQL.
 
-### Step 2: Governor and U.S. Senate
+### Step 2: Florida Official Statewide Precinct Baseline
+
+Current source:
+
+- Florida Division of Elections precinct-level general-election ZIPs.
+- Configured years: 2012, 2014, 2016, 2018, 2020, 2022, 2024.
+- Configured offices where on ballot: President, U.S. Senate, Governor.
+
+Current outputs:
+
+- Normalized MySQL precinct/polling-location results with official source-file rows and checksums.
+- `public/results/florida-{year}-statewide-summary.json`
+- `public/results/florida-statewide-summary.json`
+
+Next work:
+
+- Extend the Florida importer to U.S. House, State Senate, and State House contests.
+- Decide how district and precinct rows should connect to map geometries for redistricting years.
+
+### Step 3: Governor and U.S. Senate
 
 Collect by pilot state.
 
@@ -128,7 +147,7 @@ Target outputs:
 - County-level candidate totals where available.
 - Source quality grade.
 
-### Step 3: U.S. House
+### Step 4: U.S. House
 
 Collect district races.
 
@@ -142,7 +161,7 @@ Important issue:
 
 Congressional district boundaries change after redistricting. Data must be tied to the district label and year, not a permanent district geometry assumption.
 
-### Step 4: State Senate and State House
+### Step 5: State Senate and State House
 
 Collect district races.
 
@@ -157,7 +176,7 @@ Important issue:
 
 State legislative district names, numbers, and boundaries vary by state and decade. Historical district records should be versioned by year range.
 
-### Step 5: Major City Mayor
+### Step 6: Major City Mayor
 
 Pilot cities:
 
