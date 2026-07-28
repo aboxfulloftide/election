@@ -5,7 +5,7 @@ Interactive U.S. election-night map for comparing historical election results ac
 ## Current Scope
 
 - County-level presidential general election results from 2000 through 2024.
-- Florida official precinct-level statewide general election results from 2012 through 2024 for President, U.S. Senate, and Governor where those offices were on the ballot.
+- Florida official precinct-level general election results from 2012 through 2024 for President, U.S. Senate, U.S. House, Governor, State Senate, and State House where those offices were on the ballot.
 - A React/Vite map UI with national totals, county hover/click details, year selection, and election-to-election margin shift.
 - Repeatable Python ingestion scripts that download raw files, import MySQL, validate normalized rows, and build app-ready JSON.
 
@@ -38,7 +38,7 @@ npm run data:download # only download raw Dataverse files
 npm run data:import  # import the downloaded MIT county presidential file into MySQL
 npm run data:validate # validate the normalized MIT presidential import
 npm run data:generate # rebuild frontend JSON from MySQL
-npm run florida:fetch # download/import/validate/generate configured Florida 2012-2024 statewide precinct data
+npm run florida:fetch # download/import/validate/generate configured Florida 2012-2024 precinct data
 npm run florida:import:year -- 2022 # import one configured Florida year
 npm run db:apply     # apply MySQL schema and seed data
 npm run lint         # type-check the frontend

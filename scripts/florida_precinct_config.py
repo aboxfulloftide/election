@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import datetime as dt
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -17,6 +18,14 @@ DEFINITIONS_URL = (
     "final-precinct-level-elections-data-definitions-and-field-codes_20250624.pdf"
 )
 DEFINITIONS_PATH = ROOT_DIR / "data/raw/florida/precinct-level-data-definitions-20250624.pdf"
+DISTRICT_CONTEST_PATTERNS = (
+    (re.compile(r"^(U\.S\. Representative|Representative in Congress)$", re.IGNORECASE), "U.S. House"),
+    (re.compile(r"^Congress\s+\d+$", re.IGNORECASE), "U.S. House"),
+    (re.compile(r"^State Senator$", re.IGNORECASE), "State Senate"),
+    (re.compile(r"^Senate\s+\d+$", re.IGNORECASE), "State Senate"),
+    (re.compile(r"^State Representative$", re.IGNORECASE), "State House"),
+    (re.compile(r"^House\s+\d+$", re.IGNORECASE), "State House"),
+)
 
 
 @dataclass(frozen=True)
@@ -130,3 +139,29 @@ def selected_elections(year: int | None, all_years: bool) -> list[FloridaGeneral
     if year is None:
         year = 2022
     return [election_for_year(year)]
+
+
+def office_for_contest(election: FloridaGeneralElection, contest_name: str) -> str | None:
+    exact_office = election.target_contests.get(contest_name)
+    if exact_office is not None:
+        return exact_office
+    for pattern, office_name in DISTRICT_CONTEST_PATTERNS:
+        if pattern.fullmatch(contest_name):
+            return office_name
+    return None
+
+
+def normalize_district_label(contest_name: str, district_label: str) -> str:
+    normalized = re.sub(r"\s+", " ", district_label.strip())
+    if not normalized:
+        contest_match = re.fullmatch(r"(?:Congress|House|Senate)\s+(\d+)", contest_name, flags=re.IGNORECASE)
+        if contest_match:
+            return f"District {int(contest_match.group(1))}"
+        return ""
+
+    district_match = re.fullmatch(r"District\s+(\d+)", normalized, flags=re.IGNORECASE)
+    if district_match:
+        return f"District {int(district_match.group(1))}"
+    if normalized.isdigit():
+        return f"District {int(normalized)}"
+    return normalized

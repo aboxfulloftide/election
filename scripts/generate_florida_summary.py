@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate app-ready Florida statewide contest summaries from MySQL."""
+"""Generate app-ready Florida contest summaries from MySQL."""
 
 from __future__ import annotations
 
@@ -12,6 +12,7 @@ from typing import Any
 
 from election_db import ROOT_DIR, connect
 from florida_precinct_config import FloridaGeneralElection, selected_elections
+from import_florida_general import iter_target_rows
 
 
 OUTPUT_DIR = ROOT_DIR / "public/results"
@@ -20,7 +21,7 @@ OUTPUT_DIR = ROOT_DIR / "public/results"
 def build_summary(election: FloridaGeneralElection) -> dict[str, Any]:
     connection = connect()
     cursor = connection.cursor(dictionary=True)
-    office_names = sorted(set(election.target_contests.values()))
+    office_names = sorted({row["office_name"] for row in iter_target_rows(election)})
     office_sql = ", ".join(["%s"] * len(office_names))
 
     try:
@@ -29,6 +30,7 @@ def build_summary(election: FloridaGeneralElection) -> dict[str, Any]:
             SELECT
               c.id AS contest_id,
               o.name AS office_name,
+              c.district_label,
               c.notes AS contest_name,
               county.name AS county_name,
               county.fips AS county_fips,
@@ -57,7 +59,7 @@ def build_summary(election: FloridaGeneralElection) -> dict[str, Any]:
               AND ru.state_po = 'FL'
               AND o.name IN ({office_sql})
             GROUP BY
-              c.id, o.name, c.notes, county.name, county.fips,
+              c.id, o.name, c.district_label, c.notes, county.name, county.fips,
               cand.display_name, p.canonical_code,
               s.name, s.homepage_url, sf.url, sf.quality_grade
             ORDER BY o.name, county.fips, votes DESC
@@ -78,6 +80,7 @@ def build_summary(election: FloridaGeneralElection) -> dict[str, Any]:
             {
                 "contest_id": int(row["contest_id"]),
                 "office": row["office_name"],
+                "district_label": row["district_label"],
                 "name": row["contest_name"],
                 "state": "Florida",
                 "state_po": "FL",
@@ -141,6 +144,7 @@ def build_summary(election: FloridaGeneralElection) -> dict[str, Any]:
             {
                 "contest_id": contest["contest_id"],
                 "office": contest["office"],
+                "district_label": contest["district_label"],
                 "name": contest["name"],
                 "state": contest["state"],
                 "state_po": contest["state_po"],
@@ -167,7 +171,7 @@ def build_summary(election: FloridaGeneralElection) -> dict[str, Any]:
             "type": "general",
             "state": "Florida",
         },
-        "contests": sorted(output_contests, key=lambda item: item["office"]),
+        "contests": sorted(output_contests, key=lambda item: (item["office"], item["district_label"] or "")),
     }
 
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Import official Florida statewide general-election precinct results."""
+"""Import official Florida general-election precinct results."""
 
 from __future__ import annotations
 
@@ -21,6 +21,8 @@ from florida_precinct_config import (
     SOURCE_HOMEPAGE,
     SOURCE_NAME,
     FloridaGeneralElection,
+    normalize_district_label,
+    office_for_contest,
     selected_elections,
 )
 
@@ -181,7 +183,7 @@ def get_or_create_source_file(cursor: Any, source_id: int, election: FloridaGene
             election.year,
             election.year,
             (
-                "Imported configured statewide target contests from official Florida precinct-level "
+                "Imported configured target contests from official Florida precinct-level "
                 "general election ZIP; skipped overvote/undervote accounting rows."
             ),
         ),
@@ -399,7 +401,8 @@ def iter_target_rows(election: FloridaGeneralElection) -> list[dict[str, str]]:
                         continue
                     contest_name = clean_field(fields[11])
                     candidate_name = clean_field(fields[14])
-                    if contest_name not in election.target_contests or candidate_name in SKIP_BALLOT_ACCOUNTING:
+                    office_name = office_for_contest(election, contest_name)
+                    if office_name is None or candidate_name in SKIP_BALLOT_ACCOUNTING:
                         continue
                     county_code = clean_field(fields[0])
                     if county_code not in FLORIDA_COUNTY_FIPS:
@@ -415,7 +418,8 @@ def iter_target_rows(election: FloridaGeneralElection) -> list[dict[str, str]]:
                             "precinct_name": clean_field(fields[6]),
                             "registered_total": clean_field(fields[7]),
                             "contest_name": contest_name,
-                            "district_label": clean_field(fields[12]),
+                            "office_name": office_name,
+                            "district_label": normalize_district_label(contest_name, clean_field(fields[12])),
                             "contest_code": clean_field(fields[13]),
                             "candidate_name": candidate_name,
                             "party_code": clean_field(fields[15]),
@@ -432,7 +436,7 @@ def aggregate_rows(election: FloridaGeneralElection, rows: list[dict[str, str]])
     for row in rows:
         display_name = "Write-in votes" if row["candidate_name"] in WRITE_IN_NAMES else row["candidate_name"].strip()
         key = (
-            election.target_contests[row["contest_name"]],
+            row["office_name"],
             row["district_label"],
             row["county_code"],
             row["county_name"],
@@ -479,8 +483,8 @@ def import_rows(election: FloridaGeneralElection, rows: list[dict[str, str]]) ->
               AND e.election_type = 'general'
               AND ru.state_po = 'FL'
               AND o.name IN ({})
-            """.format(", ".join(["%s"] * len(set(election.target_contests.values())))),
-            (source_file_id, election.year, *sorted(set(election.target_contests.values()))),
+            """.format(", ".join(["%s"] * len(target_offices(rows)))),
+            (source_file_id, election.year, *sorted(target_offices(rows))),
         )
 
         office_cache: dict[str, int] = {}
@@ -493,7 +497,7 @@ def import_rows(election: FloridaGeneralElection, rows: list[dict[str, str]]) ->
 
         imported = 0
         for row in rows:
-            office_name = election.target_contests[row["contest_name"]]
+            office_name = row["office_name"]
             office_id = office_cache.get(office_name)
             if office_id is None:
                 office_id = id_by_query(
@@ -587,6 +591,10 @@ def import_election(election: FloridaGeneralElection) -> dict[str, int]:
         raise RuntimeError(f"Missing {election.zip_path}. Run npm run florida:download first.")
     rows = iter_target_rows(election)
     return import_rows(election, rows)
+
+
+def target_offices(rows: list[dict[str, str]]) -> set[str]:
+    return {row["office_name"] for row in rows}
 
 
 def main() -> int:

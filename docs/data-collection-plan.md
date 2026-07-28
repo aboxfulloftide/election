@@ -118,7 +118,7 @@ Current source:
 
 - Florida Division of Elections precinct-level general-election ZIPs.
 - Configured years: 2012, 2014, 2016, 2018, 2020, 2022, 2024.
-- Configured offices where on ballot: President, U.S. Senate, Governor.
+- Configured offices where on ballot: President, U.S. Senate, U.S. House, Governor, State Senate, State House.
 
 Current outputs:
 
@@ -128,8 +128,8 @@ Current outputs:
 
 Next work:
 
-- Extend the Florida importer to U.S. House, State Senate, and State House contests.
 - Decide how district and precinct rows should connect to map geometries for redistricting years.
+- Add Florida mayor contests from county/city archives.
 
 ### Step 3: Governor and U.S. Senate
 

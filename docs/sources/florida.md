@@ -33,7 +33,7 @@ Expected geography:
 Implemented official precinct import:
 
 - Division of Elections precinct-level general-election ZIPs from 2012, 2014, 2016, 2018, 2020, 2022, and 2024.
-- Imported offices where they appear on the ballot: President, U.S. Senate, and Governor.
+- Imported offices where they appear on the ballot: President, U.S. Senate, U.S. House, Governor, State Senate, and State House.
 - Imported reporting geography: official precinct/polling-location rows, with county FIPS normalization.
 - Generated files: `public/results/florida-{year}-statewide-summary.json` and `public/results/florida-statewide-summary.json`.
 
@@ -50,14 +50,12 @@ Configured official ZIP URLs:
 
 Remaining Florida collection targets:
 
-- U.S. House.
-- State Senate.
-- State House.
+- District and precinct geometry joins for U.S. House, State Senate, and State House maps.
 - Major city mayor contests.
 
 Importer difficulty:
 
-- Medium. Official statewide precinct files are scripted for 2012-2024; district contests and older archive formats still need inspection.
+- Medium. Official precinct files are scripted for 2012-2024 statewide and district offices; geometry joins and older archive formats still need inspection.
 
 ## Mayor Sources
 

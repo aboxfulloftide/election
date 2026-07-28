@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate official Florida statewide general-election precinct imports."""
+"""Validate official Florida general-election precinct imports."""
 
 from __future__ import annotations
 
@@ -23,11 +23,12 @@ def placeholders(values: set[str]) -> str:
 
 
 def validate_election(cursor: Any, election: FloridaGeneralElection) -> list[str]:
-    office_names = set(election.target_contests.values())
+    target_rows = iter_target_rows(election)
+    office_names = {row["office_name"] for row in target_rows}
     office_sql = placeholders(office_names)
     office_params = tuple(sorted(office_names))
-    expected_rows = len(iter_target_rows(election))
-    expected_contests = len(set(election.target_contests.values()))
+    expected_rows = len(target_rows)
+    expected_contests = len({(row["office_name"], row["district_label"]) for row in target_rows})
 
     checks = {
         "contests": scalar(
