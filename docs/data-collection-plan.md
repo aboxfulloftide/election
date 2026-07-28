@@ -56,6 +56,8 @@ Compiled datasets are useful, but should not erase original source attribution w
 
 Reference guides and library indexes are useful for finding sources, but they are not enough by themselves for imported result rows. Use them to discover official archives, compiled datasets, GIS layers, and historical collections, then cite the actual source file or source institution used by the importer.
 
+Pilot-state source discovery notes live in `docs/sources/`.
+
 Initial discovery references:
 
 - Princeton University Library, Elections and Voting Data Guide: `https://libguides.princeton.edu/elections`
