@@ -8,7 +8,11 @@
     "build": "tsc && vite build",
     "preview": "vite preview --host 0.0.0.0",
     "lint": "tsc --noEmit",
-    "data:fetch": "python3 scripts/fetch_results.py",
+    "data:download": "python3 scripts/fetch_results.py",
+    "data:import": "python3 scripts/import_mit_county_presidential.py",
+    "data:validate": "python3 scripts/validate_mit_county_presidential.py",
+    "data:generate": "python3 scripts/generate_county_presidential_summary.py",
+    "data:fetch": "bash scripts/import_mit_pipeline.sh",
     "db:apply": "bash scripts/db_apply.sh"
   },
   "dependencies": {

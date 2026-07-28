@@ -3,4 +3,5 @@ dist/
 .DS_Store
 .env
 data/raw/
+__pycache__/
 *.log

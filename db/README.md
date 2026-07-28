@@ -70,5 +70,8 @@ The intended flow is:
 raw source file -> importer -> MySQL -> validation -> generated frontend JSON
 ```
 
-The current frontend summary file should eventually be regenerated from MySQL instead of directly from the MIT/Harvard Dataverse file.
+The current frontend summary file is regenerated from MySQL with:
 
+```bash
+npm run data:fetch
+```

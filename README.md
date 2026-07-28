@@ -32,7 +32,12 @@ npm run dev
 ## Useful Commands
 
 ```bash
-npm run data:fetch   # download raw Dataverse files and rebuild public/results/county-presidential-summary.json
+npm run data:fetch   # download Dataverse files, import MySQL, and rebuild public/results/county-presidential-summary.json
+npm run data:download # only download raw Dataverse files
+npm run data:import  # import the downloaded MIT county presidential file into MySQL
+npm run data:validate # validate the normalized MIT presidential import
+npm run data:generate # rebuild frontend JSON from MySQL
+npm run db:apply     # apply MySQL schema and seed data
 npm run lint         # type-check the frontend
 npm run build        # production build
 ```
@@ -46,4 +51,3 @@ git init
 git add .
 git commit -m "Initial election night map scaffold"
 ```
-
