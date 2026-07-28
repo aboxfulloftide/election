@@ -15,3 +15,9 @@ npm run data:download
 npm run data:import
 npm run data:generate
 ```
+
+Florida pilot data currently generates:
+
+```text
+public/results/florida-2022-statewide-summary.json
+```

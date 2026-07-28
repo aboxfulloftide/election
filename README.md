@@ -37,6 +37,7 @@ npm run data:download # only download raw Dataverse files
 npm run data:import  # import the downloaded MIT county presidential file into MySQL
 npm run data:validate # validate the normalized MIT presidential import
 npm run data:generate # rebuild frontend JSON from MySQL
+npm run florida:fetch # download/import/validate/generate Florida 2022 Governor and U.S. Senate precinct data
 npm run db:apply     # apply MySQL schema and seed data
 npm run lint         # type-check the frontend
 npm run build        # production build

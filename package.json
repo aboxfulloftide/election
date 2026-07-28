@@ -13,6 +13,11 @@
     "data:validate": "python3 scripts/validate_mit_county_presidential.py",
     "data:generate": "python3 scripts/generate_county_presidential_summary.py",
     "data:fetch": "bash scripts/import_mit_pipeline.sh",
+    "florida:download": "python3 scripts/download_florida_precinct.py",
+    "florida:import": "python3 scripts/import_florida_2022_general.py",
+    "florida:validate": "python3 scripts/validate_florida_2022_general.py",
+    "florida:generate": "python3 scripts/generate_florida_2022_summary.py",
+    "florida:fetch": "bash scripts/import_florida_2022_pipeline.sh",
     "db:apply": "bash scripts/db_apply.sh"
   },
   "dependencies": {

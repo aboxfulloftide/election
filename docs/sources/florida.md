@@ -33,6 +33,7 @@ Expected geography:
 First import target:
 
 - Governor and U.S. Senate general-election results from the Division of Elections archive.
+- Initial implementation target: official 2022 General Election statewide compiled precinct-level ZIP, filtered to `United States Senator` and `Governor and Lieutenant Governor`.
 
 Importer difficulty:
 
@@ -95,4 +96,3 @@ Expected geography:
 - Which Florida archive formats are easiest for scripted import: CSV, XLS, HTML, PDF, or zipped reports?
 - How far back can official county-level governor and U.S. Senate returns be collected without PDF extraction?
 - Which counties provide clean precinct-level files for municipal and legislative races?
-
