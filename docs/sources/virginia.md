@@ -1,0 +1,30 @@
+# Virginia Sources
+
+## Statewide General Election Results
+
+Source: Virginia Department of Elections historical election results.
+
+- Landing page: `https://historical.elections.virginia.gov/`
+- 2020 presidential contest page: `https://historical.elections.virginia.gov/contest/144567`
+- 2020 results CSV: `https://va2.elstats3.civera.com/api/download_contest/144567_table.csv?split_party=false`
+- 2024 presidential contest page: `https://historical.elections.virginia.gov/contest/161256`
+- 2024 results CSV: `https://va2.elstats3.civera.com/api/download_contest/161256_table.csv?split_party=false`
+
+The historical election pages expose contest-specific CSV downloads. The project imports `Locality` rows from those CSVs, maps party labels to the normalized presidential party buckets, and preserves independent and write-in votes as `OTHER`.
+
+Implemented commands:
+
+```bash
+npm run data:official:va:download
+npm run data:official:va:merge
+npm run data:official:va
+```
+
+Current coverage:
+
+- 2020: all 133 current Virginia presidential localities matched and replaced.
+- 2024: all 133 current Virginia presidential localities matched and replaced.
+
+The historical Bedford City FIPS row remains present for older years only. The official `Bedford County` row maps to county FIPS `51019`, not retired independent-city FIPS `51515`.
+
+Rows written to `public/results/county-presidential-summary.json` are marked with `official: true`, Virginia Department of Elections source metadata, and quality grade `A`.

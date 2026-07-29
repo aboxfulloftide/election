@@ -38,6 +38,16 @@ Implemented official precinct import:
 - Current validated import: 672,309 normalized result rows, 922 contests, all 67 counties for every configured year, zero duplicate result keys.
 - Generated files: `public/results/florida-{year}-statewide-summary.json` and `public/results/florida-statewide-summary.json`.
 
+Implemented official district geometry:
+
+- Florida Legislature Office of Economic and Demographic Research 2022 redistricting-cycle files.
+- Registered layers: congressional districts `P000C0109`, State House districts `H000H8013`, State Senate districts `S027S8058`.
+- Registered files: official shapefile ZIPs and census block-equivalency TXT files.
+- Generated files: `public/results/florida-geometry-layers.json` and district GeoJSON files under `public/results/geometry/`.
+- 2022 and 2024 U.S. House, State Senate, and State House contest summaries include geometry IDs, official IDs, layer keys, and GeoJSON URLs.
+- 2022 and 2024 district/county drilldown bundles are generated under `public/results/districts/`.
+- Frontend Florida district map mode reads these bundles for year, office, district, winner, and 2024-vs-2022 shift selection.
+
 Configured official ZIP URLs:
 
 - 2024 General Election: `https://fldoswebumbracoprod.blob.core.windows.net/media/708761/2024-gen-outputofficial1.zip`
@@ -51,7 +61,8 @@ Configured official ZIP URLs:
 
 Remaining Florida collection targets:
 
-- District and precinct geometry joins for U.S. House, State Senate, and State House maps.
+- Add richer frontend Florida drilldown behavior from generated district bundles.
+- Identify official county/year precinct geometry sources for precinct map views.
 - Major city mayor contests.
 
 Importer difficulty:

@@ -132,10 +132,12 @@ The project uses the already installed MySQL server.
 Completed outcomes:
 
 - MySQL schema in `db/migrations/001_initial_schema.sql`.
+- Geometry layer/source metadata schema in `db/migrations/002_geometry_tables.sql`.
 - Seed data in `db/seeds/001_core_reference.sql`.
 - Source-tracking rules in the schema and docs.
 - Repeatable import conventions in the MIT and Florida pipelines.
 - Validation scripts for imported datasets.
+- Fast DB-free checks for parser helpers, geometry validation helpers, TypeScript type-checking, Python compilation, and generated JSON contracts.
 - Generated frontend JSON files under `public/results/`.
 
 ## Phase 2: Pilot Data Collection
@@ -146,6 +148,7 @@ Completed:
 
 - MIT county presidential general-election returns from 2000 through 2024.
 - Florida official precinct-level general-election returns from 2012 through 2024 for President, U.S. Senate, U.S. House, Governor, State Senate, and State House where on ballot.
+- Florida 2022 congressional, State Senate, and State House district geometry from official EDR shapefile/block-equivalency files.
 
 Next collection targets:
 
@@ -183,6 +186,11 @@ Every import should be checked for:
 - Source attached to every result.
 - Data quality grade assigned.
 
+Fast local checks:
+
+- `npm run check` compiles Python scripts, type-checks the frontend, runs DB-free Python unit tests, and validates committed generated JSON structure.
+- MySQL-backed import validators remain separate because they require local database credentials and downloaded raw files.
+
 Quality grades:
 
 - `A`: official structured data, validated.
@@ -199,6 +207,10 @@ Implemented generated products:
 - County presidential summary: `public/results/county-presidential-summary.json`.
 - Florida year summaries: `public/results/florida-{year}-statewide-summary.json`.
 - Florida combined summary: `public/results/florida-statewide-summary.json`.
+- Florida geometry layer manifest: `public/results/florida-geometry-layers.json`.
+- Florida district GeoJSON files: `public/results/geometry/fl-2022-*.geojson`.
+- Florida 2022 and 2024 district contest summaries linked to geometry layer keys and geometry IDs.
+- Florida district/county drilldown bundles: `public/results/districts/florida-*.json`.
 
 Still needed:
 
@@ -218,7 +230,7 @@ Later generated products:
 
 The first serious interface should be a decision-desk map, not a landing page.
 
-Status: initial county presidential interface exists. The next interface work should add state drilldown, Florida contest selection, and district/precinct-aware views after data contracts are stabilized.
+Status: national presidential interface exists with country, state, and county comparison cards. Florida 2022/2024 district map mode exists for U.S. House, State Senate, and State House contests using generated district drilldown bundles and GeoJSON, including winner and 2024-vs-2022 shift modes. The next interface work should deepen drilldown behavior and add precinct-aware views after precinct geometry is sourced.
 
 Core views:
 
@@ -260,7 +272,7 @@ Use [handoff.md](handoff.md) as the current next-step script.
 
 Current recommended order:
 
-1. Add Florida geometry joins for congressional, State Senate, State House, county, and precinct map views.
+1. Add richer frontend Florida drilldown behavior and identify county/year precinct geometry sources.
 2. Add Florida mayor imports for Miami, Jacksonville, Tampa, and Orlando.
 3. Add California Statement of Vote import as the second pilot-state structured import.
 4. Update the interface to read Florida contest summaries and support contest/year selection beyond presidential county maps.

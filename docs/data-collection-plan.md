@@ -100,24 +100,40 @@ Examples:
 
 ### Step 1: Existing Presidential Backbone
 
-Status: complete for the current MIT 2000-2024 county presidential file.
+Status: complete for the current MIT 2000-2024 county presidential file, with official Georgia, Kentucky, North Carolina, Virginia, and Wisconsin state-source overrides, geography normalization for known renamed/re-coded rows, and a non-authoritative supplemental fill for remaining missing 2020/2024 county rows.
 
 Current source:
 
 - MIT Election Data and Science Lab, County Presidential Election Returns 2000-2024.
 - Harvard Dataverse DOI: `10.7910/DVN/VOQCHQ`
+- Georgia Secretary of State official 2020 general-election recount summary ZIP.
+- Kentucky State Board of Elections official 2020 certified general-election PDF.
+- North Carolina State Board of Elections official precinct results ZIPs for 2020 and 2024.
+- Virginia Department of Elections official historical election CSV downloads for 2020 and 2024.
+- Wisconsin Elections Commission official 2024 county-by-county presidential canvass PDF.
+- Tony McGovern's `US_County_Level_Election_Results_08-24` GitHub CSVs for missing 2020/2024 rows only.
 
 Implemented:
 
 - `npm run data:fetch`
 - MySQL import with source metadata and checksums.
 - Validation for row counts, years, counties, missing source files, and duplicate keys.
+- Official source comparison checks re-parse configured official county presidential source files and compare them against generated JSON rows.
 - Generated `public/results/county-presidential-summary.json`.
+- Generated `public/results/county-presidential-coverage.json`.
+- Known geography aliases are normalized after generation: Kansas City, Missouri's 2024 alias code is merged into the existing Kansas City comparison row; historical Shannon County rows are merged into Oglala Lakota County; retired Bedford City is marked inactive after 2012 for coverage purposes.
+- Georgia official rows are imported from the recount summary ZIP, replace fallback rows for 2020, and are marked in JSON with `official: true`, source metadata, and quality grade `A`.
+- Kentucky official rows are parsed from the certified PDF, replace fallback rows for 2020, and are marked in JSON with `official: true`, source metadata, and quality grade `B`.
+- North Carolina official rows are aggregated from precinct files, replace fallback rows, and are marked in JSON with `official: true`, source metadata, and quality grade `A`.
+- Virginia official rows are imported from locality CSV downloads, replace fallback rows, and are marked in JSON with `official: true`, source metadata, and quality grade `A`.
+- Wisconsin official rows are parsed from the county-by-county presidential canvass PDF, replace fallback rows for 2024, and are marked in JSON with `official: true`, source metadata, and quality grade `B`.
+- Supplemental rows are marked in JSON with `supplemental: true`, source metadata, and lower quality grade.
 
 Next work:
 
 - Add older county presidential sources before 2000 where obtainable.
 - Add source comparison checks against official state canvass totals when practical.
+- Move one-off geography aliases into normalized MySQL jurisdiction history tables instead of applying them only in generated JSON.
 
 ### Step 2: Florida Official Precinct Baseline
 
@@ -134,12 +150,17 @@ Current outputs:
 - Normalized MySQL precinct/polling-location results with official source-file rows and checksums.
 - `public/results/florida-{year}-statewide-summary.json`
 - `public/results/florida-statewide-summary.json`
+- Florida 2022 district geometry rows in MySQL, `public/results/florida-geometry-layers.json`, and district GeoJSON files under `public/results/geometry/`.
+- Geometry links embedded in 2022 and 2024 Florida U.S. House, State Senate, and State House contest summaries.
+- District/county drilldown bundles for 2022 and 2024 under `public/results/districts/`.
 - Validation currently covers 672,309 normalized result rows, 922 contests, all 67 counties for every configured year, and zero duplicate result keys.
 
 Next work:
 
-- Decide how district and precinct rows should connect to map geometries for redistricting years.
+- Add county/year official Florida precinct geometry sources.
 - Add Florida mayor contests from county/city archives.
+- Add frontend access for California Statement of Vote contests.
+- Add California county or precinct geometry sources for district-aware maps.
 
 ### Step 3: Other Pilot-State Governor and U.S. Senate
 
@@ -313,4 +334,4 @@ Completed:
 
 Next milestone:
 
-Add either Florida mayor contests or California Statement of Vote imports, then update the frontend to select non-presidential contests.
+Expose the imported California Statement of Vote contests in the frontend, then continue with either Florida mayor contests or California geometry/back-year expansion.

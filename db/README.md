@@ -61,6 +61,8 @@ Core normalized tables:
 Support tables:
 
 - `migration_versions`
+- `geometry_layers`
+- `geometries`
 
 ## Pipeline Direction
 
@@ -86,3 +88,10 @@ Current validated MySQL-backed datasets:
 
 - MIT county presidential returns, 2000-2024.
 - Florida official precinct general-election returns, 2012-2024, covering President, U.S. Senate, U.S. House, Governor, State Senate, and State House where on ballot.
+- Florida official 2022 redistricting-cycle district geometry rows and generated GeoJSON, covering congressional, State Senate, and State House map layers.
+
+Fast tests that do not require a database are run with:
+
+```bash
+npm run check
+```

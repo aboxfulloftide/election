@@ -37,8 +37,8 @@ First import target:
 
 Current project status:
 
-- Not imported yet.
-- Recommended as the next state-level structured import after the Florida baseline because the Secretary of State publishes Statement of Vote XLSX files with county and district breakdowns.
+- Imported for 2024 President, U.S. Senate, U.S. House, State Senate, and State Assembly.
+- The generated summary uses official Secretary of State XLSX files and is written to `public/results/california-statewide-summary.json`.
 
 Importer difficulty:
 
@@ -115,3 +115,35 @@ Coverage notes:
 - Which Secretary of State XLSX layouts are stable across years?
 - How should top-two primary/general history be represented for nonpartisan mayor races?
 - Which county Statement of Vote formats can be parsed generically across California counties?
+# California Sources
+
+## 2024 Statement of Vote
+
+Source: California Secretary of State, General Election Statement of Vote, November 5, 2024.
+
+- Statement of Vote page: `https://www.sos.ca.gov/elections/prior-elections/statewide-election-results/general-election-nov-5-2024/statement-vote`
+- President statewide summary by county XLSX: `https://elections.cdn.sos.ca.gov/sov/2024-general/ssov/pres-summary-by-county.xlsx`
+- U.S. Senate full term statewide summary by county XLSX: `https://elections.cdn.sos.ca.gov/sov/2024-general/ssov/us-senate-summary-by-county-ft.xlsx`
+- U.S. Senate partial/unexpired term statewide summary by county XLSX: `https://elections.cdn.sos.ca.gov/sov/2024-general/ssov/us-senate-summary-by-county-pt.xlsx`
+- U.S. House district XLSX: `https://elections.cdn.sos.ca.gov/sov/2024-general/sov/25-us-rep-congress.xlsx`
+- State Senate district XLSX: `https://elections.cdn.sos.ca.gov/sov/2024-general/sov/37-state-senator.xlsx`
+- State Assembly district XLSX: `https://elections.cdn.sos.ca.gov/sov/2024-general/sov/42-state-assembly.xlsx`
+
+Implemented commands:
+
+```bash
+npm run california:download
+npm run california:generate
+npm run california:fetch
+```
+
+Current coverage:
+
+- 2024 President: all 58 counties.
+- 2024 U.S. Senate full term: all 58 counties.
+- 2024 U.S. Senate partial/unexpired term: all 58 counties.
+- 2024 U.S. House: 52 district contests, with county rows within each district.
+- 2024 State Senate: 20 district contests for odd-numbered districts on the 2024 ballot, with county rows within each district.
+- 2024 State Assembly: 80 district contests, with county rows within each district.
+
+Rows written to `public/results/california-statewide-summary.json` are sourced from official California Secretary of State XLSX files and marked quality grade `A`.

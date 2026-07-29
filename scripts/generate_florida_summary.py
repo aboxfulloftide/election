@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -16,6 +17,62 @@ from import_florida_general import iter_target_rows
 
 
 OUTPUT_DIR = ROOT_DIR / "public/results"
+OFFICE_GEOMETRY_LAYERS = {
+    "U.S. House": "fl-2022-congressional-districts",
+    "State Senate": "fl-2022-state-senate-districts",
+    "State House": "fl-2022-state-house-districts",
+}
+
+
+def district_number(district_label: str | None) -> int | None:
+    if district_label is None:
+        return None
+    match = re.fullmatch(r"District\s+(\d+)", district_label.strip(), flags=re.IGNORECASE)
+    return int(match.group(1)) if match else None
+
+
+def geometry_url(layer_key: str) -> str:
+    return f"/results/geometry/{layer_key}.geojson"
+
+
+def load_geometry_index(cursor: Any, year: int) -> dict[tuple[str, str], dict[str, Any]]:
+    layer_keys = sorted(OFFICE_GEOMETRY_LAYERS.values())
+    layer_sql = ", ".join(["%s"] * len(layer_keys))
+    cursor.execute(
+        f"""
+        SELECT
+          gl.layer_key,
+          gl.geo_type,
+          gl.valid_from,
+          gl.valid_to,
+          g.id AS geometry_id,
+          g.official_id,
+          g.district_label
+        FROM geometry_layers gl
+        JOIN geometries g ON g.geometry_layer_id = gl.id
+        WHERE gl.state_po = 'FL'
+          AND gl.layer_key IN ({layer_sql})
+          AND gl.valid_from <= %s
+          AND (gl.valid_to IS NULL OR gl.valid_to >= %s)
+        """,
+        (*layer_keys, year, year),
+    )
+    rows = cursor.fetchall()
+    office_by_layer = {layer_key: office for office, layer_key in OFFICE_GEOMETRY_LAYERS.items()}
+    index: dict[tuple[str, str], dict[str, Any]] = {}
+    for row in rows:
+        office = office_by_layer[row["layer_key"]]
+        index[(office, row["district_label"])] = {
+            "geometry_id": int(row["geometry_id"]),
+            "official_id": row["official_id"],
+            "layer_key": row["layer_key"],
+            "geo_type": row["geo_type"],
+            "geometry_url": geometry_url(row["layer_key"]),
+            "district_number": district_number(row["district_label"]),
+            "valid_from": row["valid_from"],
+            "valid_to": row["valid_to"],
+        }
+    return index
 
 
 def build_summary(election: FloridaGeneralElection) -> dict[str, Any]:
@@ -67,6 +124,7 @@ def build_summary(election: FloridaGeneralElection) -> dict[str, Any]:
             (election.url, election.year, *office_names),
         )
         rows = cursor.fetchall()
+        geometry_index = load_geometry_index(cursor, election.year)
     finally:
         cursor.close()
         connection.close()
@@ -140,21 +198,23 @@ def build_summary(election: FloridaGeneralElection) -> dict[str, Any]:
                 }
             )
 
-        output_contests.append(
-            {
-                "contest_id": contest["contest_id"],
-                "office": contest["office"],
-                "district_label": contest["district_label"],
-                "name": contest["name"],
-                "state": contest["state"],
-                "state_po": contest["state_po"],
-                "total_votes": total_votes,
-                "winner": winner,
-                "margin_votes": winner["votes"] - runner_up["votes"] if winner and runner_up else 0,
-                "candidates": candidates,
-                "counties": sorted(counties, key=lambda item: item["fips"]),
-            }
-        )
+        output_contest = {
+            "contest_id": contest["contest_id"],
+            "office": contest["office"],
+            "district_label": contest["district_label"],
+            "name": contest["name"],
+            "state": contest["state"],
+            "state_po": contest["state_po"],
+            "total_votes": total_votes,
+            "winner": winner,
+            "margin_votes": winner["votes"] - runner_up["votes"] if winner and runner_up else 0,
+            "candidates": candidates,
+            "counties": sorted(counties, key=lambda item: item["fips"]),
+        }
+        geometry = geometry_index.get((contest["office"], contest["district_label"]))
+        if geometry is not None:
+            output_contest["geometry"] = geometry
+        output_contests.append(output_contest)
 
     return {
         "source": {

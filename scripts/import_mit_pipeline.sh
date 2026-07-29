@@ -4,5 +4,22 @@ set -euo pipefail
 npm run db:apply
 python3 scripts/fetch_results.py
 python3 scripts/import_mit_county_presidential.py
+python3 scripts/register_county_presidential_geography_aliases.py
 python3 scripts/validate_mit_county_presidential.py
 python3 scripts/generate_county_presidential_summary.py
+python3 scripts/normalize_county_presidential_geographies.py
+python3 scripts/download_north_carolina_presidential.py
+python3 scripts/merge_north_carolina_presidential.py
+python3 scripts/download_virginia_presidential.py
+python3 scripts/merge_virginia_presidential.py
+python3 scripts/download_georgia_presidential.py --optional
+if [ -f data/raw/official/georgia/november_3_2020_-_general_election_recount.zip ]; then
+  python3 scripts/merge_georgia_presidential.py
+fi
+python3 scripts/download_kentucky_presidential.py
+python3 scripts/merge_kentucky_presidential.py
+python3 scripts/download_wisconsin_presidential.py
+python3 scripts/merge_wisconsin_presidential.py
+python3 scripts/download_county_presidential_supplement.py
+python3 scripts/merge_county_presidential_supplement.py
+python3 scripts/generate_county_presidential_coverage.py

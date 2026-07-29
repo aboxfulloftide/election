@@ -1,0 +1,51 @@
+CREATE TABLE IF NOT EXISTS geometry_layers (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  layer_key VARCHAR(120) NOT NULL,
+  geo_type ENUM('state', 'county', 'congressional_district', 'state_senate_district', 'state_house_district', 'city', 'precinct') NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  state_po CHAR(2) NULL,
+  official_plan_id VARCHAR(100) NULL,
+  valid_from SMALLINT UNSIGNED NULL,
+  valid_to SMALLINT UNSIGNED NULL,
+  source_file_id BIGINT UNSIGNED NULL,
+  local_path TEXT NULL,
+  file_type VARCHAR(80) NULL,
+  id_field VARCHAR(100) NULL,
+  label_field VARCHAR(100) NULL,
+  district_label_prefix VARCHAR(100) NULL,
+  notes TEXT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_geometry_layers_layer_key (layer_key),
+  KEY idx_geometry_layers_state_type (state_po, geo_type),
+  KEY idx_geometry_layers_source_file (source_file_id),
+  CONSTRAINT fk_geometry_layers_source_file FOREIGN KEY (source_file_id) REFERENCES source_files (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS geometries (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  geometry_layer_id BIGINT UNSIGNED NOT NULL,
+  geo_type ENUM('state', 'county', 'congressional_district', 'state_senate_district', 'state_house_district', 'city', 'precinct') NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  state_po CHAR(2) NULL,
+  fips VARCHAR(20) NULL,
+  official_id VARCHAR(100) NULL,
+  district_label VARCHAR(100) NULL,
+  valid_from SMALLINT UNSIGNED NULL,
+  valid_to SMALLINT UNSIGNED NULL,
+  source_file_id BIGINT UNSIGNED NULL,
+  simplified_geojson MEDIUMTEXT NULL,
+  notes TEXT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_geometries_layer_official_id (geometry_layer_id, official_id),
+  KEY idx_geometries_state_type (state_po, geo_type),
+  KEY idx_geometries_fips (fips),
+  KEY idx_geometries_source_file (source_file_id),
+  CONSTRAINT fk_geometries_layer FOREIGN KEY (geometry_layer_id) REFERENCES geometry_layers (id),
+  CONSTRAINT fk_geometries_source_file FOREIGN KEY (source_file_id) REFERENCES source_files (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT IGNORE INTO migration_versions (name) VALUES ('002_geometry_tables.sql');

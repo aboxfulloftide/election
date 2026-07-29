@@ -6,3 +6,4 @@ python3 scripts/download_florida_precinct.py --all
 python3 scripts/import_florida_general.py --all
 python3 scripts/validate_florida_general.py --all
 python3 scripts/generate_florida_summary.py --all
+python3 scripts/generate_florida_district_drilldown.py --all
