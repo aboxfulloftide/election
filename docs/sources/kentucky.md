@@ -26,5 +26,9 @@ npm run kentucky:recaps:download
 Current coverage:
 
 - 2020: all 120 Kentucky counties matched and replaced.
+- 2022: 119 of 120 county recap reports staged; the official Butler County link currently returns HTTP 404.
+- 2024: all 120 county recap reports staged.
+
+The 2022 and 2024 recap PDFs are precinct-level reports. They are intentionally still `source_identified` until the parser can aggregate repeated precinct sections and reconcile each contest statewide.
 
 Rows written to `public/results/county-presidential-summary.json` are marked with `official: true`, Kentucky State Board of Elections source metadata, and quality grade `B`.
