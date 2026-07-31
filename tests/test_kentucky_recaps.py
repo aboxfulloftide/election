@@ -74,8 +74,12 @@ United States Senator
 table
 For the office of
 United States Representative in Congress
-1st Congressional District
+‘4st Congressional District
 2nd Congressional District
+3rd Congressional District
+4th Congressional District
+‘th Congressional District
+6th Congressional District
 For the office of
 State Senator
 16th Senatorial District
@@ -85,5 +89,6 @@ State Representative
 """
         sections = certified_sections(text)
         self.assertEqual([section["office"] for section in sections], ["United States Senator", "United States Representative in Congress", "State Senator", "State Representative"])
-        self.assertEqual(sections[1]["districts"], ["1 congressional district", "2 congressional district"])
+        self.assertEqual(sections[1]["districts"], ["1 congressional district", "2 congressional district", "3 congressional district", "4 congressional district", "5 congressional district", "6 congressional district"])
+        self.assertTrue(sections[1]["districts_inferred"])
         self.assertEqual(sections[2]["districts"], ["16 senatorial district"])

@@ -45,14 +45,23 @@ def certified_sections(text: str) -> list[dict[str, Any]]:
         if not heading:
             continue
         districts = []
+        district_lines = []
         for line in body:
             match = DISTRICT_RE.search(line)
             if match:
                 districts.append(f"{match.group(1)} {match.group(2).lower()} district")
+                district_lines.append(line)
+            elif "congressional district" in line.lower():
+                district_lines.append(line)
+        inferred = False
+        if heading.lower().startswith("united states representative") and len(district_lines) == 6:
+            districts = [f"{number} congressional district" for number in range(1, 7)]
+            inferred = True
         sections.append(
             {
                 "office": heading,
                 "districts": list(dict.fromkeys(districts)),
+                "districts_inferred": inferred,
                 "line_count": len(body),
             }
         )
@@ -95,6 +104,7 @@ def main() -> int:
         "senate_counties_complete": result["row_count"] == 120,
         "expected_us_house_districts": 6,
         "us_house_districts_detected": len(house["districts"]) if house else 0,
+        "us_house_districts_inferred": bool(house and house["districts_inferred"]),
         "expected_state_senate_districts": 19,
         "state_senate_districts_detected": len(state_senate["districts"]) if state_senate else 0,
     }
