@@ -106,6 +106,28 @@ def parse_senate(text: str) -> dict[str, Any]:
     }
 
 
+def parse_us_house_totals(text: str) -> list[dict[str, Any]]:
+    """Extract printed district totals as a second OCR checkpoint."""
+    lines = text.splitlines()
+    start = next((index for index, line in enumerate(lines) if line.strip().lower() == "united states representative in congress"), None)
+    if start is None:
+        return []
+    end = next((index for index in range(start + 1, len(lines)) if lines[index].strip().lower() == "for the office of"), len(lines))
+    districts: list[dict[str, Any]] = []
+    current: dict[str, Any] | None = None
+    for raw_line in lines[start:end]:
+        line = re.sub(r"\s+", " ", raw_line).strip()
+        if "district" in line.lower() and ("congressional" in line.lower() or "representative" in line.lower()):
+            match = DISTRICT_RE.search(line)
+            current = {"district": int(match.group(1)) if match else len(districts) + 1, "official_total_votes": None}
+            districts.append(current)
+            continue
+        if current and line.lower().startswith("total votes"):
+            line = " ".join("0" if token in ZERO_OCR_TOKENS else token for token in line.split())
+            current["official_total_votes"] = [value for value in (number(match) for match in NUMBER_RE.findall(line)) if value is not None]
+    return districts
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path, default=OCR_PATH)
@@ -116,6 +138,7 @@ def main() -> int:
     text = input_path.read_text(encoding="utf-8")
     result = parse_senate(text)
     result["sections"] = certified_sections(text)
+    result["us_house_totals"] = parse_us_house_totals(text)
     house = next((section for section in result["sections"] if section["office"].lower().startswith("united states representative")), None)
     state_senate = next((section for section in result["sections"] if section["office"].lower() == "state senator"), None)
     result["validation"] = {
