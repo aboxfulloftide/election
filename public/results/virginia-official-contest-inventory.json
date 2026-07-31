@@ -1,0 +1,196 @@
+{
+  "source": "https://historical.elections.virginia.gov",
+  "years": [
+    2020,
+    2024
+  ],
+  "contests": [
+    {
+      "contest_id": "144567",
+      "year": 2020,
+      "office": "President",
+      "source_office": "President",
+      "contest_url": "https://historical.elections.virginia.gov/contest/144567",
+      "csv_url": "https://va2.elstats3.civera.com/api/download_contest/144567_table.csv?split_party=false",
+      "division": "State of Virginia",
+      "district": null,
+      "verified_at": "2026-05-17T04:19:10Z"
+    },
+    {
+      "contest_id": "144571",
+      "year": 2020,
+      "office": "U.S. House",
+      "source_office": "U.S. House",
+      "contest_url": "https://historical.elections.virginia.gov/contest/144571",
+      "csv_url": "https://va2.elstats3.civera.com/api/download_contest/144571_table.csv?split_party=false",
+      "division": "Congressional District 5",
+      "district": null,
+      "verified_at": "2026-05-17T04:19:12Z"
+    },
+    {
+      "contest_id": "144575",
+      "year": 2020,
+      "office": "U.S. House",
+      "source_office": "U.S. House",
+      "contest_url": "https://historical.elections.virginia.gov/contest/144575",
+      "csv_url": "https://va2.elstats3.civera.com/api/download_contest/144575_table.csv?split_party=false",
+      "division": "Congressional District 9",
+      "district": null,
+      "verified_at": "2026-05-17T04:19:17Z"
+    },
+    {
+      "contest_id": "144577",
+      "year": 2020,
+      "office": "U.S. House",
+      "source_office": "U.S. House",
+      "contest_url": "https://historical.elections.virginia.gov/contest/144577",
+      "csv_url": "https://va2.elstats3.civera.com/api/download_contest/144577_table.csv?split_party=false",
+      "division": "Congressional District 7",
+      "district": null,
+      "verified_at": "2026-05-17T04:19:18Z"
+    },
+    {
+      "contest_id": "144579",
+      "year": 2020,
+      "office": "U.S. House",
+      "source_office": "U.S. House",
+      "contest_url": "https://historical.elections.virginia.gov/contest/144579",
+      "csv_url": "https://va2.elstats3.civera.com/api/download_contest/144579_table.csv?split_party=false",
+      "division": "Congressional District 6",
+      "district": null,
+      "verified_at": "2026-05-17T04:19:19Z"
+    },
+    {
+      "contest_id": "144564",
+      "year": 2020,
+      "office": "U.S. Senate",
+      "source_office": "U.S. Senate",
+      "contest_url": "https://historical.elections.virginia.gov/contest/144564",
+      "csv_url": "https://va2.elstats3.civera.com/api/download_contest/144564_table.csv?split_party=false",
+      "division": "State of Virginia",
+      "district": null,
+      "verified_at": "2025-10-23T21:35:07Z"
+    },
+    {
+      "contest_id": "161256",
+      "year": 2024,
+      "office": "President",
+      "source_office": "President",
+      "contest_url": "https://historical.elections.virginia.gov/contest/161256",
+      "csv_url": "https://va2.elstats3.civera.com/api/download_contest/161256_table.csv?split_party=false",
+      "division": "State of Virginia",
+      "district": null,
+      "verified_at": "2026-05-18T13:39:02Z"
+    },
+    {
+      "contest_id": "161258",
+      "year": 2024,
+      "office": "U.S. House",
+      "source_office": "U.S. House",
+      "contest_url": "https://historical.elections.virginia.gov/contest/161258",
+      "csv_url": "https://va2.elstats3.civera.com/api/download_contest/161258_table.csv?split_party=false",
+      "division": "Congressional District 2",
+      "district": null,
+      "verified_at": "2026-05-18T14:20:50Z"
+    },
+    {
+      "contest_id": "161288",
+      "year": 2024,
+      "office": "U.S. House",
+      "source_office": "U.S. House",
+      "contest_url": "https://historical.elections.virginia.gov/contest/161288",
+      "csv_url": "https://va2.elstats3.civera.com/api/download_contest/161288_table.csv?split_party=false",
+      "division": "Congressional District 5",
+      "district": null,
+      "verified_at": "2026-05-18T14:22:45Z"
+    },
+    {
+      "contest_id": "161292",
+      "year": 2024,
+      "office": "U.S. House",
+      "source_office": "U.S. House",
+      "contest_url": "https://historical.elections.virginia.gov/contest/161292",
+      "csv_url": "https://va2.elstats3.civera.com/api/download_contest/161292_table.csv?split_party=false",
+      "division": "Congressional District 7",
+      "district": null,
+      "verified_at": "2026-05-18T14:22:47Z"
+    },
+    {
+      "contest_id": "161293",
+      "year": 2024,
+      "office": "U.S. House",
+      "source_office": "U.S. House",
+      "contest_url": "https://historical.elections.virginia.gov/contest/161293",
+      "csv_url": "https://va2.elstats3.civera.com/api/download_contest/161293_table.csv?split_party=false",
+      "division": "Congressional District 8",
+      "district": null,
+      "verified_at": "2026-05-18T14:22:47Z"
+    },
+    {
+      "contest_id": "161299",
+      "year": 2024,
+      "office": "U.S. House",
+      "source_office": "U.S. House",
+      "contest_url": "https://historical.elections.virginia.gov/contest/161299",
+      "csv_url": "https://va2.elstats3.civera.com/api/download_contest/161299_table.csv?split_party=false",
+      "division": "Congressional District 6",
+      "district": null,
+      "verified_at": "2026-05-18T14:22:52Z"
+    },
+    {
+      "contest_id": "161312",
+      "year": 2024,
+      "office": "U.S. House",
+      "source_office": "U.S. House",
+      "contest_url": "https://historical.elections.virginia.gov/contest/161312",
+      "csv_url": "https://va2.elstats3.civera.com/api/download_contest/161312_table.csv?split_party=false",
+      "division": "Congressional District 9",
+      "district": null,
+      "verified_at": "2026-05-18T14:23:38Z"
+    },
+    {
+      "contest_id": "161321",
+      "year": 2024,
+      "office": "U.S. House",
+      "source_office": "U.S. House",
+      "contest_url": "https://historical.elections.virginia.gov/contest/161321",
+      "csv_url": "https://va2.elstats3.civera.com/api/download_contest/161321_table.csv?split_party=false",
+      "division": "Congressional District 4",
+      "district": null,
+      "verified_at": "2026-05-18T14:27:21Z"
+    },
+    {
+      "contest_id": "161347",
+      "year": 2024,
+      "office": "U.S. House",
+      "source_office": "U.S. House",
+      "contest_url": "https://historical.elections.virginia.gov/contest/161347",
+      "csv_url": "https://va2.elstats3.civera.com/api/download_contest/161347_table.csv?split_party=false",
+      "division": "Congressional District 3",
+      "district": null,
+      "verified_at": "2026-05-18T14:35:38Z"
+    },
+    {
+      "contest_id": "161384",
+      "year": 2024,
+      "office": "U.S. House",
+      "source_office": "U.S. House",
+      "contest_url": "https://historical.elections.virginia.gov/contest/161384",
+      "csv_url": "https://va2.elstats3.civera.com/api/download_contest/161384_table.csv?split_party=false",
+      "division": "Congressional District 10",
+      "district": null,
+      "verified_at": "2026-05-18T14:36:27Z"
+    },
+    {
+      "contest_id": "161257",
+      "year": 2024,
+      "office": "U.S. Senate",
+      "source_office": "U.S. Senate",
+      "contest_url": "https://historical.elections.virginia.gov/contest/161257",
+      "csv_url": "https://va2.elstats3.civera.com/api/download_contest/161257_table.csv?split_party=false",
+      "division": "State of Virginia",
+      "district": null,
+      "verified_at": "2026-05-18T14:20:50Z"
+    }
+  ]
+}

@@ -12,6 +12,17 @@ Source: Virginia Department of Elections historical election results.
 
 The historical election pages expose contest-specific CSV downloads. The project imports `Locality` rows from those CSVs, maps party labels to the normalized presidential party buckets, and preserves independent and write-in votes as `OTHER`.
 
+The official contest inventory now records verified 2020 and 2024 President, U.S. Senate, and U.S. House pages in `public/results/virginia-official-contest-inventory.json`. Download those CSVs with:
+
+```bash
+npm run virginia:inventory -- --year 2020 --start 144560 --end 144580
+npm run virginia:inventory -- --year 2024 --start 161250 --end 161400
+npm run virginia:download
+npm run virginia:generate
+```
+
+The generated federal summary is `public/results/virginia-statewide-summary.json`. State legislative offices require separate odd-year election coverage and are not represented by the current even-year federal inventory.
+
 Implemented commands:
 
 ```bash

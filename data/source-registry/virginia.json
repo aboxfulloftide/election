@@ -5,15 +5,28 @@
     {
       "id": "va-doe-federal-state-2020-2024",
       "scope": "statewide",
-      "offices": ["President", "U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"],
+      "offices": ["Governor", "State Senate", "State House"],
       "years": [2020, 2022, 2024],
       "status": "source_identified",
       "format": "doe-contest-csv",
       "geography": "locality-or-district",
       "quality_grade": null,
-      "parser": "planned:virginia-state-federal-import",
+      "parser": "planned:virginia-state-office-import",
       "urls": ["https://historical.elections.virginia.gov/"],
-      "notes": "Official Virginia historical contest archive identified for the first cohort; current parser covers presidential CSV overrides only."
+      "notes": "Official Virginia historical database identified for state-office discovery. Virginia state legislative general elections are generally held in odd-numbered years, so even-year applicability must be recorded explicitly."
+    },
+    {
+      "id": "va-doe-federal-contests-2020-2024-imported",
+      "scope": "statewide",
+      "offices": ["President", "U.S. Senate", "U.S. House"],
+      "years": [2020, 2024],
+      "status": "imported",
+      "format": "doe-contest-csv",
+      "geography": "locality-or-district",
+      "quality_grade": "A",
+      "parser": "scripts/generate_virginia_statewide_summary.py",
+      "urls": ["https://historical.elections.virginia.gov/"],
+      "notes": "Verified contest pages and official CSV endpoints normalized into 17 federal contests across 2020 and 2024."
     }
   ]
 }

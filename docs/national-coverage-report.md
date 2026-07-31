@@ -6,9 +6,9 @@ The matrix covers all 50 states, even-year general elections from 2000 through 2
 
 ## Summary
 
-- `imported`: 758 cells
-- `source_identified`: 72 cells
-- `needs_discovery`: 3074 cells
+- `imported`: 765 cells
+- `source_identified`: 63 cells
+- `needs_discovery`: 3076 cells
 - `blocked`: 0 cells
 - `not_yet_available`: 296 cells
 
@@ -61,7 +61,7 @@ The matrix covers all 50 states, even-year general elections from 2000 through 2
 | TX | 37 | 0 | 45 | 0 | 2 |
 | UT | 13 | 0 | 65 | 0 | 6 |
 | VT | 13 | 0 | 65 | 0 | 6 |
-| VA | 10 | 18 | 50 | 0 | 6 |
+| VA | 17 | 9 | 52 | 0 | 6 |
 | WA | 13 | 0 | 65 | 0 | 6 |
 | WV | 13 | 0 | 65 | 0 | 6 |
 | WI | 10 | 18 | 50 | 0 | 6 |
