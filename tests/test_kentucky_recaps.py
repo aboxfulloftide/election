@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sys
+import json
 from pathlib import Path
 from unittest import TestCase
 
@@ -31,3 +32,11 @@ class KentuckyRecapDownloaderTests(TestCase):
         )
 
         self.assertEqual(path, ROOT_DIR / "data/raw/official/kentucky/2022_Butler_County.pdf")
+
+    def test_schema_audit_tracks_unusable_staged_reports(self) -> None:
+        audit = json.loads(
+            (ROOT_DIR / "public/results/kentucky-recap-schema-audit.json").read_text()
+        )
+        self.assertEqual(audit["summary"]["2022"]["content_status_counts"]["blank"], 67)
+        self.assertEqual(audit["summary"]["2024"]["blank_files"], ["data/raw/official/kentucky/2024_Elliott.pdf"])
+        self.assertEqual(audit["summary"]["2024"]["mail_in_only_files"], ["data/raw/official/kentucky/2024_Magoffin.pdf"])

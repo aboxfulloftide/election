@@ -4,7 +4,9 @@
     {
       "year": 2020,
       "file": "data/raw/official/kentucky/2020_general_election_results.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "usable",
+      "text_characters": 70007
     },
     {
       "year": 2022,
@@ -14,27 +16,37 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 131551
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Allen_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Anderson_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Ballard_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Barren_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -44,12 +56,16 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 145869
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Bell_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -59,12 +75,16 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 901394
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Bourbon_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -74,7 +94,9 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 514310
     },
     {
       "year": 2022,
@@ -84,7 +106,9 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 247608
     },
     {
       "year": 2022,
@@ -94,17 +118,23 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 73230
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Breathitt_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Breckinridge_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -114,12 +144,16 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 491549
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Caldwell_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -128,7 +162,9 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 217896
     },
     {
       "year": 2022,
@@ -138,27 +174,37 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 849130
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Carlisle_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Carroll_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Carter_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Casey_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -167,7 +213,9 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 526721
     },
     {
       "year": 2022,
@@ -177,17 +225,23 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 16063
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Clay_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Clinton_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -196,12 +250,16 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 108851
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Cumberland_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -211,32 +269,44 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 708820
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Edmonson_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Elliott_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Estill_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Fayette_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Fleming_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -245,7 +315,9 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 166332
     },
     {
       "year": 2022,
@@ -255,32 +327,44 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 419746
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Fulton_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Gallatin_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Garrard_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Grant_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Graves_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -289,7 +373,9 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 202536
     },
     {
       "year": 2022,
@@ -298,12 +384,16 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 75039
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Greenup_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -313,7 +403,9 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 86806
     },
     {
       "year": 2022,
@@ -323,12 +415,16 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 555771
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Harlan_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -337,7 +433,9 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 164357
     },
     {
       "year": 2022,
@@ -346,7 +444,9 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 172107
     },
     {
       "year": 2022,
@@ -356,7 +456,9 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 475339
     },
     {
       "year": 2022,
@@ -365,7 +467,9 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 188406
     },
     {
       "year": 2022,
@@ -374,17 +478,23 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 52290
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Hopkins_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Jackson_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -392,7 +502,9 @@
       "offices": [
         "State House",
         "State Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 14143479
     },
     {
       "year": 2022,
@@ -402,12 +514,16 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 347299
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Johnson_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -417,22 +533,30 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 825862
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Knott_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Knox_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Larue_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -441,27 +565,37 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 382138
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Lawrence_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Lee_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Leslie_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Letcher_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -471,7 +605,9 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 123001
     },
     {
       "year": 2022,
@@ -480,12 +616,16 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 166488
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Livingston_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -495,7 +635,9 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 200144
     },
     {
       "year": 2022,
@@ -504,7 +646,9 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 59014
     },
     {
       "year": 2022,
@@ -514,12 +658,16 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 225323
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Magoffin_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -529,22 +677,30 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 149871
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Marshall_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Martin_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Mason_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -554,12 +710,16 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 605310
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Mccreary_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -569,12 +729,16 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 76218
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Meade_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -584,17 +748,23 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 23343
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Mercer_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Metcalfe_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -604,17 +774,23 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 104553
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Montgomery_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Morgan_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -623,12 +799,16 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 241745
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Nelson_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -637,7 +817,9 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 45960
     },
     {
       "year": 2022,
@@ -646,7 +828,9 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 175329
     },
     {
       "year": 2022,
@@ -656,37 +840,51 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 390399
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Owen_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Owsley_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Pendleton_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Perry_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Pike_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Powell_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -695,12 +893,16 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 614360
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Robertson_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -709,17 +911,23 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 167691
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Russell_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Scott_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -728,7 +936,9 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 320795
     },
     {
       "year": 2022,
@@ -738,22 +948,30 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 122722
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Spencer_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Taylor_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Todd_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -762,17 +980,23 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 137923
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Trimble_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Union_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -782,17 +1006,23 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 1055750
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Washington_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Wayne_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -802,7 +1032,9 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 134785
     },
     {
       "year": 2022,
@@ -811,12 +1043,16 @@
         "State House",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 263306
     },
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Wolfe_County.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2022,
@@ -826,7 +1062,9 @@
         "State Senate",
         "U.S. House",
         "U.S. Senate"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 207363
     },
     {
       "year": 2024,
@@ -835,7 +1073,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 99235
     },
     {
       "year": 2024,
@@ -844,7 +1084,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 87584
     },
     {
       "year": 2024,
@@ -854,7 +1096,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 60468
     },
     {
       "year": 2024,
@@ -863,7 +1107,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 35513
     },
     {
       "year": 2024,
@@ -873,7 +1119,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 119651
     },
     {
       "year": 2024,
@@ -882,7 +1130,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 77679
     },
     {
       "year": 2024,
@@ -892,7 +1142,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 235877
     },
     {
       "year": 2024,
@@ -902,7 +1154,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 469783
     },
     {
       "year": 2024,
@@ -912,7 +1166,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 69342
     },
     {
       "year": 2024,
@@ -921,7 +1177,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 273315
     },
     {
       "year": 2024,
@@ -930,7 +1188,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 161948
     },
     {
       "year": 2024,
@@ -939,7 +1199,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 56751
     },
     {
       "year": 2024,
@@ -948,7 +1210,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 46087
     },
     {
       "year": 2024,
@@ -958,7 +1222,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 97681
     },
     {
       "year": 2024,
@@ -967,7 +1233,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 353982
     },
     {
       "year": 2024,
@@ -977,7 +1245,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 38986
     },
     {
       "year": 2024,
@@ -987,7 +1257,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 93980
     },
     {
       "year": 2024,
@@ -997,7 +1269,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 202398
     },
     {
       "year": 2024,
@@ -1006,7 +1280,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 368393
     },
     {
       "year": 2024,
@@ -1015,7 +1291,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 39167
     },
     {
       "year": 2024,
@@ -1024,7 +1302,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 24869
     },
     {
       "year": 2024,
@@ -1033,7 +1313,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 195999
     },
     {
       "year": 2024,
@@ -1043,7 +1325,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 73344
     },
     {
       "year": 2024,
@@ -1053,7 +1337,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 405150
     },
     {
       "year": 2024,
@@ -1062,7 +1348,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 201389
     },
     {
       "year": 2024,
@@ -1072,7 +1360,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 69406
     },
     {
       "year": 2024,
@@ -1082,7 +1372,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 48255
     },
     {
       "year": 2024,
@@ -1092,7 +1384,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 103515
     },
     {
       "year": 2024,
@@ -1102,7 +1396,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 68960
     },
     {
       "year": 2024,
@@ -1111,7 +1407,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 478163
     },
     {
       "year": 2024,
@@ -1121,12 +1419,16 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 75794
     },
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Elliott.pdf",
-      "offices": []
+      "offices": [],
+      "content_status": "blank",
+      "text_characters": 0
     },
     {
       "year": 2024,
@@ -1135,7 +1437,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 93093
     },
     {
       "year": 2024,
@@ -1145,7 +1449,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 2354270
     },
     {
       "year": 2024,
@@ -1155,7 +1461,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 125413
     },
     {
       "year": 2024,
@@ -1165,7 +1473,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 131376
     },
     {
       "year": 2024,
@@ -1174,7 +1484,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 189781
     },
     {
       "year": 2024,
@@ -1184,7 +1496,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 59293
     },
     {
       "year": 2024,
@@ -1193,7 +1507,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 48532
     },
     {
       "year": 2024,
@@ -1202,7 +1518,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 92640
     },
     {
       "year": 2024,
@@ -1212,7 +1530,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 27450
     },
     {
       "year": 2024,
@@ -1222,7 +1542,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 77361
     },
     {
       "year": 2024,
@@ -1232,7 +1554,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 149592
     },
     {
       "year": 2024,
@@ -1242,7 +1566,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 54089
     },
     {
       "year": 2024,
@@ -1251,7 +1577,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 191560
     },
     {
       "year": 2024,
@@ -1260,7 +1588,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 59170
     },
     {
       "year": 2024,
@@ -1269,7 +1599,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 348349
     },
     {
       "year": 2024,
@@ -1279,7 +1611,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 237718
     },
     {
       "year": 2024,
@@ -1289,7 +1623,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 120626
     },
     {
       "year": 2024,
@@ -1299,7 +1635,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 46070
     },
     {
       "year": 2024,
@@ -1308,7 +1646,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 188120
     },
     {
       "year": 2024,
@@ -1318,7 +1658,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 112222
     },
     {
       "year": 2024,
@@ -1328,7 +1670,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 49923
     },
     {
       "year": 2024,
@@ -1337,7 +1681,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 409726
     },
     {
       "year": 2024,
@@ -1347,7 +1693,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 45096
     },
     {
       "year": 2024,
@@ -1355,7 +1703,9 @@
       "offices": [
         "President",
         "State House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 3594292
     },
     {
       "year": 2024,
@@ -1364,7 +1714,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 247097
     },
     {
       "year": 2024,
@@ -1374,7 +1726,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 66916
     },
     {
       "year": 2024,
@@ -1384,7 +1738,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 383779
     },
     {
       "year": 2024,
@@ -1394,7 +1750,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 75163
     },
     {
       "year": 2024,
@@ -1404,7 +1762,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 117629
     },
     {
       "year": 2024,
@@ -1413,7 +1773,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 82968
     },
     {
       "year": 2024,
@@ -1423,7 +1785,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 80714
     },
     {
       "year": 2024,
@@ -1433,7 +1797,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 123986
     },
     {
       "year": 2024,
@@ -1442,7 +1808,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 32093
     },
     {
       "year": 2024,
@@ -1451,7 +1819,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 54061
     },
     {
       "year": 2024,
@@ -1461,7 +1831,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 119357
     },
     {
       "year": 2024,
@@ -1470,7 +1842,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 29405
     },
     {
       "year": 2024,
@@ -1480,7 +1854,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 113968
     },
     {
       "year": 2024,
@@ -1489,7 +1865,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 55150
     },
     {
       "year": 2024,
@@ -1498,7 +1876,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 64967
     },
     {
       "year": 2024,
@@ -1508,7 +1888,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 52369
     },
     {
       "year": 2024,
@@ -1517,7 +1899,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 185245
     },
     {
       "year": 2024,
@@ -1526,7 +1910,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "mail_in_only",
+      "text_characters": 32334
     },
     {
       "year": 2024,
@@ -1535,7 +1921,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 33451
     },
     {
       "year": 2024,
@@ -1544,7 +1932,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 190615
     },
     {
       "year": 2024,
@@ -1554,7 +1944,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 48493
     },
     {
       "year": 2024,
@@ -1564,7 +1956,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 116875
     },
     {
       "year": 2024,
@@ -1573,7 +1967,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 325711
     },
     {
       "year": 2024,
@@ -1583,7 +1979,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 119305
     },
     {
       "year": 2024,
@@ -1592,7 +1990,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 64014
     },
     {
       "year": 2024,
@@ -1602,7 +2002,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 132306
     },
     {
       "year": 2024,
@@ -1611,7 +2013,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 21037
     },
     {
       "year": 2024,
@@ -1620,7 +2024,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 111233
     },
     {
       "year": 2024,
@@ -1629,7 +2035,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 80967
     },
     {
       "year": 2024,
@@ -1638,7 +2046,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 89071
     },
     {
       "year": 2024,
@@ -1647,7 +2057,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 24224
     },
     {
       "year": 2024,
@@ -1656,7 +2068,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 46176
     },
     {
       "year": 2024,
@@ -1666,7 +2080,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 201037
     },
     {
       "year": 2024,
@@ -1675,7 +2091,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 179887
     },
     {
       "year": 2024,
@@ -1685,7 +2103,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 33881
     },
     {
       "year": 2024,
@@ -1695,7 +2115,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 123135
     },
     {
       "year": 2024,
@@ -1704,7 +2126,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 214899
     },
     {
       "year": 2024,
@@ -1713,7 +2137,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 83997
     },
     {
       "year": 2024,
@@ -1723,7 +2149,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 52613
     },
     {
       "year": 2024,
@@ -1732,7 +2160,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 84395
     },
     {
       "year": 2024,
@@ -1741,7 +2171,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 187409
     },
     {
       "year": 2024,
@@ -1751,7 +2183,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 408908
     },
     {
       "year": 2024,
@@ -1760,7 +2194,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 25599
     },
     {
       "year": 2024,
@@ -1770,7 +2206,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 181038
     },
     {
       "year": 2024,
@@ -1780,7 +2218,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 36558
     },
     {
       "year": 2024,
@@ -1790,7 +2230,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 53141
     },
     {
       "year": 2024,
@@ -1800,7 +2242,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 121014
     },
     {
       "year": 2024,
@@ -1810,7 +2254,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 100665
     },
     {
       "year": 2024,
@@ -1820,7 +2266,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 13364
     },
     {
       "year": 2024,
@@ -1830,7 +2278,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 275475
     },
     {
       "year": 2024,
@@ -1839,7 +2289,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 89757
     },
     {
       "year": 2024,
@@ -1848,7 +2300,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 52954
     },
     {
       "year": 2024,
@@ -1857,7 +2311,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 142180
     },
     {
       "year": 2024,
@@ -1866,7 +2322,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 105988
     },
     {
       "year": 2024,
@@ -1876,7 +2334,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 48160
     },
     {
       "year": 2024,
@@ -1885,7 +2345,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 84945
     },
     {
       "year": 2024,
@@ -1894,7 +2356,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 100437
     },
     {
       "year": 2024,
@@ -1904,7 +2368,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 376053
     },
     {
       "year": 2024,
@@ -1913,7 +2379,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 96595
     },
     {
       "year": 2024,
@@ -1923,7 +2391,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 132433
     },
     {
       "year": 2024,
@@ -1932,7 +2402,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 105437
     },
     {
       "year": 2024,
@@ -1942,7 +2414,9 @@
         "State House",
         "State Senate",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 200518
     },
     {
       "year": 2024,
@@ -1951,7 +2425,9 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 27351
     },
     {
       "year": 2024,
@@ -1960,13 +2436,20 @@
         "President",
         "State House",
         "U.S. House"
-      ]
+      ],
+      "content_status": "usable",
+      "text_characters": 71580
     }
   ],
   "summary": {
     "2020": {
       "files": 1,
-      "office_file_counts": {}
+      "office_file_counts": {},
+      "content_status_counts": {
+        "usable": 1
+      },
+      "blank_files": [],
+      "mail_in_only_files": []
     },
     "2022": {
       "files": 118,
@@ -1975,7 +2458,81 @@
         "State Senate": 30,
         "U.S. House": 50,
         "U.S. Senate": 50
-      }
+      },
+      "content_status_counts": {
+        "usable": 51,
+        "blank": 67
+      },
+      "blank_files": [
+        "data/raw/official/kentucky/2022_Allen_County.pdf",
+        "data/raw/official/kentucky/2022_Anderson_County.pdf",
+        "data/raw/official/kentucky/2022_Ballard_County.pdf",
+        "data/raw/official/kentucky/2022_Barren_County.pdf",
+        "data/raw/official/kentucky/2022_Bell_County.pdf",
+        "data/raw/official/kentucky/2022_Bourbon_County.pdf",
+        "data/raw/official/kentucky/2022_Breathitt_County.pdf",
+        "data/raw/official/kentucky/2022_Breckinridge_County.pdf",
+        "data/raw/official/kentucky/2022_Caldwell_County.pdf",
+        "data/raw/official/kentucky/2022_Carlisle_County.pdf",
+        "data/raw/official/kentucky/2022_Carroll_County.pdf",
+        "data/raw/official/kentucky/2022_Carter_County.pdf",
+        "data/raw/official/kentucky/2022_Casey_County.pdf",
+        "data/raw/official/kentucky/2022_Clay_County.pdf",
+        "data/raw/official/kentucky/2022_Clinton_County.pdf",
+        "data/raw/official/kentucky/2022_Cumberland_County.pdf",
+        "data/raw/official/kentucky/2022_Edmonson_County.pdf",
+        "data/raw/official/kentucky/2022_Elliott_County.pdf",
+        "data/raw/official/kentucky/2022_Estill_County.pdf",
+        "data/raw/official/kentucky/2022_Fayette_County.pdf",
+        "data/raw/official/kentucky/2022_Fleming_County.pdf",
+        "data/raw/official/kentucky/2022_Fulton_County.pdf",
+        "data/raw/official/kentucky/2022_Gallatin_County.pdf",
+        "data/raw/official/kentucky/2022_Garrard_County.pdf",
+        "data/raw/official/kentucky/2022_Grant_County.pdf",
+        "data/raw/official/kentucky/2022_Graves_County.pdf",
+        "data/raw/official/kentucky/2022_Greenup_County.pdf",
+        "data/raw/official/kentucky/2022_Harlan_County.pdf",
+        "data/raw/official/kentucky/2022_Hopkins_County.pdf",
+        "data/raw/official/kentucky/2022_Jackson_County.pdf",
+        "data/raw/official/kentucky/2022_Johnson_County.pdf",
+        "data/raw/official/kentucky/2022_Knott_County.pdf",
+        "data/raw/official/kentucky/2022_Knox_County.pdf",
+        "data/raw/official/kentucky/2022_Larue_County.pdf",
+        "data/raw/official/kentucky/2022_Lawrence_County.pdf",
+        "data/raw/official/kentucky/2022_Lee_County.pdf",
+        "data/raw/official/kentucky/2022_Leslie_County.pdf",
+        "data/raw/official/kentucky/2022_Letcher_County.pdf",
+        "data/raw/official/kentucky/2022_Livingston_County.pdf",
+        "data/raw/official/kentucky/2022_Magoffin_County.pdf",
+        "data/raw/official/kentucky/2022_Marshall_County.pdf",
+        "data/raw/official/kentucky/2022_Martin_County.pdf",
+        "data/raw/official/kentucky/2022_Mason_County.pdf",
+        "data/raw/official/kentucky/2022_Mccreary_County.pdf",
+        "data/raw/official/kentucky/2022_Meade_County.pdf",
+        "data/raw/official/kentucky/2022_Mercer_County.pdf",
+        "data/raw/official/kentucky/2022_Metcalfe_County.pdf",
+        "data/raw/official/kentucky/2022_Montgomery_County.pdf",
+        "data/raw/official/kentucky/2022_Morgan_County.pdf",
+        "data/raw/official/kentucky/2022_Nelson_County.pdf",
+        "data/raw/official/kentucky/2022_Owen_County.pdf",
+        "data/raw/official/kentucky/2022_Owsley_County.pdf",
+        "data/raw/official/kentucky/2022_Pendleton_County.pdf",
+        "data/raw/official/kentucky/2022_Perry_County.pdf",
+        "data/raw/official/kentucky/2022_Pike_County.pdf",
+        "data/raw/official/kentucky/2022_Powell_County.pdf",
+        "data/raw/official/kentucky/2022_Robertson_County.pdf",
+        "data/raw/official/kentucky/2022_Russell_County.pdf",
+        "data/raw/official/kentucky/2022_Scott_County.pdf",
+        "data/raw/official/kentucky/2022_Spencer_County.pdf",
+        "data/raw/official/kentucky/2022_Taylor_County.pdf",
+        "data/raw/official/kentucky/2022_Todd_County.pdf",
+        "data/raw/official/kentucky/2022_Trimble_County.pdf",
+        "data/raw/official/kentucky/2022_Union_County.pdf",
+        "data/raw/official/kentucky/2022_Washington_County.pdf",
+        "data/raw/official/kentucky/2022_Wayne_County.pdf",
+        "data/raw/official/kentucky/2022_Wolfe_County.pdf"
+      ],
+      "mail_in_only_files": []
     },
     "2024": {
       "files": 120,
@@ -1984,7 +2541,18 @@
         "State House": 119,
         "U.S. House": 118,
         "State Senate": 59
-      }
+      },
+      "content_status_counts": {
+        "usable": 118,
+        "blank": 1,
+        "mail_in_only": 1
+      },
+      "blank_files": [
+        "data/raw/official/kentucky/2024_Elliott.pdf"
+      ],
+      "mail_in_only_files": [
+        "data/raw/official/kentucky/2024_Magoffin.pdf"
+      ]
     }
   }
 }

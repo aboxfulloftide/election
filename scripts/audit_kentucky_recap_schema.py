@@ -60,8 +60,21 @@ def build_audit() -> dict:
         match = re.match(r"(20\d{2})_", path.name)
         if not match:
             continue
-        offices = sorted(offices_in_text(extract_text(path)))
-        rows.append({"year": int(match.group(1)), "file": str(path.relative_to(ROOT_DIR)), "offices": offices})
+        text = extract_text(path)
+        offices = sorted(offices_in_text(text))
+        normalized = re.sub(r"\s+", " ", text).strip()
+        mail_in_only = bool(re.search(r"TOTAL\s+Mail In\s*$", text, re.I | re.M)) and not bool(
+            re.search(r"Absentee|Early Voting|Election Day", text, re.I)
+        )
+        rows.append(
+            {
+                "year": int(match.group(1)),
+                "file": str(path.relative_to(ROOT_DIR)),
+                "offices": offices,
+                "content_status": "blank" if not normalized else "mail_in_only" if mail_in_only else "usable",
+                "text_characters": len(normalized),
+            }
+        )
     by_year = defaultdict(list)
     for row in rows:
         by_year[row["year"]].append(row)
@@ -70,6 +83,9 @@ def build_audit() -> dict:
         summary[str(year)] = {
             "files": len(year_rows),
             "office_file_counts": dict(Counter(office for row in year_rows for office in row["offices"])),
+            "content_status_counts": dict(Counter(row["content_status"] for row in year_rows)),
+            "blank_files": [row["file"] for row in year_rows if row["content_status"] == "blank"],
+            "mail_in_only_files": [row["file"] for row in year_rows if row["content_status"] == "mail_in_only"],
         }
     return {"state_po": "KY", "rows": rows, "summary": summary}
 
@@ -82,14 +98,26 @@ def markdown(audit: dict) -> str:
         "",
         "This audit checks which active federal/state office headings are present in each staged official county recap PDF. It does not publish normalized results.",
         "",
-        "| Year | Files audited | President | U.S. Senate | U.S. House | Governor | State Senate | State House |",
-        "| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+        "| Year | Files audited | Usable | Mail-in only | Blank | President | U.S. Senate | U.S. House | Governor | State Senate | State House |",
+        "| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     offices = [office for office, _ in OFFICE_PATTERNS]
     for year, summary in audit["summary"].items():
         counts = summary["office_file_counts"]
-        lines.append("| " + " | ".join([year, str(summary["files"])] + [str(counts.get(office, 0)) for office in offices]) + " |")
-    lines.extend(["", "The parser must aggregate repeated precinct sections within each county report before contest reconciliation.", ""])
+        statuses = summary["content_status_counts"]
+        lines.append(
+            "| "
+            + " | ".join(
+                [year, str(summary["files"]), str(statuses.get("usable", 0)), str(statuses.get("mail_in_only", 0)), str(statuses.get("blank", 0))]
+                + [str(counts.get(office, 0)) for office in offices]
+            )
+            + " |"
+        )
+        if summary["blank_files"]:
+            lines.append(f"- Blank files: {', '.join(summary['blank_files'])}")
+        if summary["mail_in_only_files"]:
+            lines.append(f"- Mail-in-only files: {', '.join(summary['mail_in_only_files'])}")
+    lines.extend(["", "The parser must aggregate repeated precinct sections within each county report before contest reconciliation. Blank and mail-in-only files are not sufficient evidence for a complete county total.", ""])
     return "\n".join(lines)
 
 
