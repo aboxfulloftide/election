@@ -12,7 +12,7 @@ sys.path.insert(0, str(ROOT_DIR / "scripts"))
 from download_kentucky_general_recaps import LinkParser, destination
 from download_kentucky_certified import SOURCES
 from ocr_kentucky_recaps import candidates, output_path
-from parse_kentucky_certified import parse_senate
+from parse_kentucky_certified import certified_sections, parse_senate
 
 
 class KentuckyRecapDownloaderTests(TestCase):
@@ -67,3 +67,23 @@ United States Representative in Congress
         result = parse_senate(text)
         self.assertEqual(result["row_count"], 3)
         self.assertEqual(result["column_totals"], [14226, 4812, 0, 0])
+
+    def test_certified_section_inventory_identifies_office_lanes(self) -> None:
+        text = """For the office of
+United States Senator
+table
+For the office of
+United States Representative in Congress
+1st Congressional District
+2nd Congressional District
+For the office of
+State Senator
+16th Senatorial District
+For the office of
+State Representative
+21st Representative District
+"""
+        sections = certified_sections(text)
+        self.assertEqual([section["office"] for section in sections], ["United States Senator", "United States Representative in Congress", "State Senator", "State Representative"])
+        self.assertEqual(sections[1]["districts"], ["1 congressional district", "2 congressional district"])
+        self.assertEqual(sections[2]["districts"], ["16 senatorial district"])

@@ -15,6 +15,8 @@ RAW_DIR = ROOT_DIR / "data/raw/official/kentucky"
 OCR_PATH = RAW_DIR / "ocr/2022_certified_general_election_results.txt"
 OUTPUT_PATH = RAW_DIR / "2022_certified_senate_reconciliation.json"
 NUMBER_RE = re.compile(r"(?<![A-Za-z])([0-9OoIl][0-9,.OoIl]*)")
+OFFICE_RE = re.compile(r"^(United States Senator|United States Representative in Congress|State Senator|State Representative)$", re.I)
+DISTRICT_RE = re.compile(r"(\d+)(?:st|nd|rd|th)\s+(Congressional|Senatorial|Representative)\s+District", re.I)
 
 
 def number(value: str) -> int | None:
@@ -30,6 +32,31 @@ def senate_section(text: str) -> str:
     start = starts[-1]
     end = next((index for index in range(start + 1, len(lines)) if lines[index].strip().lower() == "for the office of"), len(lines))
     return "\n".join(lines[start + 1 : end])
+
+
+def certified_sections(text: str) -> list[dict[str, Any]]:
+    lines = text.splitlines()
+    starts = [index for index, line in enumerate(lines) if line.strip().lower() == "for the office of"]
+    sections = []
+    for position, start in enumerate(starts):
+        end = starts[position + 1] if position + 1 < len(starts) else len(lines)
+        body = [line.strip() for line in lines[start + 1 : end] if line.strip()]
+        heading = next((line for line in body if OFFICE_RE.match(line)), "")
+        if not heading:
+            continue
+        districts = []
+        for line in body:
+            match = DISTRICT_RE.search(line)
+            if match:
+                districts.append(f"{match.group(1)} {match.group(2).lower()} district")
+        sections.append(
+            {
+                "office": heading,
+                "districts": list(dict.fromkeys(districts)),
+                "line_count": len(body),
+            }
+        )
+    return sections
 
 
 def parse_senate(text: str) -> dict[str, Any]:
@@ -58,7 +85,19 @@ def main() -> int:
     args = parser.parse_args()
     input_path = args.input if args.input.is_absolute() else ROOT_DIR / args.input
     output_path = args.output if args.output.is_absolute() else ROOT_DIR / args.output
-    result = parse_senate(input_path.read_text(encoding="utf-8"))
+    text = input_path.read_text(encoding="utf-8")
+    result = parse_senate(text)
+    result["sections"] = certified_sections(text)
+    house = next((section for section in result["sections"] if section["office"].lower().startswith("united states representative")), None)
+    state_senate = next((section for section in result["sections"] if section["office"].lower() == "state senator"), None)
+    result["validation"] = {
+        "expected_senate_counties": 120,
+        "senate_counties_complete": result["row_count"] == 120,
+        "expected_us_house_districts": 6,
+        "us_house_districts_detected": len(house["districts"]) if house else 0,
+        "expected_state_senate_districts": 19,
+        "state_senate_districts_detected": len(state_senate["districts"]) if state_senate else 0,
+    }
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(f"Wrote {output_path.relative_to(ROOT_DIR)} with {result['row_count']} rows.")
