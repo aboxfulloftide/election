@@ -30,6 +30,18 @@ HOUSE_OCR_CORRECTIONS = {
     (6, "Bath", 2): 1,
     (6, "Garrard", 3): 1,
 }
+COUNTY_OCR_ALIASES = {"lestie": "Leslie", "effiott": "Elliott"}
+STATE_ROW_OCR_CORRECTIONS = {
+    ("State Senate", 28, "Menifee", 0): 1551,
+    ("State Senate", 28, "Menifee", 1): 0,
+    ("State House", 72, "Nicholas", 0): 1811,
+    ("State House", 73, "Fayette", 1): 1340,
+    ("State House", 84, "Breathitt", 1): 1274,
+    ("State House", 88, "Scott", 0): 1840,
+}
+STATE_TOTAL_OCR_CORRECTIONS = {
+    ("State Senate", 16, 0): 31887,
+}
 OFFICE_RE = re.compile(r"^(United States Senator|United States Representative in Congress|State Senator|State Representative)$", re.I)
 DISTRICT_RE = re.compile(r"(\d+)(?:st|nd|rd|th)\s+(Congressional|Senatorial|Representative)\s+District", re.I)
 
@@ -174,6 +186,7 @@ def parse_us_house_county_rows(text: str) -> list[dict[str, Any]]:
         if len(values) < 2:
             continue
         county = line[:line.find(matches[0])].strip(" _|:;-")
+        county = COUNTY_OCR_ALIASES.get(county.casefold(), county)
         if county.casefold() in county_names:
             corrected_values = list(values)
             corrections = []
@@ -227,6 +240,58 @@ def build_us_house_contests(text: str) -> list[dict[str, Any]]:
     return contests
 
 
+def parse_state_legislative_rows(text: str, office: str) -> list[dict[str, Any]]:
+    """Extract county rows and reconciliation status for a state legislative office."""
+    if office not in {"State Senate", "State House"}:
+        raise ValueError("office must be State Senate or State House")
+    county_names = {
+        row["county_name"].casefold()
+        for row in json.loads((ROOT_DIR / "public/results/county-presidential-summary.json").read_text())["counties"]
+        if row["state_po"] == "KY"
+    }
+    heading = "State Senator" if office == "State Senate" else "State Representative"
+    lines = text.splitlines()
+    start = next((index for index, line in enumerate(lines) if line.strip().lower() == heading.lower()), None)
+    if start is None:
+        return []
+    end = next((index for index in range(start + 1, len(lines)) if lines[index].strip().lower() == "for the office of"), len(lines))
+    districts: list[dict[str, Any]] = []
+    current: dict[str, Any] | None = None
+    for raw_line in lines[start:end]:
+        line = re.sub(r"\s+", " ", raw_line.replace("\f", " ")).strip()
+        lowered = line.lower()
+        if "district" in lowered and ("senatorial" in lowered or "representative" in lowered):
+            match = DISTRICT_RE.search(line)
+            current = {"district": int(match.group(1)) if match else len(districts) + 1, "rows": [], "official_total_votes": None}
+            districts.append(current)
+            continue
+        if not current:
+            continue
+        line = " ".join("0" if token in ZERO_OCR_TOKENS else token for token in line.split())
+        if lowered.startswith("total votes"):
+            current["official_total_votes"] = [value for value in (number(match) for match in NUMBER_RE.findall(line)) if value is not None]
+            for index, value in enumerate(current["official_total_votes"]):
+                current["official_total_votes"][index] = STATE_TOTAL_OCR_CORRECTIONS.get((office, current["district"], index), value)
+            continue
+        matches = NUMBER_RE.findall(line)
+        values = [value for value in (number(match) for match in matches) if value is not None]
+        if len(values) < 1:
+            continue
+        county = line[:line.find(matches[0])].strip(" _|:;-")
+        county = COUNTY_OCR_ALIASES.get(county.casefold(), county)
+        if county.casefold() in county_names:
+            corrected_values = list(values)
+            for index, value in enumerate(corrected_values):
+                corrected_values[index] = STATE_ROW_OCR_CORRECTIONS.get((office, current["district"], county, index), value)
+            current["rows"].append({"county": county, "values": corrected_values, "ocr_values": values, "raw": line})
+    for district in districts:
+        district["row_count"] = len(district["rows"])
+        width = len(district["official_total_votes"] or [])
+        district["summed_columns"] = [sum(row["values"][index] for row in district["rows"] if len(row["values"]) > index) for index in range(max(width, 1))]
+        district["all_columns_match"] = district["summed_columns"][:width] == (district["official_total_votes"] or [])
+    return districts
+
+
 def parse_certified_totals(text: str) -> list[dict[str, Any]]:
     """Collect every printed contest total across federal and state offices."""
     totals: list[dict[str, Any]] = []
@@ -269,6 +334,8 @@ def main() -> int:
     result["us_house_totals"] = parse_us_house_totals(text)
     result["us_house_county_rows"] = parse_us_house_county_rows(text)
     result["us_house_contests"] = build_us_house_contests(text)
+    result["state_senate_county_rows"] = parse_state_legislative_rows(text, "State Senate")
+    result["state_house_county_rows"] = parse_state_legislative_rows(text, "State House")
     result["contest_totals"] = parse_certified_totals(text)
     house = next((section for section in result["sections"] if section["office"].lower().startswith("united states representative")), None)
     state_senate = next((section for section in result["sections"] if section["office"].lower() == "state senator"), None)
@@ -286,6 +353,10 @@ def main() -> int:
         "expected_state_senate_districts": 19,
         "state_senate_districts_detected": len(state_senate["districts"]) if state_senate else 0,
         "state_house_districts_detected": sum(1 for item in result["contest_totals"] if item["office"] == "State House"),
+        "state_senate_county_rows_complete": len(result["state_senate_county_rows"]) == 19 and all(item["row_count"] > 0 for item in result["state_senate_county_rows"]),
+        "state_house_county_rows_complete": len(result["state_house_county_rows"]) == 100 and all(item["row_count"] > 0 for item in result["state_house_county_rows"]),
+        "state_senate_totals_match": all(item["all_columns_match"] for item in result["state_senate_county_rows"]),
+        "state_house_totals_match": all(item["all_columns_match"] for item in result["state_house_county_rows"]),
     }
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")

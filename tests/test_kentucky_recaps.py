@@ -13,7 +13,7 @@ from download_kentucky_general_recaps import LinkParser, destination
 from download_kentucky_certified import SOURCES
 from ocr_kentucky_certified import OCR_PDF_PATH, SOURCE_PATH, TEXT_PATH
 from ocr_kentucky_recaps import candidates, output_path
-from parse_kentucky_certified import build_us_house_contests, certified_sections, parse_certified_totals, parse_senate, parse_us_house_county_rows, parse_us_house_totals
+from parse_kentucky_certified import build_us_house_contests, certified_sections, parse_certified_totals, parse_senate, parse_state_legislative_rows, parse_us_house_county_rows, parse_us_house_totals
 
 
 class KentuckyRecapDownloaderTests(TestCase):
@@ -174,3 +174,21 @@ For the office of
         self.assertEqual(contest["winner"]["candidate"], "James R. Comer")
         self.assertEqual(contest["candidate_votes_total"], 7022)
         self.assertTrue(contest["validated"])
+
+    def test_certified_state_legislative_rows_group_by_district(self) -> None:
+        text = """State Senator
+16th Senatorial District
+Allen 5,039
+Total Votes 5,039
+State Representative
+21st Representative District
+Allen 3,000 2,000
+Total Votes 3,000 2,000
+For the office of
+"""
+        senate = parse_state_legislative_rows(text, "State Senate")
+        house = parse_state_legislative_rows(text, "State House")
+        self.assertEqual(senate[0]["district"], 16)
+        self.assertEqual(senate[0]["row_count"], 1)
+        self.assertEqual(house[0]["district"], 21)
+        self.assertTrue(house[0]["all_columns_match"])
