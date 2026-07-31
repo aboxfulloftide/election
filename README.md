@@ -88,6 +88,7 @@ npm run kentucky:check          # validate Kentucky contest totals and contribut
 npm run kentucky:recaps:ocr     # OCR selected image-only Kentucky recap PDFs (requires tesseract)
 npm run kentucky:certified:download # stage Kentucky certified statewide reference PDFs
 npm run kentucky:certified:ocr      # add a searchable OCR layer (requires ocrmypdf and pdftotext)
+npm run kentucky:certified:merge    # replace validated 2022 Kentucky U.S. House contests
 npm run sources:report          # validate source registry and write docs/source-registry-report.md
 npm run coverage:national       # rebuild the 50-state federal/state coverage matrix
 npm run florida:fetch           # Florida 2012-2024: download/import/validate/generate

@@ -59,3 +59,19 @@ class KentuckySummaryTests(TestCase):
         self.assertEqual(contests[(2024, "President", None)]["source_files"], 119)
         self.assertLess(contests[(2022, "U.S. House", 1)]["source_files"], 118)
         self.assertEqual(validate_summary(summary), [])
+
+    def test_certified_house_override_is_complete_and_official(self) -> None:
+        summary = json.loads(
+            (ROOT_DIR / "public/results/kentucky-statewide-summary.json").read_text()
+        )
+        contests = {
+            contest.get("district_number"): contest
+            for election in summary["elections"]
+            if election["election"]["year"] == 2022
+            for contest in election["contests"]
+            if contest["office"] == "U.S. House"
+        }
+        self.assertEqual(set(contests), {1, 2, 3, 4, 5, 6})
+        self.assertTrue(all(contest["official"] for contest in contests.values()))
+        self.assertTrue(all(contest["source_format"] == "ky-certified-pdf-ocr" for contest in contests.values()))
+        self.assertEqual(contests[6]["total_votes"], 246818)

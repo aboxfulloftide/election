@@ -16,6 +16,20 @@ OCR_PATH = RAW_DIR / "2022_certified_general_election_results_ocr.txt"
 OUTPUT_PATH = RAW_DIR / "2022_certified_senate_reconciliation.json"
 NUMBER_RE = re.compile(r"(?<![A-Za-z])([0-9OoIl§][0-9,.OoIl§]*)(?![A-Za-z])")
 ZERO_OCR_TOKENS = {"ie)", "ie}", "ie]", "it)", "is}", "i?)", "iC)", "te)", "i)", "(¢)", ")"}
+HOUSE_CANDIDATES = {
+    1: [("James R. Comer", "REPUBLICAN"), ("Jimmy C. Ausbrooks", "DEMOCRAT")],
+    2: [("S. Brett Guthrie", "REPUBLICAN"), ("Hank Linderman", "DEMOCRAT")],
+    3: [("Morgan McGarvey", "DEMOCRAT"), ("Stuart N. Ray", "REPUBLICAN"), ("Daniel Cobble", "OTHER")],
+    4: [("Thomas Massie", "REPUBLICAN"), ("Matthew Lehman", "DEMOCRAT"), ("Ethan Keith Osborne", "INDEPENDENT")],
+    5: [("Harold \"Hal\" Rogers", "REPUBLICAN"), ("Conor Halbleib", "DEMOCRAT"), ("Stephan William Mazur", "OTHER")],
+    6: [("Andy Barr", "REPUBLICAN"), ("Geoffrey M. Young", "DEMOCRAT"), ("Maurice Randall Cravens II", "OTHER"), ("Maxwell Keith Froedge", "OTHER")],
+}
+HOUSE_OCR_CORRECTIONS = {
+    (4, "Boone", 1): 13001,
+    (5, "Carter", 1): 1587,
+    (6, "Bath", 2): 1,
+    (6, "Garrard", 3): 1,
+}
 OFFICE_RE = re.compile(r"^(United States Senator|United States Representative in Congress|State Senator|State Representative)$", re.I)
 DISTRICT_RE = re.compile(r"(\d+)(?:st|nd|rd|th)\s+(Congressional|Senatorial|Representative)\s+District", re.I)
 
@@ -161,12 +175,56 @@ def parse_us_house_county_rows(text: str) -> list[dict[str, Any]]:
             continue
         county = line[:line.find(matches[0])].strip(" _|:;-")
         if county.casefold() in county_names:
-            current["rows"].append({"county": county, "values": values, "raw": line})
+            corrected_values = list(values)
+            corrections = []
+            for index, value in enumerate(corrected_values):
+                corrected = HOUSE_OCR_CORRECTIONS.get((current["district"], county, index))
+                if corrected is not None and corrected != value:
+                    corrections.append({"column": index, "ocr_value": value, "corrected_value": corrected})
+                    corrected_values[index] = corrected
+            current["rows"].append({"county": county, "values": corrected_values, "ocr_values": values, "corrections": corrections, "raw": line})
     for district in districts:
         district["row_count"] = len(district["rows"])
         district["summed_columns"] = [sum(row["values"][index] for row in district["rows"] if len(row["values"]) > index) for index in range(4)]
         district["party_columns_match"] = district["summed_columns"][:2] == (district["official_total_votes"] or [])[:2]
+        district["all_columns_match"] = district["summed_columns"][:len(district["official_total_votes"] or [])] == (district["official_total_votes"] or [])
+        district["corrections_applied"] = sum(len(row["corrections"]) for row in district["rows"])
     return districts
+
+
+def build_us_house_contests(text: str) -> list[dict[str, Any]]:
+    """Build import-shaped U.S. House diagnostics from corrected county rows."""
+    contests = []
+    for district in parse_us_house_county_rows(text):
+        candidates = []
+        for index, (name, party) in enumerate(HOUSE_CANDIDATES.get(district["district"], [])):
+            votes = district["summed_columns"][index] if index < len(district["summed_columns"]) else 0
+            candidates.append({"candidate": name, "party": party, "votes": votes})
+        candidates.sort(key=lambda item: (-item["votes"], item["candidate"]))
+        official_total = sum(district["official_total_votes"] or [])
+        contests.append({
+            "office": "U.S. House",
+            "district_number": district["district"],
+            "year": 2022,
+            "state": "Kentucky",
+            "state_po": "KY",
+            "source_format": "ky-certified-pdf-ocr",
+            "quality_grade": "B",
+            "total_votes": official_total,
+            "name": f"Kentucky 2022 {district['district']} U.S. House District",
+            "source_url": "https://elect.ky.gov/results/2020-2029/Pages/2022.aspx",
+            "source_files": 1,
+            "district_label": f"{district['district']} Congressional District",
+            "candidate_votes_total": sum(item["votes"] for item in candidates),
+            "winner": candidates[0] if candidates else None,
+            "candidates": candidates,
+            "county_rows": district["row_count"],
+            "validated": district["all_columns_match"],
+            "corrections_applied": district["corrections_applied"],
+        })
+        contests[-1]["total_votes"] = sum(item["votes"] for item in candidates)
+        contests[-1]["margin_votes"] = candidates[0]["votes"] - candidates[1]["votes"] if len(candidates) > 1 else 0
+    return contests
 
 
 def parse_certified_totals(text: str) -> list[dict[str, Any]]:
@@ -210,6 +268,7 @@ def main() -> int:
     result["sections"] = certified_sections(text)
     result["us_house_totals"] = parse_us_house_totals(text)
     result["us_house_county_rows"] = parse_us_house_county_rows(text)
+    result["us_house_contests"] = build_us_house_contests(text)
     result["contest_totals"] = parse_certified_totals(text)
     house = next((section for section in result["sections"] if section["office"].lower().startswith("united states representative")), None)
     state_senate = next((section for section in result["sections"] if section["office"].lower() == "state senator"), None)
@@ -223,6 +282,7 @@ def main() -> int:
         "us_house_districts_inferred": bool(house and house["districts_inferred"]),
         "us_house_county_rows_complete": len(result["us_house_county_rows"]) == 6 and all(item["row_count"] > 0 for item in result["us_house_county_rows"]),
         "us_house_party_totals_match": len(result["us_house_county_rows"]) == 6 and all(item["party_columns_match"] for item in result["us_house_county_rows"]),
+        "us_house_all_columns_match": len(result["us_house_county_rows"]) == 6 and all(item["all_columns_match"] for item in result["us_house_county_rows"]),
         "expected_state_senate_districts": 19,
         "state_senate_districts_detected": len(state_senate["districts"]) if state_senate else 0,
         "state_house_districts_detected": sum(1 for item in result["contest_totals"] if item["office"] == "State House"),
