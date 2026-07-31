@@ -7,7 +7,7 @@ This audit checks which active federal/state office headings are present in each
 | Year | Files audited | President | U.S. Senate | U.S. House | Governor | State Senate | State House |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | 2020 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
-| 2022 | 118 | 0 | 45 | 45 | 0 | 26 | 45 |
-| 2024 | 120 | 97 | 0 | 97 | 0 | 47 | 97 |
+| 2022 | 118 | 0 | 50 | 50 | 0 | 30 | 51 |
+| 2024 | 120 | 119 | 0 | 118 | 0 | 59 | 119 |
 
 The parser must aggregate repeated precinct sections within each county report before contest reconciliation.

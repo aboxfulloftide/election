@@ -241,7 +241,11 @@
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Floyd_County.pdf",
-      "offices": []
+      "offices": [
+        "State House",
+        "U.S. House",
+        "U.S. Senate"
+      ]
     },
     {
       "year": 2022,
@@ -385,7 +389,10 @@
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Jefferson_County.pdf",
-      "offices": []
+      "offices": [
+        "State House",
+        "State Senate"
+      ]
     },
     {
       "year": 2022,
@@ -405,7 +412,12 @@
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Kenton_County.pdf",
-      "offices": []
+      "offices": [
+        "State House",
+        "State Senate",
+        "U.S. House",
+        "U.S. Senate"
+      ]
     },
     {
       "year": 2022,
@@ -425,7 +437,11 @@
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Laurel_County.pdf",
-      "offices": []
+      "offices": [
+        "State House",
+        "U.S. House",
+        "U.S. Senate"
+      ]
     },
     {
       "year": 2022,
@@ -493,7 +509,12 @@
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Madison_County.pdf",
-      "offices": []
+      "offices": [
+        "State House",
+        "State Senate",
+        "U.S. House",
+        "U.S. Senate"
+      ]
     },
     {
       "year": 2022,
@@ -558,7 +579,12 @@
     {
       "year": 2022,
       "file": "data/raw/official/kentucky/2022_Menifee_County.pdf",
-      "offices": []
+      "offices": [
+        "State House",
+        "State Senate",
+        "U.S. House",
+        "U.S. Senate"
+      ]
     },
     {
       "year": 2022,
@@ -918,7 +944,11 @@
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Breathitt.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
@@ -1037,12 +1067,22 @@
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Clay.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "State Senate",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Clinton.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "State Senate",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
@@ -1120,7 +1160,12 @@
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Floyd.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "State Senate",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
@@ -1297,12 +1342,20 @@
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Jackson.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "State Senate",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Jefferson.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House"
+      ]
     },
     {
       "year": 2024,
@@ -1316,22 +1369,42 @@
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Johnson.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "State Senate",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Kenton.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "State Senate",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Knott.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "State Senate",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Knox.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "State Senate",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
@@ -1345,7 +1418,12 @@
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Laurel.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "State Senate",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
@@ -1360,17 +1438,30 @@
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Lee.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Leslie.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Letcher.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "State Senate",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
@@ -1422,12 +1513,20 @@
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Madison.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Magoffin.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
@@ -1450,7 +1549,12 @@
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Martin.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "State Senate",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
@@ -1503,7 +1607,11 @@
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Menifee.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
@@ -1544,7 +1652,11 @@
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Morgan.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
@@ -1644,7 +1756,11 @@
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Powell.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
@@ -1669,7 +1785,12 @@
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Rockcastle.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "State Senate",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
@@ -1826,7 +1947,11 @@
     {
       "year": 2024,
       "file": "data/raw/official/kentucky/2024_Wolfe.pdf",
-      "offices": []
+      "offices": [
+        "President",
+        "State House",
+        "U.S. House"
+      ]
     },
     {
       "year": 2024,
@@ -1846,19 +1971,19 @@
     "2022": {
       "files": 118,
       "office_file_counts": {
-        "State House": 45,
-        "State Senate": 26,
-        "U.S. House": 45,
-        "U.S. Senate": 45
+        "State House": 51,
+        "State Senate": 30,
+        "U.S. House": 50,
+        "U.S. Senate": 50
       }
     },
     "2024": {
       "files": 120,
       "office_file_counts": {
-        "President": 97,
-        "State House": 97,
-        "U.S. House": 97,
-        "State Senate": 47
+        "President": 119,
+        "State House": 119,
+        "U.S. House": 118,
+        "State Senate": 59
       }
     }
   }

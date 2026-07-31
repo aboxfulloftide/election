@@ -38,12 +38,19 @@ def extract_text(path: Path) -> str:
 
 def offices_in_text(text: str) -> set[str]:
     offices = set()
+    pending = None
     for line in text.splitlines():
-        if "VOTE FOR" not in line.upper():
+        normalized = re.sub(r"\s+", " ", line.strip())
+        heading = next((office for office, pattern in OFFICE_PATTERNS if pattern.search(normalized)), None)
+        if heading:
+            pending = heading
+            if "VOTE FOR" in normalized.upper():
+                offices.add(heading)
+                pending = None
             continue
-        for office, pattern in OFFICE_PATTERNS:
-            if pattern.search(line):
-                offices.add(office)
+        if pending and normalized.upper().startswith("VOTE FOR"):
+            offices.add(pending)
+            pending = None
     return offices
 
 
