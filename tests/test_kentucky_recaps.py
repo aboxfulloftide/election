@@ -11,6 +11,7 @@ sys.path.insert(0, str(ROOT_DIR / "scripts"))
 
 from download_kentucky_general_recaps import LinkParser, destination
 from download_kentucky_certified import SOURCES
+from ocr_kentucky_certified import OCR_PDF_PATH, SOURCE_PATH, TEXT_PATH
 from ocr_kentucky_recaps import candidates, output_path
 from parse_kentucky_certified import certified_sections, parse_senate
 
@@ -67,6 +68,23 @@ United States Representative in Congress
         result = parse_senate(text)
         self.assertEqual(result["row_count"], 3)
         self.assertEqual(result["column_totals"], [14226, 4812, 0, 0])
+        self.assertEqual(result["official_total_votes"], [11818, 4182, 0, 0])
+
+    def test_certified_senate_parser_ignores_date_and_keeps_official_total(self) -> None:
+        text = """United States Senator
+November 8, 2022
+Allen 4,931 2,091 0 0
+Total Votes 4,931 2,091
+For the office of
+"""
+        result = parse_senate(text)
+        self.assertEqual(result["row_count"], 1)
+        self.assertEqual(result["official_total_votes"], [4931, 2091])
+
+    def test_certified_ocr_paths_are_raw_data_scoped(self) -> None:
+        self.assertEqual(SOURCE_PATH, ROOT_DIR / "data/raw/official/kentucky/2022_certified_general_election_results.pdf")
+        self.assertEqual(OCR_PDF_PATH, ROOT_DIR / "data/raw/official/kentucky/2022_certified_general_election_results_ocr.pdf")
+        self.assertEqual(TEXT_PATH, ROOT_DIR / "data/raw/official/kentucky/2022_certified_general_election_results_ocr.txt")
 
     def test_certified_section_inventory_identifies_office_lanes(self) -> None:
         text = """For the office of

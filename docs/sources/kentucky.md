@@ -21,6 +21,7 @@ npm run data:official:ky:download
 npm run data:official:ky:merge
 npm run data:official:ky
 npm run kentucky:certified:download -- --year 2022
+npm run kentucky:certified:ocr
 npm run kentucky:certified:parse
 npm run kentucky:recaps:download
 npm run kentucky:recaps:ocr -- --year 2022 --file 2022_Allen_County.pdf
@@ -38,9 +39,9 @@ The 2022 and 2024 recap PDFs are precinct-level reports. The parser now handles 
 
 The schema audit also records raw-file quality. The staged 2024 archive currently includes a blank Elliott County PDF and a Magoffin County PDF containing only a Mail In column, so those files cannot support a complete county total without replacement or an official statewide reference.
 
-The 2022 official results page also links `1.17.2023 Certified General Election Results.pdf`, a 258-page image-only statewide county table. It is now staged by `kentucky:certified:download` as the independent reconciliation source; its OCR still requires validation before it can replace the partial recap-derived summary.
+The 2022 official results page also links `1.17.2023 Certified General Election Results.pdf`, a 258-page image-only statewide county table. It is staged by `kentucky:certified:download` as the independent reconciliation source. The OCR-backed Senate diagnostic now finds all 120 counties and matches the printed Republican and Democratic totals; write-in columns and other offices still require validation before any values can replace the partial recap-derived summary.
 
-`kentucky:certified:parse` currently emits a diagnostic U.S. Senate county-table extraction under the ignored raw-data directory. It is intentionally not merged into the published summary until OCR row counts and totals pass independent validation.
+The certified PDF is image-only. Run `kentucky:certified:ocr` on a machine with `ocrmypdf` and `pdftotext` installed; it creates an ignored searchable PDF and layout-preserving text file. Then `kentucky:certified:parse` emits a diagnostic U.S. Senate county-table extraction under the ignored raw-data directory, including the parsed row count, summed columns, and the source's printed `Total Votes` line. It is intentionally not merged into the published summary until OCR values reconcile independently.
 
 For image-only 2022 reports, `npm run kentucky:recaps:ocr -- --year 2022 --limit N` stages OCR text under the ignored raw-data directory using a 100-DPI, resumable pass and Tesseract page-segmentation mode 4. Use `--psm 6` for precinct-style pages when needed. The generator and schema audit automatically use staged OCR text when present. OCR output still needs layout-specific normalization for recap-sheet scans, so OCR-derived rows are not promoted automatically.
 

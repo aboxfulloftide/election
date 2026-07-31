@@ -12,15 +12,16 @@ from typing import Any
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 RAW_DIR = ROOT_DIR / "data/raw/official/kentucky"
-OCR_PATH = RAW_DIR / "ocr/2022_certified_general_election_results.txt"
+OCR_PATH = RAW_DIR / "2022_certified_general_election_results_ocr.txt"
 OUTPUT_PATH = RAW_DIR / "2022_certified_senate_reconciliation.json"
-NUMBER_RE = re.compile(r"(?<![A-Za-z])([0-9OoIl][0-9,.OoIl]*)")
+NUMBER_RE = re.compile(r"(?<![A-Za-z])([0-9OoIl§][0-9,.OoIl§]*)(?![A-Za-z])")
+ZERO_OCR_TOKENS = {"ie)", "ie}", "ie]", "it)", "is}", "i?)", "iC)", "te)", "i)", "(¢)", ")"}
 OFFICE_RE = re.compile(r"^(United States Senator|United States Representative in Congress|State Senator|State Representative)$", re.I)
 DISTRICT_RE = re.compile(r"(\d+)(?:st|nd|rd|th)\s+(Congressional|Senatorial|Representative)\s+District", re.I)
 
 
 def number(value: str) -> int | None:
-    normalized = value.replace(",", "").replace(".", "").translate(str.maketrans({"O": "0", "o": "0", "I": "1", "l": "1"}))
+    normalized = value.replace(",", "").replace(".", "").translate(str.maketrans({"O": "0", "o": "0", "I": "1", "l": "1", "§": "5"}))
     return int(normalized) if normalized.isdigit() else None
 
 
@@ -70,9 +71,20 @@ def certified_sections(text: str) -> list[dict[str, Any]]:
 
 def parse_senate(text: str) -> dict[str, Any]:
     rows = []
+    official_totals = None
+    county_names = {
+        row["county_name"].casefold()
+        for row in json.loads((ROOT_DIR / "public/results/county-presidential-summary.json").read_text())["counties"]
+        if row["state_po"] == "KY"
+    }
     for raw_line in senate_section(text).splitlines():
         line = re.sub(r"\s+", " ", raw_line.replace("\f", " ")).strip()
-        if not line or line.lower().startswith(("republican party", "democratic party", "rand ", "paul", "total votes")):
+        line = " ".join("0" if token in ZERO_OCR_TOKENS else token for token in line.split())
+        if not line or line.lower().startswith(("republican party", "democratic party", "rand ", "paul", "total votes", "november ")):
+            if line.lower().startswith("total votes"):
+                matches = NUMBER_RE.findall(line)
+                values = [number(match) for match in matches]
+                official_totals = [value for value in values if value is not None]
             continue
         matches = NUMBER_RE.findall(line)
         values = [number(match) for match in matches]
@@ -80,11 +92,18 @@ def parse_senate(text: str) -> dict[str, Any]:
         if len(values) < 2:
             continue
         county = line[: matches[0] and line.find(matches[0])].strip(" _|:;-")
-        if not county or county.lower() in {"for the office of", "united states senator"}:
+        if county.casefold() not in county_names:
             continue
         rows.append({"county": county, "values": values[:4], "raw": line})
     totals = [sum(row["values"][index] for row in rows if len(row["values"]) > index) for index in range(4)]
-    return {"office": "U.S. Senate", "year": 2022, "rows": rows, "row_count": len(rows), "column_totals": totals}
+    return {
+        "office": "U.S. Senate",
+        "year": 2022,
+        "rows": rows,
+        "row_count": len(rows),
+        "column_totals": totals,
+        "official_total_votes": official_totals,
+    }
 
 
 def main() -> int:
@@ -102,6 +121,8 @@ def main() -> int:
     result["validation"] = {
         "expected_senate_counties": 120,
         "senate_counties_complete": result["row_count"] == 120,
+        "printed_party_totals_match": result["column_totals"][:2] == (result["official_total_votes"] or [])[:2],
+        "printed_write_in_totals_match": result["column_totals"][2:] == (result["official_total_votes"] or [])[2:],
         "expected_us_house_districts": 6,
         "us_house_districts_detected": len(house["districts"]) if house else 0,
         "us_house_districts_inferred": bool(house and house["districts_inferred"]),
