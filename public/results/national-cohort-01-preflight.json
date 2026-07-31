@@ -150,9 +150,11 @@
     {
       "state_po": "NC",
       "year": 2022,
-      "raw_file_count": 0,
-      "raw_files": [],
-      "status": "needs_source"
+      "raw_file_count": 1,
+      "raw_files": [
+        "data/raw/official/north-carolina/results_pct_20221108.zip"
+      ],
+      "status": "files_present"
     },
     {
       "state_po": "NC",
@@ -237,7 +239,7 @@
   ],
   "summary": {
     "state_year_batches": 30,
-    "files_present": 7,
-    "needs_source": 23
+    "files_present": 8,
+    "needs_source": 22
   }
 }
