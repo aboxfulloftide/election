@@ -43,3 +43,4 @@ class KentuckySummaryTests(TestCase):
         ]
         self.assertNotIn("Republican Party", candidates)
         self.assertNotIn("Democratic Party", candidates)
+        self.assertEqual(summary["source"]["completeness"], "partial")

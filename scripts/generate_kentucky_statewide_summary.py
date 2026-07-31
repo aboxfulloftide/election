@@ -14,8 +14,9 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 RAW_DIR = ROOT_DIR / "data/raw/official/kentucky"
 OUTPUT_PATH = ROOT_DIR / "public/results/kentucky-statewide-summary.json"
 
-PARTY_MAP = {"DEM": "DEMOCRAT", "REP": "REPUBLICAN", "LIB": "LIBERTARIAN", "IND": "INDEPENDENT", "KY": "OTHER"}
+PARTY_MAP = {"DEM": "DEMOCRAT", "REP": "REPUBLICAN", "LIB": "LIBERTARIAN", "IND": "INDEPENDENT", "KY": "OTHER", "KEN": "OTHER"}
 PARTY_RE = re.compile(r"\s+(DEM|REP|LIB|IND|KY)\s+")
+PREFIX_PARTY_RE = re.compile(r"^(DEM|REP|LIB|IND|KEN)\s+(.+?)\s+(\d[\d,]*)(?:\s+|$)")
 TOTAL_RE = re.compile(r"(\d[\d,]*)\s+\d+(?:\.\d+)?%\s*$")
 
 
@@ -25,15 +26,15 @@ def office_for_heading(line: str) -> tuple[str, int | None, str] | None:
         return "President", None, "President"
     if "UNITED STATES SENATOR" in value:
         return "U.S. Senate", None, "U.S. Senate"
-    match = re.search(r"UNITED STATES REPRESENTATIVE.*?(\d+)(?:ST|ND|RD|TH) CONGRESSIONAL DISTRICT", value)
+    match = re.search(r"(?:UNITED STATES|U\.S\.) REPRESENTATIVE.*?(\d+)(?:ST|ND|RD|TH).*?(?:CONGRESSIONAL|CD).*?DISTRICT", value)
     if match:
         district = int(match.group(1))
         return "U.S. House", district, f"{district} Congressional District"
-    match = re.search(r"STATE SENATOR.*?(\d+)(?:ST|ND|RD|TH) SENATORIAL DISTRICT", value)
+    match = re.search(r"STATE SENATOR.*?(\d+)(?:ST|ND|RD|TH).*?SENATORIAL.*?DISTRICT", value)
     if match:
         district = int(match.group(1))
         return "State Senate", district, f"{district} State Senate District"
-    match = re.search(r"STATE REPRESENTATIVE.*?(\d+)(?:ST|ND|RD|TH) REPRESENTATIVE DISTRICT", value)
+    match = re.search(r"STATE REPRESENTATIVE.*?(\d+)(?:ST|ND|RD|TH).*?REPRESENTATIVE.*?DISTRICT", value)
     if match:
         district = int(match.group(1))
         return "State House", district, f"{district} State House District"
@@ -44,24 +45,62 @@ def parse_file(path: Path) -> dict[tuple[str, int | None], dict[tuple[str, str],
     text = subprocess.run(["pdftotext", "-layout", str(path), "-"], check=True, capture_output=True, text=True, errors="replace").stdout
     totals: dict[tuple[str, int | None], dict[tuple[str, str], int]] = defaultdict(lambda: defaultdict(int))
     current: tuple[str, int | None] | None = None
+    pending: tuple[str, int | None] | None = None
     for raw_line in text.splitlines():
         line = re.sub(r"\s+", " ", raw_line).strip()
         heading = office_for_heading(line)
-        if " - (VOTE FOR" in line.upper():
-            current = (heading[0], heading[1]) if heading else None
-            if current is not None:
-                continue
+        upper = line.upper()
+        if heading:
+            pending = (heading[0], heading[1])
+            if "VOTE FOR" in upper:
+                current = pending
+                pending = None
+            else:
+                current = None
+            continue
+        if pending and upper.startswith("VOTE FOR"):
+            current = pending
+            pending = None
+            continue
+        if "VOTE FOR" in upper and not upper.startswith("VOTE FOR"):
+            current = None
+            pending = None
+            continue
+        if current and upper.startswith(("UNITED STATES REPRESENTATIVE", "U.S. REPRESENTATIVE", "STATE SENATE", "STATE REPRESENTATIVE")):
+            current = None
+            pending = None
+            continue
+        heading_prefixes = (
+            "JUDGE", "COUNTY", "COMMONWEALTH", "CIRCUIT", "CLERK", "CORONER", "SHERIFF",
+            "ATTORNEY", "PROPERTY", "SCHOOL", "MAYOR", "CITY", "MAGISTRATE", "CONSTABLE",
+        )
+        if current and not re.search(r"\d", line) and (" - " in line or upper.startswith(heading_prefixes)):
+            current = None
+            continue
+        if current and upper.startswith("WRITE-IN TOTALS"):
+            total_match = TOTAL_RE.search(line)
+            values = re.findall(r"\d[\d,]*", line)
+            total_votes = int(total_match.group(1).replace(",", "")) if total_match else (int(values[0].replace(",", "")) if values else 0)
+            totals[current][("Write-In Totals", "OTHER")] += total_votes
+            continue
         if current is None or not line or line.startswith(("Cast Votes:", "Undervotes:", "Overvotes:")):
             continue
+        prefix_match = PREFIX_PARTY_RE.match(line)
         party_match = PARTY_RE.search(f" {line} ")
         total_match = TOTAL_RE.search(line)
-        if not party_match or not total_match:
+        if prefix_match:
+            party = PARTY_MAP[prefix_match.group(1)]
+            candidate = prefix_match.group(2).strip()
+            total_votes = int(prefix_match.group(3).replace(",", ""))
+        elif party_match and total_match:
+            candidate = line[:party_match.start()].strip()
+            party = PARTY_MAP[party_match.group(1)]
+            total_votes = int(total_match.group(1).replace(",", ""))
+        else:
             continue
-        candidate = line[:party_match.start()].strip()
         if not candidate or candidate.upper() in {"CHOICE", "PARTY"}:
             continue
-        party = PARTY_MAP[party_match.group(1)]
-        totals[current][(candidate, party)] += int(total_match.group(1).replace(",", ""))
+        totals[current][(candidate, party)] += total_votes
     return totals
 
 
