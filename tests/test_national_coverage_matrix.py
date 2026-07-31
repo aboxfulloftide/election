@@ -61,3 +61,16 @@ class NationalCoverageMatrixTests(TestCase):
             {"President", "U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"},
         )
         self.assertEqual([len(election["contests"]) for election in summary["elections"]], [186, 185, 186])
+
+    def test_modern_cohort_inventory_keeps_official_source_lanes_explicit(self) -> None:
+        registry = json.loads((ROOT_DIR / "data/source-registry/georgia.json").read_text())
+        imported = next(entry for entry in registry["entries"] if entry["status"] == "imported")
+        self.assertEqual(imported["years"], [2022])
+        self.assertIn("State House", imported["offices"])
+        summary = json.loads((ROOT_DIR / "public/results/georgia-2022-official-contests.json").read_text())
+        contests = summary["elections"][0]["contests"]
+        self.assertEqual(len(contests), 252)
+        self.assertEqual({contest["office"] for contest in contests}, {"U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"})
+        for contest in contests:
+            self.assertEqual(sum(candidate["votes"] for candidate in contest["candidates"]), contest["total_votes"])
+            self.assertEqual(contest["winner"]["votes"], max(candidate["votes"] for candidate in contest["candidates"]))

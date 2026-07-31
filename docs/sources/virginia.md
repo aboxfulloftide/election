@@ -22,7 +22,7 @@ npm run virginia:generate
 npm run virginia:check
 ```
 
-The generated federal summary is `public/results/virginia-statewide-summary.json` with 26 contests. State legislative offices require separate odd-year election coverage and are not represented by the current even-year federal inventory.
+The generated federal summary is `public/results/virginia-statewide-summary.json` with 26 contests. State legislative offices require separate odd-year election coverage and are not represented by the current even-year federal inventory; the 2020, 2022, and 2024 even-year lanes are therefore recorded as not applicable for this cohort rather than treated as missing downloads.
 
 `npm run virginia:check` verifies that every contest's candidate totals reconcile to total votes, the recorded winner and margin are mathematically correct, contest IDs are unique, and both years contain all 11 U.S. House districts.
 

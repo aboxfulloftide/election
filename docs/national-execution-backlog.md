@@ -18,9 +18,9 @@ Municipal and city elections remain archived project material and are outside th
 
 ### 2. Complete the first modern-data cohort
 
-Process Georgia, North Carolina, Virginia, and Wisconsin together for 2020, 2022, and 2024. Each state batch must include official source files, a repeatable importer, normalized contests, source references, reconciliation tests, generated output, registry updates, and documentation.
+Process Georgia, North Carolina, Virginia, and Wisconsin together for 2020, 2022, and 2024. Georgia 2022 now has the repeatable importer, normalized contests, source references, reconciliation tests, generated output, registry update, and documentation; the remaining state-year lanes still require the same completion criteria.
 
-Virginia's existing federal contests and Kentucky's current certified federal work are inputs to this cohort; state-office lanes remain open until their applicable years are imported.
+Virginia's existing federal contests and Kentucky's current certified federal work are inputs to this cohort; Virginia state-office lanes are recorded as generally odd-year and should not be treated as missing even-year downloads.
 
 ### 3. Finish modern 2020-2024 coverage
 

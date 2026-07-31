@@ -9,6 +9,7 @@ from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 SUMMARY_PATH = ROOT_DIR / "public/results/kentucky-statewide-summary.json"
+CERTIFIED_PATH = ROOT_DIR / "data/raw/official/kentucky/2022_certified_senate_reconciliation.json"
 ALLOWED_OFFICES = {"President", "U.S. Senate", "U.S. House", "State Senate", "State House"}
 
 
@@ -45,6 +46,14 @@ def validate_summary(summary: dict) -> list[str]:
         failures.append("2022 U.S. Senate must have 49 contributing reports")
     if by_key.get((2024, "President", None), {}).get("source_files") != 119:
         failures.append("2024 President must have 119 contributing reports")
+    if not CERTIFIED_PATH.exists():
+        failures.append("certified Kentucky reconciliation artifact is missing")
+    else:
+        certified = json.loads(CERTIFIED_PATH.read_text(encoding="utf-8"))
+        validation = certified.get("validation", {})
+        for key in ("state_senate_county_rows_complete", "state_house_county_rows_complete", "state_senate_totals_match", "state_house_totals_match"):
+            if validation.get(key) is not True:
+                failures.append(f"certified Kentucky {key} must be true")
     return failures
 
 

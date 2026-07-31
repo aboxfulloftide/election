@@ -3,17 +3,30 @@
   "state_po": "GA",
   "entries": [
     {
-      "id": "ga-sos-federal-state-2020-2024",
+      "id": "ga-sos-federal-state-2020-2024-source",
       "scope": "statewide",
       "offices": ["President", "U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"],
-      "years": [2020, 2022, 2024],
+      "years": [2020, 2024],
       "status": "source_identified",
       "format": "sos-precinct-archive",
       "geography": "precinct-or-county",
       "quality_grade": null,
       "parser": "planned:georgia-state-federal-import",
       "urls": ["https://sos.ga.gov/page/historical-elections-results"],
-      "notes": "Official Georgia historical results page identified for the first 2020-2024 federal/state cohort; parser and full office-year import remain pending."
+      "notes": "Official Georgia historical results page identified for the remaining 2020 and 2024 federal/state lanes. The 2022 lane is imported separately from the official county summary ZIP."
+    },
+    {
+      "id": "ga-sos-federal-state-2022-imported",
+      "scope": "statewide",
+      "offices": ["U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"],
+      "years": [2022],
+      "status": "imported",
+      "format": "sos-county-summary-zip",
+      "geography": "county-or-district",
+      "quality_grade": "A",
+      "parser": "scripts/generate_georgia_2022_contests.py",
+      "urls": ["https://sos.ga.gov/sites/default/files/2026-05/November%208%2C%202022%20-%20General-Special%20Election.zip"],
+      "notes": "252 official contest totals normalized from 159 county summary ZIPs. The generated artifact is public/results/georgia-2022-official-contests.json; candidate lanes with uncontested races remain single-candidate contests."
     }
   ]
 }
