@@ -26,7 +26,7 @@
       "quality_grade": "A",
       "parser": "scripts/generate_virginia_statewide_summary.py",
       "urls": ["https://historical.elections.virginia.gov/"],
-      "notes": "Verified contest pages and official CSV endpoints normalized into 17 federal contests across 2020 and 2024."
+      "notes": "Verified contest pages and official CSV endpoints normalized into 26 federal contests across 2020 and 2024: President, U.S. Senate, and all 11 U.S. House districts in each year."
     }
   ]
 }
