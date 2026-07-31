@@ -28,7 +28,7 @@ def output_path(path: Path) -> Path:
     return OCR_DIR / f"{path.stem}.txt"
 
 
-def ocr_pdf(path: Path, dpi: int = 100) -> Path:
+def ocr_pdf(path: Path, dpi: int = 100, psm: int = 4) -> Path:
     destination = output_path(path)
     if destination.exists() and destination.stat().st_size > 100:
         return destination
@@ -41,7 +41,7 @@ def ocr_pdf(path: Path, dpi: int = 100) -> Path:
         chunks = []
         for page in pages:
             result = subprocess.run(
-                ["tesseract", str(page), "stdout", "--psm", "6"],
+                ["tesseract", str(page), "stdout", "--psm", str(psm)],
                 check=True,
                 capture_output=True,
                 text=True,
@@ -70,6 +70,7 @@ def main() -> int:
     parser.add_argument("--file", action="append", default=[], help="Specific staged PDF filename; repeatable.")
     parser.add_argument("--limit", type=int, help="Process at most this many blank PDFs.")
     parser.add_argument("--workers", type=int, default=2)
+    parser.add_argument("--psm", type=int, default=4, help="Tesseract page segmentation mode.")
     args = parser.parse_args()
     selected = candidates(args.year, args.file)
     if args.limit:
@@ -79,7 +80,7 @@ def main() -> int:
         return 0
     failures = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as executor:
-        futures = {executor.submit(ocr_pdf, path): path for path in selected}
+        futures = {executor.submit(ocr_pdf, path, 100, args.psm): path for path in selected}
         for future in concurrent.futures.as_completed(futures):
             path = futures[future]
             try:

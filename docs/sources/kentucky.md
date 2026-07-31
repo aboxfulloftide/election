@@ -36,6 +36,6 @@ The 2022 and 2024 recap PDFs are precinct-level reports. The parser now handles 
 
 The schema audit also records raw-file quality. The staged 2024 archive currently includes a blank Elliott County PDF and a Magoffin County PDF containing only a Mail In column, so those files cannot support a complete county total without replacement or an official statewide reference.
 
-For image-only 2022 reports, `npm run kentucky:recaps:ocr -- --year 2022 --limit N` stages OCR text under the ignored raw-data directory using a 100-DPI, resumable pass. The generator and schema audit automatically use staged OCR text when present. OCR output still needs layout-specific normalization for recap-sheet scans, so OCR-derived rows are not promoted automatically.
+For image-only 2022 reports, `npm run kentucky:recaps:ocr -- --year 2022 --limit N` stages OCR text under the ignored raw-data directory using a 100-DPI, resumable pass and Tesseract page-segmentation mode 4. Use `--psm 6` for precinct-style pages when needed. The generator and schema audit automatically use staged OCR text when present. OCR output still needs layout-specific normalization for recap-sheet scans, so OCR-derived rows are not promoted automatically.
 
 Rows written to `public/results/county-presidential-summary.json` are marked with `official: true`, Kentucky State Board of Elections source metadata, and quality grade `B`.
