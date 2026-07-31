@@ -1,0 +1,142 @@
+{
+  "wave": "2010-2018",
+  "scope": "federal-and-state",
+  "years": [
+    2010,
+    2012,
+    2014,
+    2016,
+    2018
+  ],
+  "offices": [
+    "President",
+    "U.S. Senate",
+    "U.S. House",
+    "Governor",
+    "State Senate",
+    "State House"
+  ],
+  "cohorts": [
+    {
+      "id": "2010-2018-cohort-01",
+      "states": [
+        "AL",
+        "AK",
+        "AZ",
+        "AR",
+        "CA",
+        "CO",
+        "CT",
+        "DE",
+        "FL",
+        "GA"
+      ],
+      "years": [
+        2010,
+        2012,
+        2014,
+        2016,
+        2018
+      ],
+      "status": "active",
+      "next_action": "Acquire official sources, build repeatable parsers, reconcile contests, and update registry/output/tests."
+    },
+    {
+      "id": "2010-2018-cohort-02",
+      "states": [
+        "HI",
+        "ID",
+        "IL",
+        "IN",
+        "IA",
+        "KS",
+        "KY",
+        "LA",
+        "ME",
+        "MD"
+      ],
+      "years": [
+        2010,
+        2012,
+        2014,
+        2016,
+        2018
+      ],
+      "status": "queued",
+      "next_action": "Acquire official sources, build repeatable parsers, reconcile contests, and update registry/output/tests."
+    },
+    {
+      "id": "2010-2018-cohort-03",
+      "states": [
+        "MA",
+        "MI",
+        "MN",
+        "MS",
+        "MO",
+        "MT",
+        "NE",
+        "NV",
+        "NH",
+        "NJ"
+      ],
+      "years": [
+        2010,
+        2012,
+        2014,
+        2016,
+        2018
+      ],
+      "status": "queued",
+      "next_action": "Acquire official sources, build repeatable parsers, reconcile contests, and update registry/output/tests."
+    },
+    {
+      "id": "2010-2018-cohort-04",
+      "states": [
+        "NM",
+        "NY",
+        "NC",
+        "ND",
+        "OH",
+        "OK",
+        "OR",
+        "PA",
+        "RI",
+        "SC"
+      ],
+      "years": [
+        2010,
+        2012,
+        2014,
+        2016,
+        2018
+      ],
+      "status": "queued",
+      "next_action": "Acquire official sources, build repeatable parsers, reconcile contests, and update registry/output/tests."
+    },
+    {
+      "id": "2010-2018-cohort-05",
+      "states": [
+        "SD",
+        "TN",
+        "TX",
+        "UT",
+        "VT",
+        "VA",
+        "WA",
+        "WV",
+        "WI",
+        "WY"
+      ],
+      "years": [
+        2010,
+        2012,
+        2014,
+        2016,
+        2018
+      ],
+      "status": "queued",
+      "next_action": "Acquire official sources, build repeatable parsers, reconcile contests, and update registry/output/tests."
+    }
+  ],
+  "completion_rule": "Every applicable cell in a cohort must have source metadata, normalized contests, reconciliation tests, generated output, and documentation."
+}

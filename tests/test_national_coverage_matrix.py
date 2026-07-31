@@ -53,6 +53,11 @@ class NationalCoverageMatrixTests(TestCase):
         legacy_early = json.loads((ROOT_DIR / "data/national-cohorts/legacy-2000-2008.json").read_text())
         self.assertEqual(legacy_early["years"], [2000, 2002, 2004, 2006, 2008])
         self.assertEqual(len(legacy_early["states"]) * len(legacy_early["years"]) * len(legacy_early["offices"]), 1500)
+        for wave in ("2010-2018", "2000-2008"):
+            cohorts = json.loads((ROOT_DIR / f"data/national-cohorts/{wave}-cohorts.json").read_text())["cohorts"]
+            self.assertEqual(len(cohorts), 5)
+            self.assertEqual(sum(len(cohort["states"]) for cohort in cohorts), 50)
+            self.assertEqual(cohorts[0]["status"], "active")
 
     def test_north_carolina_summary_contains_only_active_offices(self) -> None:
         summary = json.loads(
