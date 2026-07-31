@@ -10,15 +10,15 @@ Municipal and city elections remain archived project material and are outside th
 
 ### 1. Finalize Kentucky
 
-- Candidate names are extracted for all 19 State Senate and 100 State House contests; `npm run kentucky:candidates:audit` verifies the readiness split.
-- Validated 2022 State Senate and State House contests are promoted into the published summary.
+- Candidate names are extracted for all 19 State Senate and 100 State House contests; `npm run kentucky:candidates:audit` now prints the certified-header readiness counts directly.
+- Validated 2022 State Senate and State House contests are promoted into the published summary and covered by reconciliation checks.
 - Validate and import Kentucky 2020 and 2024 federal/state contests.
 - Resolve remaining Kentucky Senate write-in validation.
 - Move Kentucky from `source_identified` to `imported` only after all applicable cells pass reconciliation.
 
 ### 2. Complete the first modern-data cohort
 
-Process Georgia, North Carolina, Virginia, and Wisconsin together for 2020, 2022, and 2024. Georgia 2020, 2022, and 2024 now have repeatable importers, normalized contests, source references, reconciliation tests, generated output, registry updates, and documentation; the remaining state-year lanes still require the same completion criteria.
+Process Georgia, North Carolina, Virginia, and Wisconsin together for 2020, 2022, and 2024. Georgia is now marked imported for its applicable contests, with explicit non-ballot exceptions. Virginia has its 2020/2024 federal contests and odd-year state-office applicability documented. Kentucky's validated 2022 legislative contests are included in the same completion batch; Wisconsin remains source-identified until the missing official reports are staged.
 
 Virginia's existing federal contests and Kentucky's current certified federal work are inputs to this cohort; Virginia state-office lanes are recorded as generally odd-year and should not be treated as missing even-year downloads.
 
@@ -67,7 +67,7 @@ npm run check
 npm run build
 ```
 
-Current execution begins with Work Packages 1, 2, and 3. Work proceeds in state/year cohorts rather than individual contest-sized changes.
+Current execution is Work Packages 1, 2, and 3 together. The generated preflight at `docs/national-cohort-01-preflight.md` now distinguishes raw files, generated artifacts, and missing source retrieval, so generic raw filenames do not hide completed importer work. Work proceeds in state/year cohorts rather than individual contest-sized changes.
 
 Machine-readable execution inventories:
 

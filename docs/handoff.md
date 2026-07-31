@@ -105,7 +105,7 @@ Expected:
 
 The active target is now the 4,200-cell matrix in `public/results/national-coverage-matrix.json`: 50 states, even-year general elections from 2000 through 2026, and President, U.S. Senate, U.S. House, Governor, State Senate, and State House/Assembly. Municipal datasets remain archived and are not part of this work.
 
-The execution backlog for the national work is documented in `docs/national-execution-backlog.md`. The active batch is Kentucky completion plus the Georgia, North Carolina, Virginia, and Wisconsin 2020-2024 cohort. Georgia 2020, 2022, and 2024 are normalized into separate generated contest artifacts. Kentucky's 119 certified 2022 legislative contests are promoted; Wisconsin remains source-identified because direct WEC archive access is challenged.
+The execution backlog for the national work is documented in `docs/national-execution-backlog.md`. The active batch is Kentucky completion plus the Georgia, North Carolina, Virginia, and Wisconsin 2020-2024 cohort. Georgia 2020, 2022, and 2024 are normalized into separate generated contest artifacts. Kentucky's 119 certified 2022 legislative contests are promoted and audited; Virginia's 2020/2024 federal contests are imported with odd-year state-office applicability recorded; Wisconsin remains source-identified because direct WEC archive access is challenged. Run `npm run national:cohort:preflight` to see raw-source and generated-artifact availability for every state/year batch.
 
 The legacy waves are now operationally partitioned into five ten-state cohorts each. `npm run legacy:status` reports explicit source-backed coverage, while `npm run legacy:cohorts` regenerates the cohort plans.
 

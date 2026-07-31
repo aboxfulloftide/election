@@ -68,7 +68,11 @@ def main() -> int:
     output.write_text(json.dumps(report, separators=(",", ":")), encoding="utf-8")
     print(f"Wrote {output.relative_to(ROOT_DIR)}")
     for office, result in report["offices"].items():
-        print(f"{office}: {result['recap_metadata_ready']} ready, {result['header_extraction_needed']} need header extraction")
+        print(
+            f"{office}: {result['candidate_metadata_ready']} candidate metadata ready "
+            f"({result['certified_header_ready']} certified headers), "
+            f"{result['header_extraction_needed']} need header extraction"
+        )
     return 0
 
 

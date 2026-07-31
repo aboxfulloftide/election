@@ -17,17 +17,33 @@
     { "state_po": "PA", "status": "imported" },
     { "state_po": "TX", "status": "imported" },
     { "state_po": "OH", "status": "imported" },
-    { "state_po": "GA", "status": "source_identified" },
+    {
+      "state_po": "GA",
+      "status": "imported",
+      "details": "2020, 2022, and 2024 official contest artifacts are generated; non-ballot 2020 Governor and 2024 regular U.S. Senate are explicit exceptions."
+    },
     { "state_po": "NC", "status": "imported" },
-    { "state_po": "VA", "status": "source_identified" },
-    { "state_po": "WI", "status": "source_identified" },
-    { "state_po": "KY", "status": "source_identified" }
+    {
+      "state_po": "VA",
+      "status": "source_identified",
+      "details": "2020 and 2024 federal contests are imported; 2022 federal results and all even-year state-office applicability remain unresolved."
+    },
+    {
+      "state_po": "WI",
+      "status": "source_identified",
+      "details": "2024 presidential county canvass is imported; 2020/2022 and non-presidential 2024 official reports are still needed."
+    },
+    {
+      "state_po": "KY",
+      "status": "source_identified",
+      "details": "2022 State Senate and State House contests are imported and reconciled; remaining federal, Governor, and 2020/2024 lanes are still open."
+    }
   ],
   "years": [2020, 2022, 2024],
   "next_actions": [
-    "Complete Georgia and Wisconsin federal/state source acquisition beyond their current presidential files.",
-    "Promote Kentucky validated state legislative contests after candidate extraction.",
-    "Record Virginia state-office non-ballot applicability and complete any applicable cells.",
+    "Complete Wisconsin 2020/2022 and non-presidential 2024 official report acquisition.",
+    "Complete Kentucky federal, Governor, 2020, and 2024 lanes after source acquisition.",
+    "Acquire Virginia 2022 federal results and document the odd-year state-office applicability boundary.",
     "Run reconciliation and focused regression tests before marking each state imported.",
     "Regenerate the national coverage matrix and source registry report."
   ]

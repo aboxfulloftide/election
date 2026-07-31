@@ -15,6 +15,8 @@
       "year": 2020,
       "raw_file_count": 0,
       "raw_files": [],
+      "generated_file_count": 0,
+      "generated_files": [],
       "status": "needs_source"
     },
     {
@@ -22,6 +24,8 @@
       "year": 2022,
       "raw_file_count": 0,
       "raw_files": [],
+      "generated_file_count": 0,
+      "generated_files": [],
       "status": "needs_source"
     },
     {
@@ -29,6 +33,8 @@
       "year": 2024,
       "raw_file_count": 0,
       "raw_files": [],
+      "generated_file_count": 0,
+      "generated_files": [],
       "status": "needs_source"
     },
     {
@@ -36,107 +42,170 @@
       "year": 2020,
       "raw_file_count": 0,
       "raw_files": [],
-      "status": "needs_source"
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/california-statewide-summary.json"
+      ],
+      "status": "artifact_present"
     },
     {
       "state_po": "CA",
       "year": 2022,
       "raw_file_count": 0,
       "raw_files": [],
-      "status": "needs_source"
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/california-statewide-summary.json"
+      ],
+      "status": "artifact_present"
     },
     {
       "state_po": "CA",
       "year": 2024,
       "raw_file_count": 0,
       "raw_files": [],
-      "status": "needs_source"
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/california-statewide-summary.json"
+      ],
+      "status": "artifact_present"
     },
     {
       "state_po": "PA",
       "year": 2020,
       "raw_file_count": 0,
       "raw_files": [],
-      "status": "needs_source"
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/pennsylvania-statewide-summary.json"
+      ],
+      "status": "artifact_present"
     },
     {
       "state_po": "PA",
       "year": 2022,
       "raw_file_count": 0,
       "raw_files": [],
-      "status": "needs_source"
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/pennsylvania-statewide-summary.json"
+      ],
+      "status": "artifact_present"
     },
     {
       "state_po": "PA",
       "year": 2024,
       "raw_file_count": 0,
       "raw_files": [],
-      "status": "needs_source"
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/pennsylvania-statewide-summary.json"
+      ],
+      "status": "artifact_present"
     },
     {
       "state_po": "TX",
       "year": 2020,
       "raw_file_count": 0,
       "raw_files": [],
-      "status": "needs_source"
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/texas-statewide-summary.json"
+      ],
+      "status": "artifact_present"
     },
     {
       "state_po": "TX",
       "year": 2022,
       "raw_file_count": 0,
       "raw_files": [],
-      "status": "needs_source"
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/texas-statewide-summary.json"
+      ],
+      "status": "artifact_present"
     },
     {
       "state_po": "TX",
       "year": 2024,
       "raw_file_count": 0,
       "raw_files": [],
-      "status": "needs_source"
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/texas-statewide-summary.json"
+      ],
+      "status": "artifact_present"
     },
     {
       "state_po": "OH",
       "year": 2020,
       "raw_file_count": 0,
       "raw_files": [],
-      "status": "needs_source"
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/ohio-statewide-summary.json"
+      ],
+      "status": "artifact_present"
     },
     {
       "state_po": "OH",
       "year": 2022,
       "raw_file_count": 0,
       "raw_files": [],
-      "status": "needs_source"
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/ohio-statewide-summary.json"
+      ],
+      "status": "artifact_present"
     },
     {
       "state_po": "OH",
       "year": 2024,
       "raw_file_count": 0,
       "raw_files": [],
-      "status": "needs_source"
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/ohio-statewide-summary.json"
+      ],
+      "status": "artifact_present"
     },
     {
       "state_po": "GA",
       "year": 2020,
-      "raw_file_count": 1,
+      "raw_file_count": 2,
       "raw_files": [
+        "data/raw/official/georgia/november_3_2020_-_general_election.zip",
         "data/raw/official/georgia/november_3_2020_-_general_election_recount.zip"
+      ],
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/georgia-2020-official-contests.json"
       ],
       "status": "files_present"
     },
     {
       "state_po": "GA",
       "year": 2022,
-      "raw_file_count": 0,
-      "raw_files": [],
-      "status": "needs_source"
+      "raw_file_count": 1,
+      "raw_files": [
+        "data/raw/official/georgia/november_8_2022_-_general_special_election.zip"
+      ],
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/georgia-2022-official-contests.json"
+      ],
+      "status": "files_present"
     },
     {
       "state_po": "GA",
       "year": 2024,
       "raw_file_count": 0,
       "raw_files": [],
-      "status": "needs_source"
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/georgia-2024-official-contests.json"
+      ],
+      "status": "artifact_present"
     },
     {
       "state_po": "NC",
@@ -144,6 +213,10 @@
       "raw_file_count": 1,
       "raw_files": [
         "data/raw/official/north-carolina/results_pct_20201103.zip"
+      ],
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/north-carolina-statewide-summary.json"
       ],
       "status": "files_present"
     },
@@ -154,6 +227,10 @@
       "raw_files": [
         "data/raw/official/north-carolina/results_pct_20221108.zip"
       ],
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/north-carolina-statewide-summary.json"
+      ],
       "status": "files_present"
     },
     {
@@ -163,14 +240,35 @@
       "raw_files": [
         "data/raw/official/north-carolina/results_pct_20241105.zip"
       ],
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/north-carolina-statewide-summary.json"
+      ],
       "status": "files_present"
     },
     {
       "state_po": "VA",
       "year": 2020,
-      "raw_file_count": 1,
+      "raw_file_count": 14,
       "raw_files": [
+        "data/raw/official/virginia/contests/va_2020_144559_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2020_144564_u_s_senate.csv",
+        "data/raw/official/virginia/contests/va_2020_144567_president.csv",
+        "data/raw/official/virginia/contests/va_2020_144571_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2020_144575_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2020_144577_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2020_144579_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2020_144580_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2020_144603_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2020_144606_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2020_144611_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2020_144619_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2020_144633_u_s_house.csv",
         "data/raw/official/virginia/va_2020_president.csv"
+      ],
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/virginia-statewide-summary.json"
       ],
       "status": "files_present"
     },
@@ -179,14 +277,33 @@
       "year": 2022,
       "raw_file_count": 0,
       "raw_files": [],
+      "generated_file_count": 0,
+      "generated_files": [],
       "status": "needs_source"
     },
     {
       "state_po": "VA",
       "year": 2024,
-      "raw_file_count": 1,
+      "raw_file_count": 14,
       "raw_files": [
+        "data/raw/official/virginia/contests/va_2024_161256_president.csv",
+        "data/raw/official/virginia/contests/va_2024_161257_u_s_senate.csv",
+        "data/raw/official/virginia/contests/va_2024_161258_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2024_161288_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2024_161292_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2024_161293_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2024_161299_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2024_161312_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2024_161321_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2024_161347_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2024_161384_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2024_161738_u_s_house.csv",
+        "data/raw/official/virginia/contests/va_2024_161739_u_s_house.csv",
         "data/raw/official/virginia/va_2024_president.csv"
+      ],
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/virginia-statewide-summary.json"
       ],
       "status": "files_present"
     },
@@ -195,6 +312,8 @@
       "year": 2020,
       "raw_file_count": 0,
       "raw_files": [],
+      "generated_file_count": 0,
+      "generated_files": [],
       "status": "needs_source"
     },
     {
@@ -202,6 +321,8 @@
       "year": 2022,
       "raw_file_count": 0,
       "raw_files": [],
+      "generated_file_count": 0,
+      "generated_files": [],
       "status": "needs_source"
     },
     {
@@ -210,6 +331,10 @@
       "raw_file_count": 1,
       "raw_files": [
         "data/raw/official/wisconsin/county_by_county_report_potus_2024.pdf"
+      ],
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/county-presidential-summary.json"
       ],
       "status": "files_present"
     },
@@ -220,12 +345,14 @@
       "raw_files": [
         "data/raw/official/kentucky/2020_general_election_results.pdf"
       ],
+      "generated_file_count": 0,
+      "generated_files": [],
       "status": "files_present"
     },
     {
       "state_po": "KY",
       "year": 2022,
-      "raw_file_count": 119,
+      "raw_file_count": 123,
       "raw_files": [
         "data/raw/official/kentucky/2022_Adair_County.pdf",
         "data/raw/official/kentucky/2022_Allen_County.pdf",
@@ -345,7 +472,15 @@
         "data/raw/official/kentucky/2022_Webster_County.pdf",
         "data/raw/official/kentucky/2022_Whitley_County.pdf",
         "data/raw/official/kentucky/2022_Wolfe_County.pdf",
-        "data/raw/official/kentucky/2022_Woodford_County.pdf"
+        "data/raw/official/kentucky/2022_Woodford_County.pdf",
+        "data/raw/official/kentucky/2022_certified_general_election_results.pdf",
+        "data/raw/official/kentucky/2022_certified_general_election_results_ocr.pdf",
+        "data/raw/official/kentucky/2022_certified_general_election_results_ocr.txt",
+        "data/raw/official/kentucky/2022_certified_senate_reconciliation.json"
+      ],
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/kentucky-statewide-summary.json"
       ],
       "status": "files_present"
     },
@@ -475,12 +610,17 @@
         "data/raw/official/kentucky/2024_Wolfe.pdf",
         "data/raw/official/kentucky/2024_Woodford.pdf"
       ],
+      "generated_file_count": 1,
+      "generated_files": [
+        "public/results/kentucky-statewide-summary.json"
+      ],
       "status": "files_present"
     }
   ],
   "summary": {
     "state_year_batches": 30,
-    "files_present": 10,
-    "needs_source": 20
+    "files_present": 11,
+    "artifact_present": 13,
+    "needs_source": 6
   }
 }

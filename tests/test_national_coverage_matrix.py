@@ -40,7 +40,8 @@ class NationalCoverageMatrixTests(TestCase):
 
         self.assertEqual(preflight["summary"]["state_year_batches"], 30)
         self.assertEqual(len(preflight["rows"]), 30)
-        self.assertTrue(all(row["status"] in {"files_present", "needs_source"} for row in preflight["rows"]))
+        self.assertTrue(all(row["status"] in {"files_present", "artifact_present", "needs_source"} for row in preflight["rows"]))
+        self.assertTrue(all("generated_files" in row for row in preflight["rows"]))
 
     def test_remaining_modern_and_legacy_inventories_cover_the_unprocessed_states(self) -> None:
         modern = json.loads((ROOT_DIR / "data/national-cohorts/modern-remaining-2020-2024.json").read_text())
@@ -104,6 +105,8 @@ class NationalCoverageMatrixTests(TestCase):
         self.assertEqual(report["offices"]["State House"]["expected_districts"], 100)
         self.assertEqual(report["offices"]["State Senate"]["candidate_metadata_ready"], 19)
         self.assertEqual(report["offices"]["State House"]["candidate_metadata_ready"], 100)
+        self.assertEqual(report["offices"]["State Senate"]["certified_header_ready"], 19)
+        self.assertEqual(report["offices"]["State House"]["certified_header_ready"], 100)
 
     def test_georgia_2020_full_archive_preserves_two_senate_contests(self) -> None:
         summary = json.loads((ROOT_DIR / "public/results/georgia-2020-official-contests.json").read_text())
