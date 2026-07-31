@@ -6,8 +6,8 @@ The matrix covers all 50 states, even-year general elections from 2000 through 2
 
 ## Summary
 
-- `imported`: 775 cells
-- `source_identified`: 44 cells
+- `imported`: 780 cells
+- `source_identified`: 39 cells
 - `needs_discovery`: 3076 cells
 - `blocked`: 0 cells
 - `not_on_ballot`: 9 cells
@@ -26,7 +26,7 @@ The matrix covers all 50 states, even-year general elections from 2000 through 2
 | CT | 13 | 0 | 65 | 0 | 0 | 6 |
 | DE | 13 | 0 | 65 | 0 | 0 | 6 |
 | FL | 48 | 0 | 30 | 0 | 0 | 6 |
-| GA | 20 | 8 | 50 | 0 | 0 | 6 |
+| GA | 25 | 3 | 50 | 0 | 0 | 6 |
 | HI | 13 | 0 | 65 | 0 | 0 | 6 |
 | ID | 13 | 0 | 65 | 0 | 0 | 6 |
 | IL | 13 | 0 | 65 | 0 | 0 | 6 |

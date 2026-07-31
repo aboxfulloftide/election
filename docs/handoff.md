@@ -105,7 +105,7 @@ Expected:
 
 The active target is now the 4,200-cell matrix in `public/results/national-coverage-matrix.json`: 50 states, even-year general elections from 2000 through 2026, and President, U.S. Senate, U.S. House, Governor, State Senate, and State House/Assembly. Municipal datasets remain archived and are not part of this work.
 
-The execution backlog for the national work is documented in `docs/national-execution-backlog.md`. The active batch is Kentucky completion plus the Georgia, North Carolina, Virginia, and Wisconsin 2020-2024 cohort. Georgia 2022 is now normalized into `public/results/georgia-2022-official-contests.json`; Georgia 2020/2024 and Wisconsin 2020/2022/2024 remain active source/import work.
+The execution backlog for the national work is documented in `docs/national-execution-backlog.md`. The active batch is Kentucky completion plus the Georgia, North Carolina, Virginia, and Wisconsin 2020-2024 cohort. Georgia 2020, 2022, and 2024 are normalized into separate generated contest artifacts. Kentucky has 55 legislative districts awaiting candidate-header extraction; Wisconsin remains source-identified because direct WEC archive access is challenged.
 
 Use [national-backfill-plan.md](national-backfill-plan.md) for the batch contract and wave order. The first execution batch is ten states for 2020-2024, followed by the remaining four cohorts before older years.
 

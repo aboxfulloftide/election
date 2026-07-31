@@ -64,7 +64,7 @@ class NationalCoverageMatrixTests(TestCase):
 
     def test_modern_cohort_inventory_keeps_official_source_lanes_explicit(self) -> None:
         registry = json.loads((ROOT_DIR / "data/source-registry/georgia.json").read_text())
-        imported = next(entry for entry in registry["entries"] if entry["status"] == "imported")
+        imported = next(entry for entry in registry["entries"] if entry["id"] == "ga-sos-federal-state-2022-imported")
         self.assertEqual(imported["years"], [2022])
         self.assertIn("State House", imported["offices"])
         summary = json.loads((ROOT_DIR / "public/results/georgia-2022-official-contests.json").read_text())
@@ -89,3 +89,19 @@ class NationalCoverageMatrixTests(TestCase):
         registry = json.loads((ROOT_DIR / "data/source-registry/virginia.json").read_text())
         entry = next(item for item in registry["entries"] if item["offices"] == ["Governor", "State Senate", "State House"])
         self.assertTrue(entry["not_on_even_year_ballot"])
+
+    def test_kentucky_candidate_readiness_keeps_uncertain_lanes_out_of_public_contests(self) -> None:
+        report = json.loads((ROOT_DIR / "public/results/kentucky-2022-state-candidate-readiness.json").read_text())
+        self.assertEqual(report["offices"]["State Senate"]["expected_districts"], 19)
+        self.assertEqual(report["offices"]["State House"]["expected_districts"], 100)
+        self.assertGreater(report["offices"]["State Senate"]["header_extraction_needed"], 0)
+        self.assertGreater(report["offices"]["State House"]["header_extraction_needed"], 0)
+
+    def test_georgia_2020_full_archive_preserves_two_senate_contests(self) -> None:
+        summary = json.loads((ROOT_DIR / "public/results/georgia-2020-official-contests.json").read_text())
+        contests = summary["elections"][0]["contests"]
+        self.assertEqual(len(contests), 253)
+        senate = [contest for contest in contests if contest["office"] == "U.S. Senate"]
+        self.assertEqual({contest["name"] for contest in senate}, {"Georgia 2020 Regular", "Georgia 2020 Special"})
+        for contest in contests:
+            self.assertEqual(sum(candidate["votes"] for candidate in contest["candidates"]), contest["total_votes"])

@@ -19,6 +19,11 @@ class GeorgiaContestSource:
 
 
 GEORGIA_CONTEST_SOURCES = {
+    2020: GeorgiaContestSource(
+        year=2020,
+        url="https://sos.ga.gov/sites/default/files/2026-04/november_3_2020_-_general_election.zip",
+        file_name="november_3_2020_-_general_election.zip",
+    ),
     2022: GeorgiaContestSource(
         year=2022,
         url="https://sos.ga.gov/sites/default/files/2026-05/November%208%2C%202022%20-%20General-Special%20Election.zip",

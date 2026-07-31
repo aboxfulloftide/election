@@ -16,6 +16,19 @@
       "notes": "Official Georgia historical results page identified for the remaining 2020 and 2024 federal/state lanes. The 2022 lane is imported separately from the official county summary ZIP."
     },
     {
+      "id": "ga-sos-federal-state-2020-imported",
+      "scope": "statewide",
+      "offices": ["President", "U.S. Senate", "U.S. House", "State Senate", "State House"],
+      "years": [2020],
+      "status": "imported",
+      "format": "sos-county-summary-zip",
+      "geography": "county-or-district",
+      "quality_grade": "A",
+      "parser": "scripts/generate_georgia_2020_contests.py",
+      "urls": ["https://sos.ga.gov/sites/default/files/2026-04/november_3_2020_-_general_election.zip"],
+      "notes": "253 official contest totals normalized from 159 county summary ZIPs: President, regular and special U.S. Senate, 14 U.S. House districts, 56 State Senate districts, and 180 State House districts. Georgia had no regular Governor contest in 2020."
+    },
+    {
       "id": "ga-sos-federal-state-2022-imported",
       "scope": "statewide",
       "offices": ["U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"],
