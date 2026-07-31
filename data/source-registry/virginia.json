@@ -13,7 +13,8 @@
       "quality_grade": null,
       "parser": "planned:virginia-state-office-import",
       "urls": ["https://historical.elections.virginia.gov/"],
-      "notes": "Official Virginia historical database identified for state-office discovery. Virginia state legislative general elections are generally held in odd-numbered years, so even-year applicability must be recorded explicitly."
+      "not_on_even_year_ballot": true,
+      "notes": "Virginia state legislative general elections are held in odd-numbered years. The 2020, 2022, and 2024 even-year State Senate and State House lanes are not applicable; odd-year historical coverage is outside the current even-year matrix."
     },
     {
       "id": "va-doe-federal-contests-2020-2024-imported",

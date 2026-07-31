@@ -44,6 +44,8 @@ def presidential_states() -> set[str]:
 
 def status_for(state_po: str, year: int, office: str, entries: list[dict[str, Any]], president_states: set[str]) -> str:
     matching = [entry for entry in entries if entry["state_po"] == state_po and office in entry["offices"] and year in entry["years"]]
+    if matching and any(entry.get("not_on_even_year_ballot") for entry in matching):
+        return "not_on_ballot"
     if any(entry["status"] == "imported" for entry in matching):
         return "imported"
     if matching and any(entry["status"] == "source_identified" for entry in matching):
@@ -65,13 +67,13 @@ def markdown(matrix: dict[str, Any]) -> str:
         "The matrix covers all 50 states, even-year general elections from 2000 through 2026, and federal/state offices only.", "",
         "## Summary", "", 
     ]
-    for status in ("imported", "source_identified", "needs_discovery", "blocked", "not_yet_available"):
+    for status in ("imported", "source_identified", "needs_discovery", "blocked", "not_on_ballot", "not_yet_available"):
         lines.append(f"- `{status}`: {counts[status]} cells")
-    lines.extend(["", "## State Progress", "", "| State | Imported | Source identified | Discovery needed | Blocked | Not yet available |", "| --- | ---: | ---: | ---: | ---: | ---: |"])
+    lines.extend(["", "## State Progress", "", "| State | Imported | Source identified | Discovery needed | Blocked | Not on ballot | Not yet available |", "| --- | ---: | ---: | ---: | ---: | ---: | ---: |"])
     for state in STATES:
         state_cells = [cell for cell in cells if cell["state_po"] == state]
         state_counts = Counter(cell["status"] for cell in state_cells)
-        lines.append(f"| {state} | {state_counts['imported']} | {state_counts['source_identified']} | {state_counts['needs_discovery']} | {state_counts['blocked']} | {state_counts['not_yet_available']} |")
+        lines.append(f"| {state} | {state_counts['imported']} | {state_counts['source_identified']} | {state_counts['needs_discovery']} | {state_counts['blocked']} | {state_counts['not_on_ballot']} | {state_counts['not_yet_available']} |")
     lines.extend(["", "## Batch Rule", "", "A state/year batch is publishable only when its source, parser, normalized rows, reconciliation tests, and coverage status are present. `source_identified` and `needs_discovery` cells remain out of the map-ready dataset.", ""])
     return "\n".join(lines)
 

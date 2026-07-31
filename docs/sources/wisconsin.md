@@ -22,5 +22,6 @@ Current coverage:
 - 2024: all 72 Wisconsin counties matched and replaced.
 - The 2020-2024 federal/state contest cohort remains in progress; the 2024 presidential PDF is not sufficient to mark the full cohort imported.
 - The next Wisconsin work item is locating the official 2020 and 2022 county/district canvass exports and the 2024 non-presidential canvass exports. The homepage is confirmed as the official source hub, but no additional direct export URLs have been staged yet.
+- Direct scripted access to the WEC site currently returns a Cloudflare challenge, so Wisconsin remains source-identified until the official exports are obtained through the browser workflow or a stable public file URL.
 
 Rows written to `public/results/county-presidential-summary.json` are marked with `official: true`, Wisconsin Elections Commission source metadata, and quality grade `B`.

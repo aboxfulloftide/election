@@ -27,6 +27,19 @@
       "parser": "scripts/generate_georgia_2022_contests.py",
       "urls": ["https://sos.ga.gov/sites/default/files/2026-05/November%208%2C%202022%20-%20General-Special%20Election.zip"],
       "notes": "252 official contest totals normalized from 159 county summary ZIPs. The generated artifact is public/results/georgia-2022-official-contests.json; candidate lanes with uncontested races remain single-candidate contests."
+    },
+    {
+      "id": "ga-sos-federal-state-2024-imported",
+      "scope": "statewide",
+      "offices": ["President", "U.S. House", "State Senate", "State House"],
+      "years": [2024],
+      "status": "imported",
+      "format": "sos-contest-comparison-pdf",
+      "geography": "county-or-district",
+      "quality_grade": "B",
+      "parser": "scripts/generate_georgia_2024_contests.py",
+      "urls": ["https://sos.ga.gov/sites/default/files/2024-11/contest_results_comparison_with_jurisdiction_details_0.pdf"],
+      "notes": "251 official contest totals normalized from the contest-comparison PDF: President, 14 U.S. House districts, 56 State Senate districts, and 180 State House districts. Georgia had no regular U.S. Senate contest in 2024; district 148 has an official candidate with no party marker and is retained as OTHER."
     }
   ]
 }

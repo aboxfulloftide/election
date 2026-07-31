@@ -36,6 +36,7 @@
     "data:official:ga": "npm run data:official:ga:download && npm run data:official:ga:merge",
     "georgia:2022:generate": "python3 scripts/generate_georgia_2022_contests.py",
     "georgia:2024:stage": "python3 scripts/download_georgia_2024_contest_pdf.py",
+    "georgia:2024:generate": "python3 scripts/generate_georgia_2024_contests.py",
     "data:official:ky:download": "python3 scripts/download_kentucky_presidential.py",
     "data:official:ky:merge": "python3 scripts/merge_kentucky_presidential.py",
     "data:official:ky": "npm run data:official:ky:download && npm run data:official:ky:merge",

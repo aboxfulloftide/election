@@ -26,9 +26,11 @@ Current coverage:
 
 - 2020: all 159 Georgia counties matched and replaced from official recount summary files.
 - 2022: 159 county summary ZIPs normalized into 252 official Governor, U.S. Senate, U.S. House, State Senate, and State House contests by `npm run georgia:2022:generate`.
-- 2024: official contest-comparison PDF staged by `npm run georgia:2024:stage`; a separate PDF/table parser is still required before import.
-- 2020 and 2024 remain source-identified lanes; the 2020-2024 cohort is not complete until all six target offices are normalized for both years.
+- 2024: 251 official contest totals normalized by `npm run georgia:2024:generate`: President, 14 U.S. House, 56 State Senate, and 180 State House contests. The PDF has no regular U.S. Senate contest for this year.
+- 2020 remains source-identified; the 2020-2024 cohort is not complete until the remaining 2020 offices are normalized.
 
 The 2022 normalized artifact is `public/results/georgia-2022-official-contests.json`. It is kept separate from the county-presidential merger because the 2022 archive contains many non-presidential contest names.
+
+The 2024 normalized artifact is `public/results/georgia-2024-official-contests.json`. It uses the PDF's audit count, preserves negative audit differences only as source parsing input, and retains the official candidate total for each contest.
 
 Rows written to `public/results/county-presidential-summary.json` are marked with `official: true`, Georgia Secretary of State source metadata, and quality grade `A`.

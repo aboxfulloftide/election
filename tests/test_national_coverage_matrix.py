@@ -74,3 +74,18 @@ class NationalCoverageMatrixTests(TestCase):
         for contest in contests:
             self.assertEqual(sum(candidate["votes"] for candidate in contest["candidates"]), contest["total_votes"])
             self.assertEqual(contest["winner"]["votes"], max(candidate["votes"] for candidate in contest["candidates"]))
+
+    def test_georgia_2024_official_pdf_artifact_has_expected_district_lanes(self) -> None:
+        summary = json.loads((ROOT_DIR / "public/results/georgia-2024-official-contests.json").read_text())
+        contests = summary["elections"][0]["contests"]
+        counts = {}
+        for contest in contests:
+            counts[contest["office"]] = counts.get(contest["office"], 0) + 1
+            self.assertEqual(sum(candidate["votes"] for candidate in contest["candidates"]), contest["total_votes"])
+            self.assertEqual(contest["winner"]["votes"], max(candidate["votes"] for candidate in contest["candidates"]))
+        self.assertEqual(counts, {"President": 1, "U.S. House": 14, "State Senate": 56, "State House": 180})
+
+    def test_virginia_even_year_state_legislative_lanes_are_not_on_ballot(self) -> None:
+        registry = json.loads((ROOT_DIR / "data/source-registry/virginia.json").read_text())
+        entry = next(item for item in registry["entries"] if item["offices"] == ["Governor", "State Senate", "State House"])
+        self.assertTrue(entry["not_on_even_year_ballot"])
