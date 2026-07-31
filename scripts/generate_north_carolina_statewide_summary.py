@@ -18,6 +18,7 @@ OUTPUT_PATH = ROOT_DIR / "public/results/north-carolina-statewide-summary.json"
 
 SOURCES = {
     2020: ("results_pct_20201103.zip", "https://s3.amazonaws.com/dl.ncsbe.gov/ENRS/2020_11_03/results_pct_20201103.zip"),
+    2022: ("results_pct_20221108.zip", "https://s3.amazonaws.com/dl.ncsbe.gov/ENRS/2022_11_08/results_pct_20221108.zip"),
     2024: ("results_pct_20241105.zip", "https://s3.amazonaws.com/dl.ncsbe.gov/ENRS/2024_11_05/results_pct_20241105.zip"),
 }
 
@@ -100,7 +101,7 @@ def parse_source(year: int, filename: str, source_url: str) -> dict[str, Any]:
             "state": "North Carolina",
             "state_po": "NC",
             "year": year,
-            "election_date": f"11/03/{year}" if year == 2020 else f"11/05/{year}",
+            "election_date": {2020: "11/03/2020", 2022: "11/08/2022", 2024: "11/05/2024"}[year],
             "source_url": source_url,
             "source_format": "ncsbe-precinct-results-txt",
             "quality_grade": "A",

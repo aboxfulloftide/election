@@ -6,8 +6,8 @@ The matrix covers all 50 states, even-year general elections from 2000 through 2
 
 ## Summary
 
-- `imported`: 752 cells
-- `source_identified`: 78 cells
+- `imported`: 758 cells
+- `source_identified`: 72 cells
 - `needs_discovery`: 3074 cells
 - `blocked`: 0 cells
 - `not_yet_available`: 296 cells
@@ -48,7 +48,7 @@ The matrix covers all 50 states, even-year general elections from 2000 through 2
 | NJ | 13 | 0 | 65 | 0 | 6 |
 | NM | 13 | 0 | 65 | 0 | 6 |
 | NY | 13 | 0 | 65 | 0 | 6 |
-| NC | 22 | 6 | 50 | 0 | 6 |
+| NC | 28 | 0 | 50 | 0 | 6 |
 | ND | 13 | 0 | 65 | 0 | 6 |
 | OH | 28 | 0 | 50 | 0 | 6 |
 | OK | 13 | 0 | 65 | 0 | 6 |

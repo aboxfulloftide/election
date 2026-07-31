@@ -51,4 +51,4 @@ class NationalCoverageMatrixTests(TestCase):
             offices,
             {"President", "U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"},
         )
-        self.assertEqual([len(election["contests"]) for election in summary["elections"]], [186, 186])
+        self.assertEqual([len(election["contests"]) for election in summary["elections"]], [186, 185, 186])
