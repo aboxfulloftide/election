@@ -1,0 +1,246 @@
+{
+  "state": "Illinois",
+  "state_po": "IL",
+  "entries": [
+    {
+      "id": "il-official-2000-legacy-source",
+      "scope": "statewide",
+      "offices": [
+        "President",
+        "U.S. Senate",
+        "U.S. House",
+        "Governor",
+        "State Senate",
+        "State House"
+      ],
+      "years": [
+        2000
+      ],
+      "status": "source_identified",
+      "format": "official downloadable vote-total and office CSV archive",
+      "geography": "statewide-county-or-district",
+      "quality_grade": null,
+      "parser": "planned:legacy-il-2000-import",
+      "urls": [
+        "https://www.elections.il.gov/PDFSiteMapProd.htm"
+      ],
+      "notes": "Illinois official 2000 general-election archive identified for the 2000-2008 wave. File acquisition, format audit, district-cycle review, and reconciliation are still required before import."
+    },
+    {
+      "id": "il-official-2002-legacy-source",
+      "scope": "statewide",
+      "offices": [
+        "President",
+        "U.S. Senate",
+        "U.S. House",
+        "Governor",
+        "State Senate",
+        "State House"
+      ],
+      "years": [
+        2002
+      ],
+      "status": "source_identified",
+      "format": "official downloadable vote-total and office CSV archive",
+      "geography": "statewide-county-or-district",
+      "quality_grade": null,
+      "parser": "planned:legacy-il-2002-import",
+      "urls": [
+        "https://www.elections.il.gov/PDFSiteMapProd.htm"
+      ],
+      "notes": "Illinois official 2002 general-election archive identified for the 2000-2008 wave. File acquisition, format audit, district-cycle review, and reconciliation are still required before import."
+    },
+    {
+      "id": "il-official-2004-legacy-source",
+      "scope": "statewide",
+      "offices": [
+        "President",
+        "U.S. Senate",
+        "U.S. House",
+        "Governor",
+        "State Senate",
+        "State House"
+      ],
+      "years": [
+        2004
+      ],
+      "status": "source_identified",
+      "format": "official downloadable vote-total and office CSV archive",
+      "geography": "statewide-county-or-district",
+      "quality_grade": null,
+      "parser": "planned:legacy-il-2004-import",
+      "urls": [
+        "https://www.elections.il.gov/PDFSiteMapProd.htm"
+      ],
+      "notes": "Illinois official 2004 general-election archive identified for the 2000-2008 wave. File acquisition, format audit, district-cycle review, and reconciliation are still required before import."
+    },
+    {
+      "id": "il-official-2006-legacy-source",
+      "scope": "statewide",
+      "offices": [
+        "President",
+        "U.S. Senate",
+        "U.S. House",
+        "Governor",
+        "State Senate",
+        "State House"
+      ],
+      "years": [
+        2006
+      ],
+      "status": "source_identified",
+      "format": "official downloadable vote-total and office CSV archive",
+      "geography": "statewide-county-or-district",
+      "quality_grade": null,
+      "parser": "planned:legacy-il-2006-import",
+      "urls": [
+        "https://www.elections.il.gov/PDFSiteMapProd.htm"
+      ],
+      "notes": "Illinois official 2006 general-election archive identified for the 2000-2008 wave. File acquisition, format audit, district-cycle review, and reconciliation are still required before import."
+    },
+    {
+      "id": "il-official-2008-legacy-source",
+      "scope": "statewide",
+      "offices": [
+        "President",
+        "U.S. Senate",
+        "U.S. House",
+        "Governor",
+        "State Senate",
+        "State House"
+      ],
+      "years": [
+        2008
+      ],
+      "status": "source_identified",
+      "format": "official downloadable vote-total and office CSV archive",
+      "geography": "statewide-county-or-district",
+      "quality_grade": null,
+      "parser": "planned:legacy-il-2008-import",
+      "urls": [
+        "https://www.elections.il.gov/PDFSiteMapProd.htm"
+      ],
+      "notes": "Illinois official 2008 general-election archive identified for the 2000-2008 wave. File acquisition, format audit, district-cycle review, and reconciliation are still required before import."
+    },
+    {
+      "id": "il-official-2010-legacy-source",
+      "scope": "statewide",
+      "offices": [
+        "President",
+        "U.S. Senate",
+        "U.S. House",
+        "Governor",
+        "State Senate",
+        "State House"
+      ],
+      "years": [
+        2010
+      ],
+      "status": "source_identified",
+      "format": "official downloadable vote-total and office CSV archive",
+      "geography": "statewide-county-or-district",
+      "quality_grade": null,
+      "parser": "planned:legacy-il-2010-import",
+      "urls": [
+        "https://www.elections.il.gov/PDFSiteMapProd.htm"
+      ],
+      "notes": "Illinois official 2010 general-election archive identified for the 2010-2018 wave. File acquisition, format audit, district-cycle review, and reconciliation are still required before import."
+    },
+    {
+      "id": "il-official-2012-legacy-source",
+      "scope": "statewide",
+      "offices": [
+        "President",
+        "U.S. Senate",
+        "U.S. House",
+        "Governor",
+        "State Senate",
+        "State House"
+      ],
+      "years": [
+        2012
+      ],
+      "status": "source_identified",
+      "format": "official downloadable vote-total and office CSV archive",
+      "geography": "statewide-county-or-district",
+      "quality_grade": null,
+      "parser": "planned:legacy-il-2012-import",
+      "urls": [
+        "https://www.elections.il.gov/PDFSiteMapProd.htm"
+      ],
+      "notes": "Illinois official 2012 general-election archive identified for the 2010-2018 wave. File acquisition, format audit, district-cycle review, and reconciliation are still required before import."
+    },
+    {
+      "id": "il-official-2014-legacy-source",
+      "scope": "statewide",
+      "offices": [
+        "President",
+        "U.S. Senate",
+        "U.S. House",
+        "Governor",
+        "State Senate",
+        "State House"
+      ],
+      "years": [
+        2014
+      ],
+      "status": "source_identified",
+      "format": "official downloadable vote-total and office CSV archive",
+      "geography": "statewide-county-or-district",
+      "quality_grade": null,
+      "parser": "planned:legacy-il-2014-import",
+      "urls": [
+        "https://www.elections.il.gov/PDFSiteMapProd.htm"
+      ],
+      "notes": "Illinois official 2014 general-election archive identified for the 2010-2018 wave. File acquisition, format audit, district-cycle review, and reconciliation are still required before import."
+    },
+    {
+      "id": "il-official-2016-legacy-source",
+      "scope": "statewide",
+      "offices": [
+        "President",
+        "U.S. Senate",
+        "U.S. House",
+        "Governor",
+        "State Senate",
+        "State House"
+      ],
+      "years": [
+        2016
+      ],
+      "status": "source_identified",
+      "format": "official downloadable vote-total and office CSV archive",
+      "geography": "statewide-county-or-district",
+      "quality_grade": null,
+      "parser": "planned:legacy-il-2016-import",
+      "urls": [
+        "https://www.elections.il.gov/PDFSiteMapProd.htm"
+      ],
+      "notes": "Illinois official 2016 general-election archive identified for the 2010-2018 wave. File acquisition, format audit, district-cycle review, and reconciliation are still required before import."
+    },
+    {
+      "id": "il-official-2018-legacy-source",
+      "scope": "statewide",
+      "offices": [
+        "President",
+        "U.S. Senate",
+        "U.S. House",
+        "Governor",
+        "State Senate",
+        "State House"
+      ],
+      "years": [
+        2018
+      ],
+      "status": "source_identified",
+      "format": "official downloadable vote-total and office CSV archive",
+      "geography": "statewide-county-or-district",
+      "quality_grade": null,
+      "parser": "planned:legacy-il-2018-import",
+      "urls": [
+        "https://www.elections.il.gov/PDFSiteMapProd.htm"
+      ],
+      "notes": "Illinois official 2018 general-election archive identified for the 2010-2018 wave. File acquisition, format audit, district-cycle review, and reconciliation are still required before import."
+    }
+  ]
+}

@@ -60,6 +60,21 @@ class NationalCoverageMatrixTests(TestCase):
             self.assertEqual(sum(len(cohort["states"]) for cohort in cohorts), 50)
             self.assertEqual(cohorts[0]["status"], "active")
 
+    def test_first_legacy_cohort_has_year_level_official_source_records(self) -> None:
+        expected_states = {"AL", "AK", "AZ", "AR", "CO", "CT", "DE", "HI", "ID", "IL"}
+        years = {2000, 2002, 2004, 2006, 2008, 2010, 2012, 2014, 2016, 2018}
+        found = set()
+        for path in (ROOT_DIR / "data/source-registry").glob("*.json"):
+            data = json.loads(path.read_text())
+            if data.get("state_po") not in expected_states:
+                continue
+            entries = [entry for entry in data["entries"] if entry["id"].endswith("-legacy-source")]
+            found.add(data["state_po"])
+            self.assertEqual({year for entry in entries for year in entry["years"]}, years)
+            self.assertTrue(all(entry["status"] == "source_identified" for entry in entries))
+            self.assertTrue(all(entry["quality_grade"] is None for entry in entries))
+        self.assertEqual(found, expected_states)
+
     def test_north_carolina_summary_contains_only_active_offices(self) -> None:
         summary = json.loads(
             (ROOT_DIR / "public/results/north-carolina-statewide-summary.json").read_text()

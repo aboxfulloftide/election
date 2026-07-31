@@ -109,6 +109,8 @@ The execution backlog for the national work is documented in `docs/national-exec
 
 The legacy waves are now operationally partitioned into five ten-state cohorts each. `npm run legacy:status` reports explicit source-backed coverage, while `npm run legacy:cohorts` regenerates the cohort plans.
 
+The first legacy cohort (`AL, AK, AZ, AR, CO, CT, DE, HI, ID, IL`) now has year-level official source records for 2000–2008 and 2010–2018. Run `npm run legacy:sources` to regenerate them and review `docs/sources/legacy-cohort-01.md`; these records are source-identified only until files are staged and reconciled.
+
 Use [national-backfill-plan.md](national-backfill-plan.md) for the batch contract and wave order. The first execution batch is ten states for 2020-2024, followed by the remaining four cohorts before older years.
 
 ## Next Work Option B: Expand Florida Precinct Geometry

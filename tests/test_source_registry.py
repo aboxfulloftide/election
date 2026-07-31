@@ -14,10 +14,10 @@ from report_source_registry import load_registry, report_markdown
 class SourceRegistryTests(TestCase):
     def test_registry_loads_and_has_cohort_states(self) -> None:
         states = load_registry()
-        self.assertEqual(
-            [state["state_po"] for state in states],
-            ["FL", "CA", "PA", "TX", "OH", "GA", "KY", "NC", "VA", "WI"],
-        )
+        state_pos = [state["state_po"] for state in states]
+        self.assertEqual(state_pos[:5], ["FL", "CA", "PA", "TX", "OH"])
+        self.assertEqual(set(state_pos[5:]), {"GA", "KY", "NC", "VA", "WI", "AL", "AK", "AZ", "AR", "CO", "CT", "DE", "HI", "ID", "IL"})
+        self.assertEqual(len(state_pos), 20)
 
     def test_registry_has_imported_and_backlog_entries(self) -> None:
         entries = [entry for state in load_registry() for entry in state["entries"]]
@@ -25,6 +25,9 @@ class SourceRegistryTests(TestCase):
         self.assertIn("imported", statuses)
         self.assertIn("source_identified", statuses)
         self.assertTrue(any(entry["format"] == "spreadsheet-statement-of-vote" and entry["status"] == "imported" for entry in entries))
+        legacy = [entry for entry in entries if entry["id"].endswith("-legacy-source")]
+        self.assertEqual(len(legacy), 100)
+        self.assertTrue(all(entry["status"] == "source_identified" for entry in legacy))
 
     def test_report_groups_backlog_by_format(self) -> None:
         report = report_markdown(load_registry())

@@ -6,10 +6,10 @@ The report measures explicit source-registry coverage for the 2010-2018 and 2000
 
 | Wave | Cells | Imported | Source identified | Needs discovery | Not on ballot |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| 2010-2018 | 1500 | 34 | 0 | 1466 | 0 |
-| Queue by year |  |  |  | 2010: 300, 2012: 294, 2014: 294, 2016: 294, 2018: 284 |  |
-| 2000-2008 | 1500 | 0 | 0 | 1500 | 0 |
-| Queue by year |  |  |  | 2000: 300, 2002: 300, 2004: 300, 2006: 300, 2008: 300 |  |
+| 2010-2018 | 1500 | 34 | 300 | 1166 | 0 |
+| Queue by year |  |  |  | 2010: 240, 2012: 234, 2014: 234, 2016: 234, 2018: 224 |  |
+| 2000-2008 | 1500 | 0 | 300 | 1200 | 0 |
+| Queue by year |  |  |  | 2000: 240, 2002: 240, 2004: 240, 2006: 240, 2008: 240 |  |
 
 ## Processing Order
 

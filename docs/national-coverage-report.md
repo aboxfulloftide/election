@@ -6,9 +6,9 @@ The matrix covers all 50 states, even-year general elections from 2000 through 2
 
 ## Summary
 
-- `imported`: 780 cells
-- `source_identified`: 37 cells
-- `needs_discovery`: 3076 cells
+- `imported`: 680 cells
+- `source_identified`: 637 cells
+- `needs_discovery`: 2576 cells
 - `blocked`: 0 cells
 - `not_on_ballot`: 11 cells
 - `not_yet_available`: 296 cells
@@ -17,19 +17,19 @@ The matrix covers all 50 states, even-year general elections from 2000 through 2
 
 | State | Imported | Source identified | Discovery needed | Blocked | Not on ballot | Not yet available |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| AL | 13 | 0 | 65 | 0 | 0 | 6 |
-| AK | 13 | 0 | 65 | 0 | 0 | 6 |
-| AZ | 13 | 0 | 65 | 0 | 0 | 6 |
-| AR | 13 | 0 | 65 | 0 | 0 | 6 |
+| AL | 3 | 60 | 15 | 0 | 0 | 6 |
+| AK | 3 | 60 | 15 | 0 | 0 | 6 |
+| AZ | 3 | 60 | 15 | 0 | 0 | 6 |
+| AR | 3 | 60 | 15 | 0 | 0 | 6 |
 | CA | 29 | 0 | 49 | 0 | 0 | 6 |
-| CO | 13 | 0 | 65 | 0 | 0 | 6 |
-| CT | 13 | 0 | 65 | 0 | 0 | 6 |
-| DE | 13 | 0 | 65 | 0 | 0 | 6 |
+| CO | 3 | 60 | 15 | 0 | 0 | 6 |
+| CT | 3 | 60 | 15 | 0 | 0 | 6 |
+| DE | 3 | 60 | 15 | 0 | 0 | 6 |
 | FL | 48 | 0 | 30 | 0 | 0 | 6 |
 | GA | 25 | 1 | 50 | 0 | 2 | 6 |
-| HI | 13 | 0 | 65 | 0 | 0 | 6 |
-| ID | 13 | 0 | 65 | 0 | 0 | 6 |
-| IL | 13 | 0 | 65 | 0 | 0 | 6 |
+| HI | 3 | 60 | 15 | 0 | 0 | 6 |
+| ID | 3 | 60 | 15 | 0 | 0 | 6 |
+| IL | 3 | 60 | 15 | 0 | 0 | 6 |
 | IN | 13 | 0 | 65 | 0 | 0 | 6 |
 | IA | 13 | 0 | 65 | 0 | 0 | 6 |
 | KS | 13 | 0 | 65 | 0 | 0 | 6 |
