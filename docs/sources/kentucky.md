@@ -20,6 +20,7 @@ Implemented commands:
 npm run data:official:ky:download
 npm run data:official:ky:merge
 npm run data:official:ky
+npm run kentucky:certified:download -- --year 2022
 npm run kentucky:recaps:download
 npm run kentucky:recaps:ocr -- --year 2022 --file 2022_Allen_County.pdf
 npm run kentucky:generate
@@ -35,6 +36,8 @@ Current coverage:
 The 2022 and 2024 recap PDFs are precinct-level reports. The parser now handles the county recap, precinct-summary, wrapped-ticket, and write-in layouts. Each generated contest records the number of county reports that actually contributed to that contest; this varies by district instead of being reported as the full statewide file count. The generated statewide output remains `partial` until every county/contest total reconciles against an independent official check.
 
 The schema audit also records raw-file quality. The staged 2024 archive currently includes a blank Elliott County PDF and a Magoffin County PDF containing only a Mail In column, so those files cannot support a complete county total without replacement or an official statewide reference.
+
+The 2022 official results page also links `1.17.2023 Certified General Election Results.pdf`, a 258-page image-only statewide county table. It is now staged by `kentucky:certified:download` as the independent reconciliation source; its OCR still requires validation before it can replace the partial recap-derived summary.
 
 For image-only 2022 reports, `npm run kentucky:recaps:ocr -- --year 2022 --limit N` stages OCR text under the ignored raw-data directory using a 100-DPI, resumable pass and Tesseract page-segmentation mode 4. Use `--psm 6` for precinct-style pages when needed. The generator and schema audit automatically use staged OCR text when present. OCR output still needs layout-specific normalization for recap-sheet scans, so OCR-derived rows are not promoted automatically.
 

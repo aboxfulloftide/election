@@ -10,6 +10,7 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT_DIR / "scripts"))
 
 from download_kentucky_general_recaps import LinkParser, destination
+from download_kentucky_certified import SOURCES
 from ocr_kentucky_recaps import candidates, output_path
 
 
@@ -46,3 +47,7 @@ class KentuckyRecapDownloaderTests(TestCase):
         selected = candidates(2022, ["2022_Allen_County.pdf"])
         self.assertEqual(selected, [ROOT_DIR / "data/raw/official/kentucky/2022_Allen_County.pdf"])
         self.assertEqual(output_path(selected[0]), ROOT_DIR / "data/raw/official/kentucky/ocr/2022_Allen_County.txt")
+
+    def test_certified_source_uses_official_2022_results_page(self) -> None:
+        self.assertEqual(SOURCES[2022]["filename"], "2022_certified_general_election_results.pdf")
+        self.assertIn("2022.aspx", SOURCES[2022]["page"])

@@ -12,7 +12,7 @@
       "geography": "county-or-district",
       "quality_grade": null,
       "parser": "scripts/generate_kentucky_statewide_summary.py",
-      "urls": ["https://elect.ky.gov/results/2020-2029/Pages/2020.aspx", "https://elect.ky.gov/results/2020-2029/Pages/2022-General-Recap-Sheets.aspx", "https://elect.ky.gov/results/2020-2029/Pages/2024General-Recap-Sheets.aspx"],
+      "urls": ["https://elect.ky.gov/results/2020-2029/Pages/2020.aspx", "https://elect.ky.gov/results/2020-2029/Pages/2022.aspx", "https://elect.ky.gov/results/2020-2029/Pages/2022-General-Recap-Sheets.aspx", "https://elect.ky.gov/results/2020-2029/Pages/2024General-Recap-Sheets.aspx"],
       "notes": "Official Kentucky State Board of Elections archive identified. County recap PDFs are staged and normalized where the text layer is usable, but the audit finds 67 blank 2022 PDFs, one blank 2024 PDF, and one 2024 mail-in-only PDF. The generated summary is deliberately partial pending replacement files or independent county/contest reconciliation; the 2022 Butler County report link remains unavailable."
     }
   ]
