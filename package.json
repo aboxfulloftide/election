@@ -40,6 +40,7 @@
     "kentucky:recaps:download": "python3 scripts/download_kentucky_general_recaps.py",
     "kentucky:recaps:audit": "python3 scripts/audit_kentucky_recap_schema.py",
     "kentucky:recaps:check": "python3 scripts/audit_kentucky_recap_schema.py --check",
+    "kentucky:generate": "python3 scripts/generate_kentucky_statewide_summary.py",
     "data:official:wi:download": "python3 scripts/download_wisconsin_presidential.py",
     "data:official:wi:merge": "python3 scripts/merge_wisconsin_presidential.py",
     "data:official:wi": "npm run data:official:wi:download && npm run data:official:wi:merge",
