@@ -71,3 +71,5 @@ npm run build
 The first bulk cohort is ten states for 2020-2024, followed by the remaining four cohorts before 2010-2018 backfill begins.
 
 The active first batch is tracked in [`data/national-cohorts/cohort-01-2020-2024.json`](../data/national-cohorts/cohort-01-2020-2024.json) with a human-readable status page at [`docs/national-cohort-01.md`](national-cohort-01.md). Five pilot states are imported; Georgia, North Carolina, Virginia, Wisconsin, and Kentucky have official sources identified and are next for import.
+
+The detailed execution backlog is maintained in [`docs/national-execution-backlog.md`](national-execution-backlog.md). Current work begins with Kentucky completion, the Georgia/North Carolina/Virginia/Wisconsin modern cohort, and the remaining 2020-2024 states.

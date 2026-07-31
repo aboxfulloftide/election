@@ -1,0 +1,70 @@
+# National Backfill Execution Backlog
+
+## Objective
+
+Build a contest-level dataset for all 50 states and even-year general elections from 2000 through 2026 covering President, U.S. Senate, U.S. House, Governor, State Senate, and State House/Assembly. The working matrix contains 4,200 state/year/office cells. The 2026 general-election cells remain unavailable until certified results exist.
+
+Municipal and city elections remain archived project material and are outside this active backfill.
+
+## Work Packages
+
+### 1. Finalize Kentucky
+
+- Extract candidate names for all 19 State Senate and 100 State House contests.
+- Promote validated 2022 state legislative contests into the published summary.
+- Validate and import Kentucky 2020 and 2024 federal/state contests.
+- Resolve remaining Kentucky Senate write-in validation.
+- Move Kentucky from `source_identified` to `imported` only after all applicable cells pass reconciliation.
+
+### 2. Complete the first modern-data cohort
+
+Process Georgia, North Carolina, Virginia, and Wisconsin together for 2020, 2022, and 2024. Each state batch must include official source files, a repeatable importer, normalized contests, source references, reconciliation tests, generated output, registry updates, and documentation.
+
+Virginia's existing federal contests and Kentucky's current certified federal work are inputs to this cohort; state-office lanes remain open until their applicable years are imported.
+
+### 3. Finish modern 2020-2024 coverage
+
+Process the remaining states in five parallel cohorts of approximately ten states. A cohort is complete only when its source registry, parsers, generated summaries, tests, quality grades, and coverage status are updated together.
+
+### 4. Backfill 2010-2018
+
+Use official structured archives first, then official canvass PDFs and scans. Preserve redistricting-cycle metadata, older district numbering, renamed counties, and source quality grades.
+
+### 5. Backfill 2000-2008
+
+Use official legacy archives where available. Use reputable compiled data only when official results cannot be recovered, with lower quality grades and original citations retained.
+
+### 6. Geography and district history
+
+- Add congressional and state legislative geometries by election cycle.
+- Keep historical district boundaries separate from modern boundaries.
+- Support missing historical geometry without blocking contest totals.
+- Preserve county, state, and district comparison behavior in the map.
+
+### 7. Database and generated outputs
+
+- Import normalized contests into MySQL with source-file references.
+- Generate state summaries and national coverage reports.
+- Keep raw official files under ignored `data/raw/` paths.
+- Verify committed generated JSON matches its generator.
+
+### 8. Quality and testing
+
+Every imported batch requires parser tests, candidate/party normalization tests, row-count checks, printed-total reconciliation, winner/margin arithmetic, coverage-matrix validation, and full project checks.
+
+### 9. Documentation and operations
+
+Update source notes, registry entries, coverage reports, handoff documentation, reproducible commands, blocked-source notes, and GitHub after each completed cohort.
+
+## Status and Commands
+
+The current national matrix is regenerated with:
+
+```bash
+npm run coverage:national
+npm run sources:report
+npm run check
+npm run build
+```
+
+Current execution begins with Work Packages 1, 2, and 3. Work proceeds in state/year cohorts rather than individual contest-sized changes.

@@ -23,5 +23,6 @@ npm run data:official:ga
 Current coverage:
 
 - 2020: all 159 Georgia counties matched and replaced from official recount summary files.
+- The 2020-2024 federal/state contest cohort remains in progress; the staged presidential ZIP is not sufficient to mark the full cohort imported.
 
 Rows written to `public/results/county-presidential-summary.json` are marked with `official: true`, Georgia Secretary of State source metadata, and quality grade `A`.

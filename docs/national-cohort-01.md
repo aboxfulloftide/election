@@ -25,15 +25,15 @@ Raw-file availability is reported by `npm run national:cohort:preflight` in [`do
 | Pennsylvania | Imported | Maintain regression coverage |
 | Texas | Imported | Maintain regression coverage |
 | Ohio | Imported | Maintain regression coverage |
-| Georgia | Source identified | Download and normalize official files |
-| North Carolina | Source identified | Download and normalize official files |
-| Virginia | Federal contests imported; state-office lane open | Extend official inventory to applicable state-office election years |
-| Wisconsin | Source identified | Download and normalize official files |
-| Kentucky | Source identified | Download and normalize official files |
+| Georgia | In progress | Extend beyond the staged 2020 presidential source into full 2020-2024 federal/state imports |
+| North Carolina | Imported | Maintain 557 normalized 2020-2024 federal/state contests and resolve remaining applicability metadata |
+| Virginia | Federal contests imported; state-office lane open | State-office elections are generally odd-year; record applicability and complete any applicable cohort cells |
+| Wisconsin | In progress | Extend beyond the staged 2024 presidential canvass into full 2020-2024 federal/state imports |
+| Kentucky | In progress | Promote validated state legislative contests and complete applicable 2020-2024 cells |
 
 ## Completion Rule
 
-A state moves to `imported` only after all 18 state/year/office cells have generated normalized output, source references, reconciliation checks, and regression coverage. Source discovery alone does not count as imported.
+A state moves to `imported` only after all applicable 2020-2024 state/year/office cells have generated normalized output, source references, reconciliation checks, and regression coverage. Offices not scheduled for a state/year must be recorded as not on the ballot; source discovery alone does not count as imported.
 
 ## Commands
 

@@ -20,5 +20,6 @@ npm run data:official:wi
 Current coverage:
 
 - 2024: all 72 Wisconsin counties matched and replaced.
+- The 2020-2024 federal/state contest cohort remains in progress; the 2024 presidential PDF is not sufficient to mark the full cohort imported.
 
 Rows written to `public/results/county-presidential-summary.json` are marked with `official: true`, Wisconsin Elections Commission source metadata, and quality grade `B`.
