@@ -14,6 +14,8 @@
     "sources:check": "python3 scripts/report_source_registry.py --check",
     "sources:report": "python3 scripts/report_source_registry.py",
     "coverage:national": "python3 scripts/generate_national_coverage_matrix.py",
+    "legacy:status": "python3 scripts/report_legacy_wave_status.py",
+    "legacy:status:check": "python3 scripts/report_legacy_wave_status.py --check",
     "national:cohort:preflight": "python3 scripts/report_national_cohort_preflight.py",
     "national:cohort:check": "python3 scripts/report_national_cohort_preflight.py --check",
     "north-carolina:generate": "python3 scripts/generate_north_carolina_statewide_summary.py",

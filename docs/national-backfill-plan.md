@@ -42,8 +42,8 @@ Every state/year batch must deliver:
 Process all states in each wave before starting the next:
 
 1. 2020-2024: modern structured files, county/district detail, and current geometry.
-2. 2010-2018: older structured files and official canvass reports.
-3. 2000-2008: legacy formats, PDFs, scans, and validated compiled sources.
+2. 2010-2018: older structured files and official canvass reports. The wave is now active and tracked by `npm run legacy:status`.
+3. 2000-2008: legacy formats, PDFs, scans, and validated compiled sources. The wave inventory is now created and tracked alongside 2010-2018.
 4. 2026: current primary/current data now; certified general results after the election.
 
 ## Parallel Cohorts
@@ -72,4 +72,4 @@ The first bulk cohort is ten states for 2020-2024, followed by the remaining fou
 
 The active first batch is tracked in [`data/national-cohorts/cohort-01-2020-2024.json`](../data/national-cohorts/cohort-01-2020-2024.json) with a human-readable status page at [`docs/national-cohort-01.md`](national-cohort-01.md). Five pilot states are imported; Georgia now has its 2022 federal/state contest lane normalized, while the remaining Georgia, Wisconsin, and Kentucky lanes continue through source discovery and reconciliation. Virginia's even-year federal lane is imported and its state legislative lanes are generally odd-year applicability cases.
 
-The detailed execution backlog is maintained in [`docs/national-execution-backlog.md`](national-execution-backlog.md). Current work begins with Kentucky completion, the Georgia/North Carolina/Virginia/Wisconsin modern cohort, and the remaining 2020-2024 states.
+The detailed execution backlog is maintained in [`docs/national-execution-backlog.md`](national-execution-backlog.md). Current work includes the remaining modern cohort plus the active legacy-wave inventories. Run `npm run legacy:status` to regenerate `public/results/legacy-wave-status.json` and `docs/legacy-wave-status.md`.
