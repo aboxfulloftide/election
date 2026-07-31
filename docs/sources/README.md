@@ -37,7 +37,20 @@ Implemented imports:
 - North Carolina State Board of Elections official precinct results ZIPs, aggregated to county presidential totals for 2020 and 2024.
 - Virginia Department of Elections official historical CSV downloads, aggregated to locality presidential totals for 2020 and 2024.
 - Wisconsin Elections Commission official 2024 county-by-county presidential canvass PDF, parsed to county presidential totals.
-- California Secretary of State official 2024 Statement of Vote XLSX files for President, U.S. Senate, U.S. House, State Senate, and State Assembly.
+- California Secretary of State official 2018, 2020, 2022, and 2024 Statement of Vote spreadsheet files for statewide and district contests.
+- California Citizens Redistricting Commission official 2020 final map shapefiles for congressional, State Senate, and State Assembly district geometry.
+- Pennsylvania Department of State official 2020, 2022, and 2024 general-election precinct return files.
+- Ohio Secretary of State official 2020, 2022, and 2024 statewide results-by-county XLSX workbooks.
+- Florida county Supervisor of Elections official municipal mayor summaries from Election Night Reporting pages for Miami-Dade cities, Tampa, Jacksonville, and Orlando.
+- Texas Secretary of State official 2018 static historical race/county canvass pages.
+- Texas Secretary of State official 2020, 2022, and 2024 County by County Canvass PDF district contests.
+- City of Fort Worth City Secretary official election-history page for mayor contests.
+- City of San Antonio and Bexar County official historical results for San Antonio mayor contests from 2005 through 2025.
+- City of Houston City Secretary official combined canvass PDFs for Houston 1999, 2001, 2003, 2005, and 2007 mayor contests.
+- Harris County Clerk official cumulative result PDFs for Houston 2009, 2011, 2013, 2015, 2019, and 2023 mayor contests.
+- City of Austin City Clerk official canvass resolutions for Austin 2022 and 2024 mayor contests.
+- City of Dallas City Secretary official master list and canvass resolutions for Dallas 1981 through 1999, 2002, 2007, 2011, 2015, 2019, and 2023 mayor contests.
+- Texas Secretary of State current public HTML for statewide-only 2026 primary runoff contest totals.
 - Tony McGovern's county-level presidential CSVs, used only as a non-authoritative supplement for missing MIT 2020/2024 county rows.
 - Florida Division of Elections precinct-level general-election ZIPs, 2012-2024.
 - Florida offices: President, U.S. Senate, U.S. House, Governor, State Senate, State House where on ballot.
@@ -45,4 +58,4 @@ Implemented imports:
 
 Recommended next import:
 
-- Add frontend access for the California Statement of Vote contests, or import Florida mayor contests for Miami, Jacksonville, Tampa, and Orlando from county/city election archives.
+- Continue Texas major-city mayor archives beyond Austin/Dallas/Fort Worth/San Antonio/Houston, starting with remaining Houston years and older San Antonio years where official structured archives are available.

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { geoAlbersUsa, geoPath } from "d3-geo";
+import { geoAlbersUsa, geoMercator, geoPath } from "d3-geo";
 import { max, rollup, sum } from "d3-array";
 import { scaleThreshold } from "d3-scale";
 import { feature, mesh } from "topojson-client";
@@ -13,6 +13,11 @@ import type {
   ElectionSummary,
   FloridaContest,
   FloridaContestCounty,
+  FloridaPrecinctBundle,
+  FloridaPrecinctCatalog,
+  FloridaPrecinctCatalogEntry,
+  FloridaPrecinctContest,
+  FloridaPrecinctRecord,
   FloridaDistrictContest,
   FloridaDistrictDrilldown,
   FloridaDistrictElection,
@@ -27,6 +32,8 @@ type OfficialStatePo = "CA" | "FL";
 type CountyFeature = GeoJSON.Feature<GeoJSON.Geometry, GeoJSON.GeoJsonProperties> & { id?: string | number };
 type DistrictFeature = GeoJSON.Feature<GeoJSON.MultiPolygon, GeoJSON.GeoJsonProperties> & { id?: string | number };
 type DistrictFeatureCollection = GeoJSON.FeatureCollection<GeoJSON.MultiPolygon, GeoJSON.GeoJsonProperties>;
+type PrecinctFeature = GeoJSON.Feature<GeoJSON.MultiPolygon, GeoJSON.GeoJsonProperties> & { id?: string | number };
+type PrecinctFeatureCollection = GeoJSON.FeatureCollection<GeoJSON.MultiPolygon, GeoJSON.GeoJsonProperties>;
 type SelectOption = string | { value: string; label: string };
 type AggregateDetail = {
   scope: "country" | "state";
@@ -72,6 +79,12 @@ const shiftScale = scaleThreshold<number, string>()
 
 function formatNumber(value: number) {
   return new Intl.NumberFormat("en-US").format(value);
+}
+
+function formatBytes(value: number | undefined) {
+  if (value === undefined) return "Unknown";
+  if (value < 1024 * 1024) return `${(value / 1024).toFixed(0)} KB`;
+  return `${(value / (1024 * 1024)).toFixed(1)} MB`;
 }
 
 function formatPct(value: number) {
@@ -300,6 +313,23 @@ function useFloridaDistrictData() {
   return { data, error };
 }
 
+function useCaliforniaDistrictData() {
+  const [data, setData] = useState<FloridaDistrictDrilldown | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/results/districts/california-district-drilldown.json")
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json() as Promise<FloridaDistrictDrilldown>;
+      })
+      .then(setData)
+      .catch((reason: unknown) => setError(reason instanceof Error ? reason.message : String(reason)));
+  }, []);
+
+  return { data, error };
+}
+
 function useFloridaStatewideData() {
   const [data, setData] = useState<FloridaStatewideSummary | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -313,6 +343,47 @@ function useFloridaStatewideData() {
       .then(setData)
       .catch((reason: unknown) => setError(reason instanceof Error ? reason.message : String(reason)));
   }, []);
+
+  return { data, error };
+}
+
+function useFloridaPrecinctCatalog() {
+  const [data, setData] = useState<FloridaPrecinctCatalog | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/results/florida-precinct-catalog.json")
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json() as Promise<FloridaPrecinctCatalog>;
+      })
+      .then(setData)
+      .catch((reason: unknown) => setError(reason instanceof Error ? reason.message : String(reason)));
+  }, []);
+
+  return { data, error };
+}
+
+function useFloridaPrecinctData(entry: FloridaPrecinctCatalogEntry | null) {
+  const [data, setData] = useState<FloridaPrecinctBundle | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!entry) {
+      setData(null);
+      setError(null);
+      return;
+    }
+    setData(null);
+    setError(null);
+    fetch(entry.bundle_url)
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json() as Promise<FloridaPrecinctBundle>;
+      })
+      .then(setData)
+      .catch((reason: unknown) => setError(reason instanceof Error ? reason.message : String(reason)));
+  }, [entry]);
 
   return { data, error };
 }
@@ -346,6 +417,26 @@ function useDistrictGeometry(url: string | undefined) {
       .then((response) => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         return response.json() as Promise<DistrictFeatureCollection>;
+      })
+      .then(setData)
+      .catch((reason: unknown) => setError(reason instanceof Error ? reason.message : String(reason)));
+  }, [url]);
+
+  return { data, error };
+}
+
+function usePrecinctGeometry(url: string | undefined) {
+  const [data, setData] = useState<PrecinctFeatureCollection | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!url) return;
+    setData(null);
+    setError(null);
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json() as Promise<PrecinctFeatureCollection>;
       })
       .then(setData)
       .catch((reason: unknown) => setError(reason instanceof Error ? reason.message : String(reason)));
@@ -1145,6 +1236,7 @@ function FloridaDistrictMapView({
   previousLayer,
   compareYear,
   metric,
+  sourceLabel,
   selectedContestId,
   hoveredContestId,
   onSelectedContest,
@@ -1155,6 +1247,7 @@ function FloridaDistrictMapView({
   previousLayer: FloridaDistrictLayer | null;
   compareYear: number | null;
   metric: Metric;
+  sourceLabel: string;
   selectedContestId: number | null;
   hoveredContestId: number | null;
   onSelectedContest: (contestId: number | null) => void;
@@ -1180,9 +1273,9 @@ function FloridaDistrictMapView({
     <section className="dashboard">
       <div className="map-stage florida-map">
         {!geometry || !path ? (
-          <div className="map-status">{error ? `Could not load district geometry: ${error}` : "Loading Florida districts..."}</div>
+          <div className="map-status">{error ? `Could not load district geometry: ${error}` : `Loading ${election.election.state} districts...`}</div>
         ) : (
-          <svg viewBox="0 0 975 610" role="img" aria-label={`Florida ${election.election.year} ${layer.office} district map`}>
+          <svg viewBox="0 0 975 610" role="img" aria-label={`${election.election.state} ${election.election.year} ${layer.office} district map`}>
             <g>
               {(geometry.features as DistrictFeature[]).map((district) => {
                 const geometryId = Number(district.properties?.geometry_id);
@@ -1222,7 +1315,113 @@ function FloridaDistrictMapView({
       <div className="side-stack">
         <FloridaBoard layer={layer} />
         <DistrictDetails contest={activeContest} previousContest={activePreviousContest} compareYear={compareYear} />
-        <SourcePanel sourceUrl={election.source.url}>Florida Division of Elections precinct returns</SourcePanel>
+        <SourcePanel sourceUrl={election.source.url}>{sourceLabel}</SourcePanel>
+      </div>
+    </section>
+  );
+}
+
+function precinctColor(row: FloridaPrecinctRecord | undefined) {
+  if (!row?.winner || row.total_votes === 0) return "#3f3f46";
+  const marginPct = (row.margin_votes / row.total_votes) * 100;
+  return row.winner.party === "REPUBLICAN" ? winnerScale(-marginPct) : row.winner.party === "DEMOCRAT" ? winnerScale(marginPct) : "#71717a";
+}
+
+function FloridaPrecinctDetails({ row, contest }: { row: FloridaPrecinctRecord | null; contest: FloridaPrecinctContest }) {
+  if (!row) {
+    return (
+      <aside className="details-panel">
+        <p className="eyebrow">Precinct detail</p>
+        <h2>Select a precinct</h2>
+        <p className="muted">Hover or click a precinct to inspect official candidate totals.</p>
+      </aside>
+    );
+  }
+
+  return (
+    <aside className="details-panel">
+      <p className="eyebrow">{contest.name}</p>
+      <h2>Precinct {row.precinct_id}</h2>
+      <div className="detail-stat">
+        <span>Total votes</span>
+        <strong>{formatNumber(row.total_votes)}</strong>
+      </div>
+      <div className="detail-stat">
+        <span>Leader</span>
+        <strong style={{ color: row.winner ? partyColor(row.winner.party) : undefined }}>
+          {row.winner ? `${partyLabels[row.winner.party] ?? row.winner.party} +${formatNumber(row.margin_votes)}` : "No data"}
+        </strong>
+      </div>
+      <div className="vote-list">
+        {row.candidates.map((candidate) => (
+          <div key={`${candidate.candidate}-${candidate.party}`}>
+            <span style={{ color: partyColor(candidate.party) }}>{candidate.candidate}</span>
+            <b>{formatNumber(candidate.votes)}</b>
+          </div>
+        ))}
+      </div>
+      <div className="provenance-list" aria-label="Data provenance">
+        <span className="official">Florida Division of Elections, grade A</span>
+      </div>
+    </aside>
+  );
+}
+
+function FloridaPrecinctMapView({ bundle, contest }: { bundle: FloridaPrecinctBundle; contest: FloridaPrecinctContest }) {
+  const { data: geometry, error } = usePrecinctGeometry(bundle.geometry.geometry_url);
+  const [selectedPrecinct, setSelectedPrecinct] = useState<string | null>(null);
+  const [hoveredPrecinct, setHoveredPrecinct] = useState<string | null>(null);
+  const rowsByPrecinct = useMemo(() => new Map(contest.precincts.map((row) => [row.precinct_id, row])), [contest]);
+  const projection = useMemo(() => (geometry ? geoMercator().fitSize([975, 610], geometry) : null), [geometry]);
+  const path = useMemo(() => (projection ? geoPath(projection) : null), [projection]);
+  const activeRow = rowsByPrecinct.get(hoveredPrecinct ?? selectedPrecinct ?? "") ?? null;
+
+  return (
+    <section className="dashboard">
+      <div className="map-stage florida-map">
+        {!geometry || !path ? (
+          <div className="map-status">{error ? `Could not load precinct geometry: ${error}` : `Loading ${bundle.county.name} precincts...`}</div>
+        ) : (
+          <svg viewBox="0 0 975 610" role="img" aria-label={`${bundle.election.year} ${bundle.county.name} ${contest.name} precinct map`}>
+            <g>
+              {(geometry.features as PrecinctFeature[]).map((precinct) => {
+                const precinctId = String(precinct.properties?.precinct_id ?? "");
+                const row = rowsByPrecinct.get(precinctId);
+                const active = precinctId === selectedPrecinct || precinctId === hoveredPrecinct;
+                return (
+                  <path
+                    key={precinct.id ?? precinctId}
+                    d={path(precinct) ?? undefined}
+                    fill={precinctColor(row)}
+                    className={active ? "map-unit district active" : "map-unit district"}
+                    onMouseEnter={() => setHoveredPrecinct(precinctId)}
+                    onMouseLeave={() => setHoveredPrecinct(null)}
+                    onClick={() => setSelectedPrecinct(row ? precinctId : null)}
+                  >
+                    <title>{row ? `Precinct ${precinctId}: ${row.winner?.candidate ?? "No data"}` : `Precinct ${precinctId}: No result join`}</title>
+                  </path>
+                );
+              })}
+            </g>
+          </svg>
+        )}
+        <MapLegend />
+      </div>
+      <div className="side-stack">
+        <section className="details-panel">
+          <p className="eyebrow">Official precinct returns</p>
+          <h2>{contest.name}</h2>
+          <div className="detail-stat"><span>Result precincts</span><strong>{formatNumber(bundle.geometry.result_precinct_count ?? rowsByPrecinct.size)}</strong></div>
+          <div className="detail-stat"><span>Matched to geometry</span><strong>{formatNumber(bundle.geometry.matched_result_precinct_count ?? rowsByPrecinct.size)}</strong></div>
+          {(bundle.geometry.unmatched_result_precinct_count ?? 0) > 0 ? (
+            <div className="detail-stat"><span>Unmatched result IDs</span><strong>{formatNumber(bundle.geometry.unmatched_result_precinct_count ?? 0)}</strong></div>
+          ) : null}
+          <div className="detail-stat"><span>Geometry vintage</span><strong>{bundle.geometry.vintage}</strong></div>
+          <div className="detail-stat"><span>Geometry payload</span><strong>{formatBytes(bundle.geometry.file_size_bytes)}</strong></div>
+          <a href="/results/florida-precinct-join-report.json" download>Download join audit</a>
+        </section>
+        <FloridaPrecinctDetails row={activeRow} contest={contest} />
+        <SourcePanel sourceUrl={bundle.source.url}>Florida Division of Elections precinct returns</SourcePanel>
       </div>
     </section>
   );
@@ -1248,6 +1447,7 @@ function candidateOption(contest: FloridaDistrictContest) {
 
 function AppContent({ nationalData }: { nationalData: ElectionSummary }) {
   const { data: floridaData, error: floridaError } = useFloridaDistrictData();
+  const { data: californiaDistrictData, error: californiaDistrictError } = useCaliforniaDistrictData();
   const { data: floridaStatewideData, error: floridaStatewideError } = useFloridaStatewideData();
   const { data: californiaData, error: californiaError } = useCaliforniaStatewideData();
   const [view, setView] = useState<ViewMode>("national");
@@ -1259,12 +1459,15 @@ function AppContent({ nationalData }: { nationalData: ElectionSummary }) {
   const [aggregateDetail, setAggregateDetail] = useState<AggregateDetail | null>({ scope: "country", name: "United States" });
   const [floridaYear, setFloridaYear] = useState("2024");
   const [floridaOffice, setFloridaOffice] = useState("U.S. House");
+  const [floridaMapLevel, setFloridaMapLevel] = useState<"district" | "precinct">("district");
   const [selectedFloridaContestId, setSelectedFloridaContestId] = useState<number | null>(null);
   const [californiaYear, setCaliforniaYear] = useState("2024");
   const [californiaOffice, setCaliforniaOffice] = useState("President");
   const [selectedCaliforniaContestId, setSelectedCaliforniaContestId] = useState<number | null>(null);
   const [selectedContestId, setSelectedContestId] = useState<number | null>(null);
   const [hoveredContestId, setHoveredContestId] = useState<number | null>(null);
+  const { data: floridaPrecinctCatalog, error: floridaPrecinctCatalogError } = useFloridaPrecinctCatalog();
+  const [floridaPrecinctCountyFips, setFloridaPrecinctCountyFips] = useState<string | null>(null);
   const isFloridaOfficial = view === "official" && officialState === "FL";
   const isCaliforniaOfficial = view === "official" && officialState === "CA";
 
@@ -1292,10 +1495,27 @@ function AppContent({ nationalData }: { nationalData: ElectionSummary }) {
       null,
     [floridaStatewideData, floridaYear],
   );
+  const floridaPrecinctOptions = useMemo(
+    () => floridaPrecinctCatalog?.bundles.filter((entry) => String(entry.year) === floridaYear && entry.map_ready) ?? [],
+    [floridaPrecinctCatalog, floridaYear],
+  );
+  const selectedFloridaPrecinctEntry = useMemo(
+    () => floridaPrecinctOptions.find((entry) => entry.county_fips === floridaPrecinctCountyFips) ?? floridaPrecinctOptions[0] ?? null,
+    [floridaPrecinctCountyFips, floridaPrecinctOptions],
+  );
+  const { data: floridaPrecinctData, error: floridaPrecinctError } = useFloridaPrecinctData(selectedFloridaPrecinctEntry);
   const floridaOfficeContests = useMemo(() => {
     if (!floridaStatewideElection) return [];
     return floridaStatewideElection.contests.filter((contest) => contest.office === floridaOffice);
   }, [floridaOffice, floridaStatewideElection]);
+  const floridaPrecinctContests = useMemo(
+    () => floridaPrecinctData?.contests.filter((contest) => contest.office === floridaOffice) ?? [],
+    [floridaOffice, floridaPrecinctData],
+  );
+  const selectedFloridaPrecinctContest = useMemo(
+    () => floridaPrecinctContests.find((contest) => contest.contest_id === selectedFloridaContestId) ?? floridaPrecinctContests[0] ?? null,
+    [floridaPrecinctContests, selectedFloridaContestId],
+  );
   const selectedFloridaContests = useMemo(() => {
     if (selectedFloridaContestId === null) return floridaOfficeContests;
     return floridaOfficeContests.filter((contest) => contest.contest_id === selectedFloridaContestId);
@@ -1306,6 +1526,10 @@ function AppContent({ nationalData }: { nationalData: ElectionSummary }) {
       californiaData?.elections.at(-1) ??
       null,
     [californiaData, californiaYear],
+  );
+  const californiaDistrictElection = useMemo(
+    () => californiaDistrictData?.elections.find((election) => String(election.election.year) === californiaYear) ?? null,
+    [californiaDistrictData, californiaYear],
   );
   const californiaOfficeContests = useMemo(() => {
     if (!californiaElection) return [];
@@ -1320,6 +1544,25 @@ function AppContent({ nationalData }: { nationalData: ElectionSummary }) {
     if (!floridaElection) return null;
     return floridaElection.layers.find((layer) => layer.office === floridaOffice) ?? null;
   }, [floridaElection, floridaOffice]);
+  const californiaLayer = useMemo(() => {
+    if (!californiaDistrictElection) return null;
+    return californiaDistrictElection.layers.find((layer) => layer.office === californiaOffice) ?? null;
+  }, [californiaDistrictElection, californiaOffice]);
+
+  const previousCaliforniaDistrictElection = useMemo(() => {
+    if (!californiaDistrictData || !californiaDistrictElection) return null;
+    const currentYear = californiaDistrictElection.election.year;
+    return (
+      [...californiaDistrictData.elections]
+        .filter((election) => election.election.year < currentYear)
+        .sort((a, b) => b.election.year - a.election.year)[0] ?? null
+    );
+  }, [californiaDistrictData, californiaDistrictElection]);
+
+  const previousCaliforniaLayer = useMemo(() => {
+    if (!previousCaliforniaDistrictElection || !californiaLayer) return null;
+    return previousCaliforniaDistrictElection.layers.find((layer) => layer.layer_key === californiaLayer.layer_key) ?? null;
+  }, [californiaLayer, previousCaliforniaDistrictElection]);
 
   const previousFloridaElection = useMemo(() => {
     if (!floridaData || !floridaElection) return null;
@@ -1357,7 +1600,19 @@ function AppContent({ nationalData }: { nationalData: ElectionSummary }) {
   }, [floridaYear, floridaOffice]);
 
   useEffect(() => {
+    if (floridaPrecinctOptions.length && !floridaPrecinctOptions.some((entry) => entry.county_fips === floridaPrecinctCountyFips)) {
+      setFloridaPrecinctCountyFips(floridaPrecinctOptions[0].county_fips);
+    }
+  }, [floridaPrecinctCountyFips, floridaPrecinctOptions]);
+
+  useEffect(() => {
+    setFloridaMapLevel(floridaYear === "2012" || floridaYear === "2014" ? "precinct" : "district");
+  }, [floridaYear]);
+
+  useEffect(() => {
     setSelectedCaliforniaContestId(null);
+    setSelectedContestId(null);
+    setHoveredContestId(null);
   }, [californiaYear, californiaOffice]);
 
   const nationalYearOptions = nationalData.years.map(String).reverse();
@@ -1369,6 +1624,10 @@ function AppContent({ nationalData }: { nationalData: ElectionSummary }) {
     { value: "all", label: "All districts" },
     ...(floridaLayer?.contests.map(candidateOption) ?? []),
   ];
+  const californiaDistrictOptions: SelectOption[] = [
+    { value: "all", label: "All districts" },
+    ...(californiaLayer?.contests.map(candidateOption) ?? []),
+  ];
   const floridaContestOptions: SelectOption[] = [
     { value: "all", label: floridaOfficeContests.length > 1 ? "All contests" : "Statewide" },
     ...floridaOfficeContests.map((contest) => ({
@@ -1376,6 +1635,10 @@ function AppContent({ nationalData }: { nationalData: ElectionSummary }) {
       label: `${contest.district_label ?? contest.office} ${contestLeader(contest)}`,
     })),
   ];
+  const floridaPrecinctContestOptions: SelectOption[] = floridaPrecinctContests.map((contest) => ({
+    value: String(contest.contest_id),
+    label: contest.name,
+  }));
   const californiaContestOptions: SelectOption[] = [
     { value: "all", label: californiaOfficeContests.length > 1 ? "All contests" : "Statewide" },
     ...californiaOfficeContests.map((contest) => ({
@@ -1383,7 +1646,9 @@ function AppContent({ nationalData }: { nationalData: ElectionSummary }) {
       label: `${contest.district_label ?? contest.office} ${contestLeader(contest)}`,
     })),
   ];
-  const hasDistrictGeometry = Boolean(floridaElection && floridaLayer && selectedFloridaContestId === null);
+  const hasDistrictGeometry = Boolean(floridaMapLevel === "district" && floridaElection && floridaLayer && selectedFloridaContestId === null);
+  const hasFloridaPrecinctData = Boolean(floridaPrecinctData);
+  const hasCaliforniaDistrictGeometry = Boolean(californiaDistrictElection && californiaLayer && selectedCaliforniaContestId === null);
   const stateNamesByPo = useMemo(() => {
     const map = new Map<string, string>();
     for (const county of nationalData.counties) {
@@ -1438,12 +1703,35 @@ function AppContent({ nationalData }: { nationalData: ElectionSummary }) {
             <>
               <SelectControl label="Year" value={floridaYear} options={floridaYearOptions} onChange={setFloridaYear} />
               <SelectControl label="Office" value={floridaOffice} options={floridaOfficeOptions} onChange={setFloridaOffice} />
+              {floridaPrecinctOptions.length ? (
+                <SelectControl
+                  label="County"
+                  value={selectedFloridaPrecinctEntry?.county_fips ?? ""}
+                  options={floridaPrecinctOptions.map((entry) => ({ value: entry.county_fips, label: entry.county_name }))}
+                  onChange={setFloridaPrecinctCountyFips}
+                />
+              ) : null}
+              {floridaPrecinctOptions.length && floridaLayer ? (
+                <SelectControl
+                  label="Map"
+                  value={floridaMapLevel}
+                  options={[{ value: "district", label: "Districts" }, { value: "precinct", label: floridaPrecinctData?.county.name ?? "Precincts" }]}
+                  onChange={(value) => setFloridaMapLevel(value as "district" | "precinct")}
+                />
+              ) : null}
               {hasDistrictGeometry ? (
                 <SelectControl
                   label="District"
                   value={selectedContestId === null ? "all" : String(selectedContestId)}
                   options={districtOptions}
                   onChange={(value) => setSelectedContestId(value === "all" ? null : Number(value))}
+                />
+              ) : hasFloridaPrecinctData ? (
+                <SelectControl
+                  label="Contest"
+                  value={selectedFloridaPrecinctContest ? String(selectedFloridaPrecinctContest.contest_id) : ""}
+                  options={floridaPrecinctContestOptions}
+                  onChange={(value) => setSelectedFloridaContestId(Number(value))}
                 />
               ) : (
                 <SelectControl
@@ -1453,18 +1741,28 @@ function AppContent({ nationalData }: { nationalData: ElectionSummary }) {
                   onChange={(value) => setSelectedFloridaContestId(value === "all" ? null : Number(value))}
                 />
               )}
-              {hasDistrictGeometry ? <MetricToggle metric={floridaMetric} onChange={setFloridaMetric} /> : null}
+              {hasDistrictGeometry || hasFloridaPrecinctData ? <MetricToggle metric={floridaMetric} onChange={setFloridaMetric} /> : null}
             </>
           ) : (
             <>
               <SelectControl label="Year" value={californiaYear} options={californiaYearOptions} onChange={setCaliforniaYear} />
               <SelectControl label="Office" value={californiaOffice} options={californiaOfficeOptions} onChange={setCaliforniaOffice} />
-              <SelectControl
-                label="Contest"
-                value={selectedCaliforniaContestId === null ? "all" : String(selectedCaliforniaContestId)}
-                options={californiaContestOptions}
-                onChange={(value) => setSelectedCaliforniaContestId(value === "all" ? null : Number(value))}
-              />
+              {hasCaliforniaDistrictGeometry ? (
+                <SelectControl
+                  label="District"
+                  value={selectedContestId === null ? "all" : String(selectedContestId)}
+                  options={californiaDistrictOptions}
+                  onChange={(value) => setSelectedContestId(value === "all" ? null : Number(value))}
+                />
+              ) : (
+                <SelectControl
+                  label="Contest"
+                  value={selectedCaliforniaContestId === null ? "all" : String(selectedCaliforniaContestId)}
+                  options={californiaContestOptions}
+                  onChange={(value) => setSelectedCaliforniaContestId(value === "all" ? null : Number(value))}
+                />
+              )}
+              {hasCaliforniaDistrictGeometry ? <MetricToggle metric={floridaMetric} onChange={setFloridaMetric} /> : null}
             </>
           )}
         </div>
@@ -1481,6 +1779,8 @@ function AppContent({ nationalData }: { nationalData: ElectionSummary }) {
         <FloridaTicker layer={floridaLayer} />
       ) : isFloridaOfficial && selectedFloridaContests.length ? (
         <FloridaContestTicker contests={selectedFloridaContests} />
+      ) : isCaliforniaOfficial && hasCaliforniaDistrictGeometry && californiaLayer ? (
+        <FloridaTicker layer={californiaLayer} />
       ) : isCaliforniaOfficial && selectedCaliforniaContests.length ? (
         <FloridaContestTicker contests={selectedCaliforniaContests} />
       ) : null}
@@ -1494,8 +1794,8 @@ function AppContent({ nationalData }: { nationalData: ElectionSummary }) {
           aggregateDetail={aggregateDetail}
           onAggregateDetail={setAggregateDetail}
         />
-      ) : isFloridaOfficial && (floridaError || floridaStatewideError) ? (
-        <section className="center-message inline-error">Could not load Florida data: {floridaError ?? floridaStatewideError}</section>
+      ) : isFloridaOfficial && (floridaError || floridaStatewideError || floridaPrecinctCatalogError || floridaPrecinctError) ? (
+        <section className="center-message inline-error">Could not load Florida data: {floridaError ?? floridaStatewideError ?? floridaPrecinctCatalogError ?? floridaPrecinctError}</section>
       ) : isFloridaOfficial && hasDistrictGeometry && floridaElection && floridaLayer ? (
         <FloridaDistrictMapView
           election={floridaElection}
@@ -1503,11 +1803,14 @@ function AppContent({ nationalData }: { nationalData: ElectionSummary }) {
           previousLayer={previousFloridaLayer}
           compareYear={previousFloridaElection?.election.year ?? null}
           metric={floridaMetric}
+          sourceLabel={officialSourceLabels.FL}
           selectedContestId={selectedContestId}
           hoveredContestId={hoveredContestId}
           onSelectedContest={setSelectedContestId}
           onHoveredContest={setHoveredContestId}
         />
+      ) : isFloridaOfficial && floridaPrecinctData && selectedFloridaPrecinctContest ? (
+        <FloridaPrecinctMapView bundle={floridaPrecinctData} contest={selectedFloridaPrecinctContest} />
       ) : isFloridaOfficial && floridaStatewideElection && selectedFloridaContests.length ? (
         <FloridaCountyMapView
           election={floridaStatewideElection}
@@ -1516,8 +1819,21 @@ function AppContent({ nationalData }: { nationalData: ElectionSummary }) {
           statePo="FL"
           sourceLabel={officialSourceLabels.FL}
         />
-      ) : isCaliforniaOfficial && californiaError ? (
-        <section className="center-message inline-error">Could not load California data: {californiaError}</section>
+      ) : isCaliforniaOfficial && (californiaError || californiaDistrictError) ? (
+        <section className="center-message inline-error">Could not load California data: {californiaError ?? californiaDistrictError}</section>
+      ) : isCaliforniaOfficial && hasCaliforniaDistrictGeometry && californiaDistrictElection && californiaLayer ? (
+        <FloridaDistrictMapView
+          election={californiaDistrictElection}
+          layer={californiaLayer}
+          previousLayer={previousCaliforniaLayer}
+          compareYear={previousCaliforniaDistrictElection?.election.year ?? null}
+          metric={floridaMetric}
+          sourceLabel={officialSourceLabels.CA}
+          selectedContestId={selectedContestId}
+          hoveredContestId={hoveredContestId}
+          onSelectedContest={setSelectedContestId}
+          onHoveredContest={setHoveredContestId}
+        />
       ) : isCaliforniaOfficial && californiaElection && selectedCaliforniaContests.length ? (
         <FloridaCountyMapView
           election={californiaElection}

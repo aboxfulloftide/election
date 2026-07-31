@@ -1,0 +1,60 @@
+{
+  "state": "Ohio",
+  "state_po": "OH",
+  "entries": [
+    {
+      "id": "oh-sos-statewide-results-2020-2024",
+      "scope": "statewide",
+      "offices": ["President", "Governor", "U.S. Senate", "U.S. House", "State Senate", "State House"],
+      "years": [2020, 2022, 2024],
+      "status": "imported",
+      "format": "ohio-sos-xlsx",
+      "geography": "county",
+      "quality_grade": "A",
+      "parser": "scripts/generate_ohio_summary.py",
+      "urls": [
+        "https://www.ohiosos.gov/data",
+        "https://data.ohiosos.gov/portal/past-election-results",
+        "https://publicfiles.ohiosos.gov/election-results/past-elections/2020/General%20Election:%20November%203,%202020/group1/statewideresultsbycounty.xlsx",
+        "https://publicfiles.ohiosos.gov/election-results/past-elections/2022/General%20Election:%20November%208,%202022/group1/statewide-races-summary.xlsx",
+        "https://publicfiles.ohiosos.gov/election-results/past-elections/2024/General%20Election:%20November%205,%202024/group1/statewide-race-summary.xlsx"
+      ],
+      "notes": "Imported 397 contests from browser-supplied official Ohio Secretary of State XLSX workbooks: 2020 President, U.S. House, State Senate, and State House; 2022 Governor, U.S. Senate, U.S. House, State Senate, and State House; 2024 President, U.S. Senate, U.S. House, State Senate, and State House. Direct terminal requests to the portal still return maintenance/403 responses, so the raw workbooks are committed under data/raw/ohio."
+    },
+    {
+      "id": "oh-sos-county-races-2022",
+      "scope": "district",
+      "offices": ["County Commissioner", "County Auditor", "Prosecuting Attorney", "Sheriff"],
+      "years": [2022],
+      "status": "source_identified",
+      "format": "ohio-county-races-xlsx",
+      "geography": "county",
+      "quality_grade": null,
+      "parser": "planned:ohio-county-races-xlsx",
+      "urls": [
+        "https://www.ohiosos.gov/data",
+        "https://data.ohiosos.gov/portal/past-election-results",
+        "https://publicfiles.ohiosos.gov/election-results/past-elections/2022/General%20Election:%20November%208,%202022/group2/county-races-summary.xlsx"
+      ],
+      "notes": "The browser-supplied 2022 County Races Summary covers county offices rather than the project's current statewide/district target offices. It is retained under data/raw/ohio as a future local-office source but is intentionally not imported into the statewide summary."
+    },
+    {
+      "id": "oh-major-city-mayors",
+      "scope": "mayor",
+      "offices": ["Mayor"],
+      "years": [2021, 2023],
+      "status": "source_identified",
+      "format": "mixed-county-city-archives",
+      "geography": "citywide",
+      "quality_grade": null,
+      "parser": "planned:municipal-summary",
+      "urls": [
+        "https://vote.franklincountyohio.gov/elections",
+        "https://boe.cuyahogacounty.gov/elections",
+        "https://votehamiltoncountyohio.gov/results/",
+        "https://co.lucas.oh.us/74/Board-of-Elections/"
+      ],
+      "notes": "Columbus, Cleveland, Cincinnati, and Toledo mayor archives."
+    }
+  ]
+}

@@ -13,6 +13,8 @@ Coverage notes:
 - The Ohio Secretary of State Data Portal is the official data portal.
 - Ohio's DATA Act created a state emphasis on collecting, preserving, and publishing electronic election data.
 - The Local Election Results Directory points to county result sources.
+- Direct requests to `https://data.ohiosos.gov/portal/past-election-results`, `https://www.ohiosos.gov/directories/local-election-results`, and sampled county ENR pages currently return an Ohio Secretary of State website maintenance page with HTTP 403.
+- Browser-supplied official XLSX workbooks for 2020, 2022, and 2024 are imported. The separate browser-supplied 2022 County Races Summary file is retained as a future local-office source.
 
 Initial offices:
 
@@ -32,12 +34,14 @@ Expected geography:
 
 First import target:
 
-- Statewide governor and U.S. Senate general-election results from the Ohio Secretary of State portal, then county detail.
+- County and municipal sources for local-office and mayor coverage.
 
 Current project status:
 
-- Not imported yet.
-- Useful candidate for a later pilot because the official data portal and county result directory may help with both state and mayor data.
+- `npm run ohio:generate` parses official Ohio Secretary of State statewide results-by-county XLSX workbooks supplied under `data/raw/ohio`.
+- Generated file: `public/results/ohio-statewide-summary.json`.
+- Current coverage: 397 contests across 2020, 2022, and 2024. The 2020 workbook covers President, U.S. House, State Senate, and State House. The 2022 workbook covers Governor, U.S. Senate, U.S. House, State Senate, and State House. The 2024 workbook covers President, U.S. Senate, U.S. House, State Senate, and State House.
+- `data/raw/ohio/ohio_2022_general_county_races_summary_partial.xlsx` covers county-office races only and is intentionally not imported into the statewide summary.
 
 Importer difficulty:
 
@@ -107,6 +111,7 @@ Expected geography:
 
 ## Open Questions
 
-- What downloadable endpoint backs the Ohio Secretary of State Data Portal?
+- Should the 2022 County Races Summary workbook be imported into a separate local-office dataset later?
+- What downloadable endpoint backs the Ohio Secretary of State Data Portal when the portal is not returning the maintenance page?
 - Which county boards expose Excel/CSV versus only interactive reports?
 - How far back can Columbus mayor results be collected from Franklin County without manual PDF extraction?

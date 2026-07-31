@@ -45,8 +45,16 @@ Implemented official district geometry:
 - Registered files: official shapefile ZIPs and census block-equivalency TXT files.
 - Generated files: `public/results/florida-geometry-layers.json` and district GeoJSON files under `public/results/geometry/`.
 - 2022 and 2024 U.S. House, State Senate, and State House contest summaries include geometry IDs, official IDs, layer keys, and GeoJSON URLs.
+
+Implemented precinct geometry pilot:
+
+- Miami-Dade County official 2012 and 2014/2015 precinct shapefile vintages are converted from NAD83 Florida East State Plane feet to WGS84 and merged by precinct identifier.
+- Broward County official 2020, 2022, and 2024 precinct layers are imported from the Broward GIS ArcGIS service. Broward 2020 and 2024 join all result precinct IDs; the 2022 result file uses numeric IDs while the available boundary vintage uses lettered IDs, so its 355 unmatched IDs are retained without a map join.
+- Generated files: `public/results/florida-precinct-geometry-layers.json`, `public/results/geometry/fl-miami-dade-2012-precincts.geojson`, and `public/results/geometry/fl-miami-dade-2014-precincts.geojson`.
+- Source pages: `https://www.votemiamidade.gov/elections/data/precincts-districts-municipalities-2012.page` and `https://www.votemiamidade.gov/elections/data/precincts-districts-municipalities-2015.page`.
 - 2022 and 2024 district/county drilldown bundles are generated under `public/results/districts/`.
 - Frontend Florida district map mode reads these bundles for year, office, district, winner, and 2024-vs-2022 shift selection.
+- Frontend precinct bundle discovery reads `public/results/florida-precinct-catalog.json`; bundles with zero validated geometry matches remain audit-only and are not exposed as map choices.
 
 Configured official ZIP URLs:
 
@@ -62,12 +70,12 @@ Configured official ZIP URLs:
 Remaining Florida collection targets:
 
 - Add richer frontend Florida drilldown behavior from generated district bundles.
-- Identify official county/year precinct geometry sources for precinct map views.
-- Major city mayor contests.
+- Backfill additional mayor years where official county/city archives expose structured results.
+- Extend official county/year precinct geometry sources beyond the Miami-Dade pilot for precinct map views.
 
 Importer difficulty:
 
-- Medium. Official precinct files are scripted for 2012-2024 statewide and district offices; geometry joins and older archive formats still need inspection.
+- Medium. Official precinct files are scripted for 2012-2024 statewide and district offices; Miami-Dade geometry is piloted, while statewide geometry joins and older archive formats still need inspection.
 
 ## Mayor Sources
 
@@ -81,6 +89,13 @@ Coverage notes:
 
 - The Miami-Dade archive lists election results from 1996 to 2024.
 - The office says results before 1996 require a public-records email request.
+
+Implemented import:
+
+- `npm run florida:mayors:generate` parses official Election Night Reporting summary pages for configured municipal elections.
+- Generated file: `public/results/florida-mayor-summary.json`.
+- Current coverage: seventeen mayor contests across Miami, Hialeah, Miami Beach, Sunny Isles Beach, Tampa, Jacksonville, and Orlando, including runoffs where present.
+- Referendum-style Yes/No questions that mention mayor terms are excluded from the mayor contest dataset.
 
 Expected geography:
 
@@ -97,6 +112,11 @@ Expected geography:
 
 - Citywide mayor results.
 - Precinct results available through Election Night Reporting pages for newer elections.
+
+Implemented import:
+
+- 2015 first/general, 2019 first, and 2023 first/general mayor contests are parsed from official Duval Election Night Reporting summary pages.
+- The configured 2019 general page has no mayor contest and is retained as an empty election in the generated summary.
 
 ### Tampa
 
@@ -120,6 +140,10 @@ Expected geography:
 
 - Citywide mayor results.
 - Orange County administers voter services; results archive needs direct inspection per election year.
+
+Implemented import:
+
+- The 2023 Orlando mayor contest is parsed from Orange County's official election-record page and ENR summary link.
 
 ## Open Questions
 

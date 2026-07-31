@@ -1,0 +1,19 @@
+{
+  "state": "Georgia",
+  "state_po": "GA",
+  "entries": [
+    {
+      "id": "ga-sos-federal-state-2020-2024",
+      "scope": "statewide",
+      "offices": ["President", "U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"],
+      "years": [2020, 2022, 2024],
+      "status": "source_identified",
+      "format": "sos-precinct-archive",
+      "geography": "precinct-or-county",
+      "quality_grade": null,
+      "parser": "planned:georgia-state-federal-import",
+      "urls": ["https://sos.ga.gov/page/historical-elections-results"],
+      "notes": "Official Georgia historical results page identified for the first 2020-2024 federal/state cohort; parser and full office-year import remain pending."
+    }
+  ]
+}

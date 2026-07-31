@@ -15,13 +15,12 @@ from california_statewide_config import (
     CALIFORNIA_DISTRICT_CONTEST_SOURCES,
     OUTPUT_PATH,
     SOURCE_NAME,
-    SOURCE_URL,
     CaliforniaContestSource,
     raw_path,
 )
 from election_db import ROOT_DIR
 from fetch_results import parse_int
-from xlsx_reader import read_first_sheet
+from xlsx_reader import read_first_spreadsheet_sheet
 
 
 PARTY_MAP = {
@@ -114,6 +113,10 @@ def is_district_header(label: str) -> bool:
     return bool(re.match(r"^\d+(?:st|nd|rd|th)?\s+.+\s+District$", label))
 
 
+def is_blank_row(row: list[Any]) -> bool:
+    return not row or all(value is None or str(value).strip() == "" for value in row)
+
+
 def county_fips(county_name: str) -> str:
     try:
         return CALIFORNIA_COUNTY_FIPS[county_name]
@@ -122,7 +125,7 @@ def county_fips(county_name: str) -> str:
 
 
 def contest_county_rows(source: CaliforniaContestSource) -> list[dict[str, Any]]:
-    rows = read_first_sheet(ROOT_DIR / raw_path(source))
+    rows = read_first_spreadsheet_sheet(ROOT_DIR / raw_path(source))
     if len(rows) < 3:
         raise RuntimeError(f"California workbook is too short: {raw_path(source)}")
     candidates = [clean_candidate(value) for value in rows[0][1:]]
@@ -179,7 +182,7 @@ def county_row(row: list[Any], candidates: list[str], parties: list[str], *, inc
 
 
 def district_contests(source: CaliforniaContestSource, contest_id_start: int) -> list[dict[str, Any]]:
-    rows = read_first_sheet(ROOT_DIR / raw_path(source))
+    rows = read_first_spreadsheet_sheet(ROOT_DIR / raw_path(source))
     contests: list[dict[str, Any]] = []
     index = 0
     contest_id = contest_id_start
@@ -189,15 +192,19 @@ def district_contests(source: CaliforniaContestSource, contest_id_start: int) ->
         if not is_district_header(label):
             index += 1
             continue
-        if index + 2 >= len(rows):
+        candidate_index = index + 1
+        while candidate_index < len(rows) and is_blank_row(rows[candidate_index]):
+            candidate_index += 1
+        party_index = candidate_index + 1
+        if party_index >= len(rows):
             raise RuntimeError(f"Missing candidate or party rows for {label} in {raw_path(source)}")
-        candidates = [clean_candidate(value) for value in rows[index + 1][1:] if value is not None]
-        parties = [normalize_party(value) for value in rows[index + 2][1 : 1 + len(candidates)]]
+        candidates = [clean_candidate(value) for value in rows[candidate_index][1:] if value is not None]
+        parties = [normalize_party(value) for value in rows[party_index][1 : 1 + len(candidates)]]
         if not candidates:
             raise RuntimeError(f"Missing candidates for {label} in {raw_path(source)}")
         counties: list[dict[str, Any]] = []
         district_total_row: list[Any] | None = None
-        index += 3
+        index = party_index + 1
         while index < len(rows):
             current = rows[index]
             name = str(current[0]).strip() if current and current[0] else ""
@@ -267,37 +274,50 @@ def build_contest(source: CaliforniaContestSource, contest_id: int) -> dict[str,
     }
 
 
-def build_summary() -> dict[str, Any]:
-    contests = [build_contest(source, index) for index, source in enumerate(CALIFORNIA_CONTEST_SOURCES, start=1)]
-    next_contest_id = len(contests) + 1
-    for source in CALIFORNIA_DISTRICT_CONTEST_SOURCES:
-        parsed = district_contests(source, next_contest_id)
+def year_sources(year: int, sources: list[CaliforniaContestSource]) -> list[CaliforniaContestSource]:
+    return [source for source in sources if source.year == year]
+
+
+def build_election(year: int) -> dict[str, Any]:
+    contest_id = 1
+    contests = []
+    for source in year_sources(year, CALIFORNIA_CONTEST_SOURCES):
+        contests.append(build_contest(source, contest_id))
+        contest_id += 1
+    for source in year_sources(year, CALIFORNIA_DISTRICT_CONTEST_SOURCES):
+        parsed = district_contests(source, contest_id)
         contests.extend(parsed)
-        next_contest_id += len(parsed)
+        contest_id += len(parsed)
+    if not contests:
+        raise RuntimeError(f"No California contests configured for {year}")
+    first_source = year_sources(year, CALIFORNIA_CONTEST_SOURCES + CALIFORNIA_DISTRICT_CONTEST_SOURCES)[0]
     return {
         "source": {
             "name": SOURCE_NAME,
-            "url": SOURCE_URL,
+            "url": first_source.source_page_url,
             "retrieved_at": dt.datetime.now(dt.UTC).isoformat(),
             "quality_grade": "A",
         },
-        "elections": [
-            {
-                "source": {
-                    "name": SOURCE_NAME,
-                    "url": SOURCE_URL,
-                    "retrieved_at": dt.datetime.now(dt.UTC).isoformat(),
-                    "quality_grade": "A",
-                },
-                "election": {
-                    "year": 2024,
-                    "date": "2024-11-05",
-                    "type": "general",
-                    "state": "California",
-                },
-                "contests": contests,
-            }
-        ],
+        "election": {
+            "year": year,
+            "date": first_source.election_date,
+            "type": "general",
+            "state": "California",
+        },
+        "contests": contests,
+    }
+
+
+def build_summary() -> dict[str, Any]:
+    years = sorted({source.year for source in CALIFORNIA_CONTEST_SOURCES + CALIFORNIA_DISTRICT_CONTEST_SOURCES}, reverse=True)
+    return {
+        "source": {
+            "name": SOURCE_NAME,
+            "url": "https://www.sos.ca.gov/elections/prior-elections/statewide-election-results",
+            "retrieved_at": dt.datetime.now(dt.UTC).isoformat(),
+            "quality_grade": "A",
+        },
+        "elections": [build_election(year) for year in years],
     }
 
 
@@ -306,7 +326,8 @@ def main() -> int:
     output_path = ROOT_DIR / OUTPUT_PATH
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(summary, separators=(",", ":")), encoding="utf-8")
-    print(f"Wrote {OUTPUT_PATH} with {len(summary['elections'][0]['contests'])} California contests.")
+    contest_count = sum(len(election["contests"]) for election in summary["elections"])
+    print(f"Wrote {OUTPUT_PATH} with {contest_count} California contests across {len(summary['elections'])} elections.")
     return 0
 
 

@@ -35,12 +35,14 @@ First import target:
 
 Current project status:
 
-- Not imported yet.
-- Keep behind Florida mayor or California Statement of Vote unless Pennsylvania source files prove easier to automate.
+- Imported official 2020, 2022, and 2024 general-election precinct return files.
+- Generated file: `public/results/pennsylvania-statewide-summary.json`.
+- Current coverage: 741 contests across 2020, 2022, and 2024 for President, Governor, U.S. Senate, U.S. House, State Senate, and State House where on ballot.
+- The parser aggregates official precinct rows to contest totals and county rows.
 
 Importer difficulty:
 
-- Medium to high. State portal is official, but county-submitted returns and changing data products need careful source-file tracking.
+- Medium. Recent general-election precinct return files are direct CSV-style text downloads; older years remain available but need batch expansion and validation.
 
 ## Mayor Sources
 

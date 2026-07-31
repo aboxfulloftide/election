@@ -1,0 +1,180 @@
+{
+  "state": "Florida",
+  "state_po": "FL",
+  "entries": [
+    {
+      "id": "fl-doe-general-precinct-2012-2024",
+      "scope": "statewide",
+      "offices": ["President", "U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"],
+      "years": [2012, 2014, 2016, 2018, 2020, 2022, 2024],
+      "status": "imported",
+      "format": "zip-fixed-width-precinct",
+      "geography": "precinct",
+      "quality_grade": "A",
+      "parser": "scripts/import_florida_general.py",
+      "urls": [
+        "https://dos.fl.gov/elections/data-statistics/elections-data/election-results-archive/",
+        "https://fldoswebumbracoprod.blob.core.windows.net/media/697204/precinctlevelelectionresults2012gen.zip",
+        "https://fldoswebumbracoprod.blob.core.windows.net/media/697201/precinctlevelelectionresults2014gen.zip",
+        "https://fldoswebumbracoprod.blob.core.windows.net/media/697454/precinctlevelelectionresults2016gen.zip",
+        "https://fldoswebumbracoprod.blob.core.windows.net/media/700501/precinctlevelelectionresults2018gen.zip",
+        "https://fldoswebumbracoprod.blob.core.windows.net/media/703763/2020-general-election-rev.zip",
+        "https://fldoswebumbracoprod.blob.core.windows.net/media/706300/2022-gen-outputofficial.zip",
+        "https://fldoswebumbracoprod.blob.core.windows.net/media/708761/2024-gen-outputofficial1.zip"
+      ],
+      "notes": "Imported for configured general-election offices where on ballot."
+    },
+    {
+      "id": "fl-edr-2022-district-geometry",
+      "scope": "geometry",
+      "offices": ["U.S. House", "State Senate", "State House"],
+      "years": [2022, 2024],
+      "status": "imported",
+      "format": "shapefile-zip",
+      "geography": "district",
+      "quality_grade": "A",
+      "parser": "scripts/generate_florida_geometry_geojson.py",
+      "urls": ["https://edr.state.fl.us/content/redistricting/2020redistricting/index.cfm"],
+      "notes": "2022 redistricting-cycle congressional, State Senate, and State House map layers."
+    },
+    {
+      "id": "fl-miami-dade-precinct-geometry-2012-2014",
+      "scope": "precinct",
+      "offices": ["President", "U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"],
+      "years": [2012, 2014],
+      "status": "imported",
+      "format": "shapefile-zip-state-plane",
+      "geography": "precinct",
+      "quality_grade": "A",
+      "parser": "scripts/generate_florida_precinct_geometry.py",
+      "urls": [
+        "https://www.votemiamidade.gov/elections/data/precincts-districts-municipalities-2012.page",
+        "https://www.votemiamidade.gov/elections/data/precincts-districts-municipalities-2015.page",
+        "https://www.miamidade.gov/elections/library/gis/miami-dade-precincts-1-8-12-through-6-19-14.zip",
+        "https://www.miamidade.gov/elections/library/gis/miami-dade-precincts-6-20-14-through-8-6-15.zip"
+      ],
+      "notes": "Official Miami-Dade precinct boundary vintages converted from NAD83 Florida East State Plane feet to WGS84 and merged by precinct identifier. The 2012 vintage has 829 precinct features and the 2014 vintage has 812 features."
+    },
+    {
+      "id": "fl-broward-precinct-geometry-2020-2022",
+      "scope": "precinct",
+      "offices": ["President", "U.S. House", "State Senate", "State House"],
+      "years": [2020, 2022, 2024],
+      "status": "source_identified",
+      "format": "arcgis-feature-service",
+      "geography": "precinct",
+      "quality_grade": "A",
+      "parser": "scripts/generate_florida_arcgis_precinct_geometry.py",
+      "urls": [
+        "https://services.arcgis.com/JMAJrTsHNLrSsWf5/arcgis/rest/services/2026_SOE_GENERAL_USE_MAP___POST_CNG_WFL1/FeatureServer/199",
+        "https://services.arcgis.com/JMAJrTsHNLrSsWf5/arcgis/rest/services/2026_SOE_GENERAL_USE_MAP___POST_CNG_WFL1/FeatureServer/200",
+        "https://services.arcgis.com/JMAJrTsHNLrSsWf5/arcgis/rest/services/2026_SOE_GENERAL_USE_MAP___POST_CNG_WFL1/FeatureServer/203"
+      ],
+      "notes": "Broward 2020 and 2024 geometry join all 577 and 358 result precinct IDs respectively. The staged 2022 boundary layer uses lettered precinct IDs while the 2022 result file uses a numeric namespace; the 2022 result bundle preserves all 355 unmatched IDs pending an official crosswalk or compatible historical boundary service."
+    },
+    {
+      "id": "fl-municipal-mayors-enr",
+      "scope": "mayor",
+      "offices": ["Mayor"],
+      "years": [2015, 2019, 2021, 2023],
+      "status": "imported",
+      "format": "enr-html-summary",
+      "geography": "citywide",
+      "quality_grade": "A",
+      "parser": "scripts/generate_florida_mayor_summary.py",
+      "urls": [
+        "https://www.votemiamidade.gov/elections/data/results-archive.page",
+        "https://enr.electionsfl.org/DAD/3110/Summary/",
+        "https://enr.electionsfl.org/DAD/3116/Summary/",
+        "https://enr.electionsfl.org/DAD/3450/Summary/",
+        "https://enr.electionsfl.org/DAD/3478/Summary/",
+        "https://www.votehillsborough.gov/183/Election-Results",
+        "https://enr.electionsfl.org/HIL/Summary/1246/",
+        "https://enr.electionsfl.org/HIL/Summary/1258/",
+        "https://enr.electionsfl.org/HIL/2083/Summary/",
+        "https://enr.electionsfl.org/HIL/Summary/2119/",
+        "https://enr.electionsfl.org/HIL/Summary/3362/",
+        "https://enr.electionsfl.org/HIL/3388/Summary/",
+        "https://www.duvalelections.gov/Archive.aspx?AMID=36",
+        "https://enr.electionsfl.org/DUV/Summary/1251/",
+        "https://enr.electionsfl.org/DUV/Summary/1276/",
+        "https://enr.electionsfl.org/DUV/Summary/2085/",
+        "https://enr.electionsfl.org/DUV/Summary/2125/",
+        "https://enr.electionsfl.org/DUV/Summary/3353/",
+        "https://enr.electionsfl.org/DUV/Summary/3385/",
+        "https://voteorangefl.gov/election-record/2023-special-house-35-primary-and-city-orlando-general-2023-11-07/",
+        "https://enr.electionsfl.org/ORA/3462/Summary/"
+      ],
+      "notes": "Seventeen Miami-Dade, Tampa, Jacksonville, and Orlando municipal mayor contests from official ENR summary pages. Configured runoff/general pages with no mayor contest are validated as empty."
+    },
+    {
+      "id": "fl-duval-jacksonville-mayors",
+      "scope": "mayor",
+      "offices": ["Mayor"],
+      "years": [2015, 2019, 2023],
+      "status": "imported",
+      "format": "enr-html-summary",
+      "geography": "citywide",
+      "quality_grade": "A",
+      "parser": "scripts/generate_florida_mayor_summary.py",
+      "urls": [
+        "https://www.duvalelections.gov/Archive.aspx?AMID=36",
+        "https://enr.electionsfl.org/DUV/Summary/1251/",
+        "https://enr.electionsfl.org/DUV/Summary/1276/",
+        "https://enr.electionsfl.org/DUV/Summary/2085/",
+        "https://enr.electionsfl.org/DUV/Summary/3353/",
+        "https://enr.electionsfl.org/DUV/Summary/3385/"
+      ],
+      "notes": "Imported Jacksonville mayor contests for 2015 first/general, 2019 first, and 2023 first/general from official Duval ENR summary pages."
+    },
+    {
+      "id": "fl-hillsborough-tampa-mayors",
+      "scope": "mayor",
+      "offices": ["Mayor"],
+      "years": [2015, 2019, 2023],
+      "status": "imported",
+      "format": "enr-html-summary",
+      "geography": "citywide",
+      "quality_grade": "A",
+      "parser": "scripts/generate_florida_mayor_summary.py",
+      "urls": [
+        "https://www.votehillsborough.gov/183/Election-Results",
+        "https://enr.electionsfl.org/HIL/Summary/1246/",
+        "https://enr.electionsfl.org/HIL/2083/Summary/",
+        "https://enr.electionsfl.org/HIL/Summary/2119/",
+        "https://enr.electionsfl.org/HIL/Summary/3362/"
+      ],
+      "notes": "Imported Tampa mayor contests for 2015, 2019 general/runoff, and 2023 general from official Hillsborough ENR summary pages."
+    },
+    {
+      "id": "fl-orlando-mayors",
+      "scope": "mayor",
+      "offices": ["Mayor"],
+      "years": [2023],
+      "status": "imported",
+      "format": "enr-html-summary",
+      "geography": "citywide",
+      "quality_grade": "A",
+      "parser": "scripts/generate_florida_mayor_summary.py",
+      "urls": [
+        "https://www.orlando.gov/Our-Government/Records-and-Documents/Election-Information",
+        "https://voteorangefl.gov/election-record/2023-special-house-35-primary-and-city-orlando-general-2023-11-07/",
+        "https://enr.electionsfl.org/ORA/3462/Summary/"
+      ],
+      "notes": "Imported the 2023 Orlando mayor contest from Orange County's official election-record page and ENR summary link."
+    },
+    {
+      "id": "fl-county-precinct-geometry",
+      "scope": "precinct",
+      "offices": ["President", "U.S. Senate", "U.S. House", "Governor", "State Senate", "State House", "Mayor"],
+      "years": [2020, 2022, 2024],
+      "status": "needs_discovery",
+      "format": "mixed-geometry",
+      "geography": "precinct",
+      "quality_grade": null,
+      "parser": "planned:precinct-geometry",
+      "urls": ["https://dos.fl.gov/elections/data-statistics/elections-data/election-results-archive/"],
+      "notes": "County/year precinct geometry sources are not yet identified."
+    }
+  ]
+}

@@ -24,7 +24,15 @@ Implemented datasets:
 - Florida 2022 redistricting-cycle district geometry rows and app-ready GeoJSON for congressional, State Senate, and State House layers.
 - Florida 2022 and 2024 district contest summaries include geometry links for U.S. House, State Senate, and State House contests.
 - Florida 2022 and 2024 district/county drilldown bundles are generated under `public/results/districts/`.
-- Frontend supports national presidential mode with country/state/county comparison cards, plus Florida 2022/2024 district map mode with year, office, district, winner, and shift selectors.
+- Miami-Dade official 2012 and 2014/2015 precinct geometry pilot layers are generated under `public/results/geometry/` with `public/results/florida-precinct-geometry-layers.json`.
+- Miami-Dade 2012 and 2014 precinct result bundles are generated under `public/results/precincts/` and normalize legacy/split precinct identifiers.
+- California 2018, 2020, 2022, and 2024 Statement of Vote summaries include statewide and district contests.
+- California 2022 redistricting-cycle district geometry and the 2022/2024 California district/county drilldown bundle are generated under `public/results/`.
+- Florida municipal mayor summaries for configured Miami-Dade cities, Tampa, Jacksonville, and Orlando are generated under `public/results/`.
+- Pennsylvania 2020, 2022, and 2024 official general-election precinct returns are generated under `public/results/`.
+- Texas 2018 official Secretary of State historical race/county canvass summaries are generated under `public/results/`.
+- Texas Fort Worth, San Antonio, Houston, Austin, and Dallas official municipal mayor summaries are generated under `public/results/`.
+- Frontend supports national presidential mode with country/state/county comparison cards, scalable official-state selection, official county maps, and Florida/California district map modes.
 
 ## Standard Start Script
 
@@ -47,6 +55,12 @@ Use this when you need a fully refreshed local database and generated JSON:
 npm run data:fetch
 npm run florida:fetch
 npm run florida:geometry:fetch
+npm run california:all
+npm run florida:mayors:generate
+npm run pennsylvania:fetch
+npm run texas:generate
+npm run texas:mayors:generate
+npm run sources:report
 npm run build
 ```
 
@@ -55,6 +69,15 @@ Expected high-level results:
 - MIT validation passes for county presidential data.
 - Florida validation passes for 2012, 2014, 2016, 2018, 2020, 2022, and 2024.
 - Florida geometry registration validates the three 2022 district shapefile/block-equivalency pairs and writes `public/results/florida-geometry-layers.json` plus district GeoJSON files under `public/results/geometry/`.
+- California Statement of Vote generation writes 619 contests across 2018, 2020, 2022, and 2024, California geometry generation writes 52 congressional, 40 State Senate, and 80 State Assembly features, and California district drilldown links 304 district contests for 2022/2024 only.
+- Florida mayor generation writes seventeen municipal mayor contests across Miami-Dade cities, Tampa, Jacksonville, and Orlando.
+- Pennsylvania generation writes 741 contests across 2020, 2022, and 2024.
+- Ohio generation writes 397 contests across 2020, 2022, and 2024 from browser-supplied official SOS workbooks.
+- Texas generation writes 764 contests: 2018 statewide/district contests plus 2020/2022/2024 PDF-derived statewide and district contests.
+- Texas current generation writes 30 statewide-only May 26, 2026 primary runoff contests from SOS public HTML.
+- Texas mayor generation writes 65 contests: 10 Fort Worth mayor contests from 2007 through 2025, San Antonio mayor contests from 1999 through 2025, Houston 1999, 2001, 2003, 2005, 2007, 2009, 2011, 2013, 2015, 2019, and 2023 mayor contests, Austin 2022/2024 mayor contests, and Dallas 1981 through 1999, 2002, 2007, 2011, 2015, 2019, and 2023 mayor contests.
+- Texas mayor source downloads, PDF text, and OCR text are cached under ignored `data/raw/official/texas/mayors/`; delete that directory when a clean re-download/re-OCR is required.
+- Source registry report writes `docs/source-registry-report.md`.
 - Build passes. Vite may warn that the bundle is larger than 500 kB; that warning is currently expected.
 
 ## Before Commit Script
@@ -78,21 +101,35 @@ Expected:
 - `.env`, `data/raw/`, `dist/`, `node_modules/`, and `scripts/__pycache__/` may appear only as ignored files.
 - No dev server or import process is running. A match for the `pgrep` command itself is acceptable.
 
-## Next Work Option A: Florida Geometry
+## Next Work Option A: National Federal/State Backfill
+
+The active target is now the 4,200-cell matrix in `public/results/national-coverage-matrix.json`: 50 states, even-year general elections from 2000 through 2026, and President, U.S. Senate, U.S. House, Governor, State Senate, and State House/Assembly. Municipal datasets remain archived and are not part of this work.
+
+Use [national-backfill-plan.md](national-backfill-plan.md) for the batch contract and wave order. The first execution batch is ten states for 2020-2024, followed by the remaining four cohorts before older years.
+
+## Next Work Option B: Expand Florida Precinct Geometry
 
 Goal:
 
-- Add map-ready geometry joins for Florida congressional districts, State Senate districts, State House districts, counties, and precincts.
+- Expand map-ready county/year precinct geometry joins beyond the Miami-Dade pilot.
 
 Why next:
 
-- Florida results now include district contests, but the interface cannot accurately draw district or precinct views until geometry is versioned by election year/redistricting cycle.
+- Florida district maps now draw for 2022-cycle congressional, State Senate, and State House contests. Precinct-aware views still need official county/year precinct geometry.
+- Miami-Dade is the first precinct-geometry pilot: official 2012 and 2014/2015 shapefiles are converted to WGS84 and merged by precinct.
+- Miami-Dade 2012 and 2014 precinct result bundles now join the normalized Florida database results to those geometry vintages; some historical result IDs remain unmatched and are retained in the bundles.
+- The Florida official UI now loads those bundles for 2012 and 2014, renders the WGS84 precinct map, supports contest selection and precinct hover/click details, and links the official source.
+- Broward County official ArcGIS precinct layers for 2020, 2022, and 2024 are now normalized and appended to the shared geometry manifest. Broward 2020 and 2024 join all result precinct IDs and are available in the UI. Broward 2022 is bundled for auditability, but all 355 result IDs remain unmatched because the result namespace is numeric and the available boundary namespace is lettered.
+- Precinct bundle discovery is now manifest-driven through `public/results/florida-precinct-catalog.json`; map readiness is derived from validated join counts instead of hardcoded frontend URLs.
+- `npm run florida:precinct:preflight` audits match rates and enforces the federal/state-only office scope; `--require-complete` is available for strict publication checks. Geometry payload sizes are recorded in the manifest and shown in precinct details.
+- `npm run florida:precinct:all` rebuilds the state/federal precinct geometry, result bundles, catalog, and downloadable join report in one pass.
 
 Likely tasks:
 
-1. Identify official Florida precinct geometry sources by county and year.
-2. Add richer Florida drilldown behavior, such as county highlighting, closest-race panels, and source/quality badges.
-3. Identify official Florida precinct geometry sources by county and year.
+1. Reconcile Broward 2022 numeric result IDs with a compatible historical boundary vintage or official crosswalk.
+2. Measure the generated GeoJSON size as coverage grows and move to county-partitioned or vector-tile delivery if needed.
+3. Extend the same result/geometry join and UI path beyond Miami-Dade, preserving unmatched identifiers for auditability.
+4. Add richer precinct analytics, such as closest-race sorting and a visible unmatched-join count.
 
 Risks:
 
@@ -104,15 +141,18 @@ Risks:
 
 Goal:
 
-- Import mayor contests for Miami, Jacksonville, Tampa, and Orlando.
+- Backfill additional mayor years where official county/city archives expose structured results.
 
-Recommended first target:
+Completed first target:
 
-- Miami, using Miami-Dade Supervisor of Elections archived results.
+- Miami-Dade Supervisor of Elections archived ENR pages for configured 2021 and 2023 mayor contests.
+- Hillsborough Supervisor of Elections archived ENR pages for Tampa 2015, 2019, and 2023 mayor contests.
+- Duval Supervisor of Elections archived ENR pages for Jacksonville 2015, 2019, and 2023 mayor contests.
+- Orange County Supervisor of Elections ENR page for the 2023 Orlando mayor contest.
 
 Likely tasks:
 
-1. Inspect Miami-Dade archived result downloads for mayor contests.
+1. Inspect older Orange/Orlando result archives and other major-city archives for structured mayor contest pages or reports.
 2. Decide initial geography: citywide, precinct, or precinct-like.
 3. Add city contest parsing without forcing partisan labels.
 4. Validate citywide totals and source files.
@@ -124,33 +164,37 @@ Risks:
 - Runoffs may determine the winner.
 - City boundaries do not always align cleanly with county precinct files.
 
-## Next Work Option C: California Statement of Vote
+## Next Work Option C: Texas Mayor Backfill
 
 Goal:
 
-- Add the second pilot-state structured import using California Secretary of State Statement of Vote XLSX files.
+- Continue official Texas mayor imports from reachable county and city archives.
 
 Recommended first target:
 
-- 2024 general election, starting with U.S. Senate, U.S. House, State Senate, and State Assembly.
+- Remaining Houston years, then older San Antonio years.
 
 Likely tasks:
 
-1. Download and inspect official California Statement of Vote XLSX files.
-2. Add source-file registration and checksums.
-3. Build a California importer that starts with county and county-by-district totals.
-4. Validate contest counts and county coverage.
-5. Generate California summary JSON.
+1. Identify official city or county election-result archives with stable files.
+2. Add source entries under `data/source-registry/texas.json`.
+3. Extend `scripts/generate_texas_mayor_summary.py` and tests for each source format.
+4. Connect imported Texas years to generated JSON validation.
+5. Update the source registry, docs, and generated JSON validation for each imported batch.
 
 Risks:
 
 - XLSX sheet layouts may vary by office and year.
 - California uses top-two general election behavior.
 - District/county breakdowns need careful normalization.
+- State Senate districts phase in over two election cycles.
+- Texas 2019-2024 official results are on a modern portal that returns a Cloudflare challenge to direct non-browser requests.
+- Texas 2025-current Civix app APIs return `401 Bearer`; only the public `electionresults.sos.state.tx.us/results.html` page is currently reachable without authentication.
+- Ohio data portal, direct XLSX guesses, and sampled county ENR URLs currently return the Ohio Secretary of State maintenance page with HTTP 403. Browser-supplied 2020, 2022, and 2024 statewide workbooks are imported.
 
 ## Current Recommended Order
 
-1. Florida geometry, if the next priority is interface/map accuracy.
-2. Florida mayors, if the next priority is completing Florida scope.
-3. California Statement of Vote, if the next priority is proving a second state importer.
-4. Frontend contest selector and Florida state drilldown are implemented for 2022/2024 district contests; expand from there.
+1. Continue structured mayor archives for remaining Houston years and older San Antonio years, starting with whichever archive exposes HTML/CSV/XLSX before PDF-only reports.
+2. Continue official Texas mayor backfill with remaining Houston years.
+3. County/year precinct geometry and precinct results, if the next priority is precinct-aware state drilldown.
+4. Richer frontend drilldown behavior once the underlying precinct geography exists.

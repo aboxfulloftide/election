@@ -80,6 +80,67 @@ export type FloridaContestCounty = {
   candidates: CandidateResult[];
 };
 
+export type FloridaPrecinctRecord = {
+  precinct_id: string;
+  total_votes: number;
+  winner: CandidateResult | null;
+  margin_votes: number;
+  candidates: CandidateResult[];
+};
+
+export type FloridaPrecinctContest = {
+  contest_id: number;
+  office: string;
+  district_label?: string | null;
+  name: string;
+  precincts: FloridaPrecinctRecord[];
+};
+
+export type FloridaPrecinctBundle = {
+  source: {
+    name: string;
+    url: string;
+    source_file_url?: string | null;
+    retrieved_at: string;
+    quality_grade: string;
+  };
+  election: {
+    year: number;
+    date: string;
+    type: string;
+    state: string;
+  };
+  county: {
+    fips: string;
+    name: string;
+  };
+  geometry: {
+    layer_key: string;
+    geometry_url: string;
+    feature_count: number;
+    vintage: string;
+    result_precinct_count?: number;
+    matched_result_precinct_count?: number;
+    unmatched_result_precinct_count?: number;
+    file_size_bytes?: number;
+  };
+  contests: FloridaPrecinctContest[];
+};
+
+export type FloridaPrecinctCatalogEntry = {
+  year: number;
+  county_fips: string;
+  county_name: string;
+  bundle_url: string;
+  geometry_layer_key: string;
+  quality_grade: string;
+  map_ready: boolean;
+};
+
+export type FloridaPrecinctCatalog = {
+  bundles: FloridaPrecinctCatalogEntry[];
+};
+
 export type FloridaContest = {
   contest_id: number;
   office: "President" | "U.S. Senate" | "U.S. House" | "Governor" | "State Senate" | "State House" | string;
@@ -170,7 +231,7 @@ export type FloridaDistrictElection = {
     state: string;
   };
   state: string;
-  state_po: "FL";
+  state_po: "FL" | "CA";
   layers: FloridaDistrictLayer[];
 };
 
@@ -182,6 +243,6 @@ export type FloridaDistrictDrilldown = {
     quality_grade: string;
   };
   state: string;
-  state_po: "FL";
+  state_po: "FL" | "CA";
   elections: FloridaDistrictElection[];
 };

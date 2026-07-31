@@ -1,0 +1,243 @@
+{
+  "cohort_id": "cohort-01-2020-2024",
+  "scope": "federal-and-state",
+  "offices": [
+    "President",
+    "U.S. Senate",
+    "U.S. House",
+    "Governor",
+    "State Senate",
+    "State House"
+  ],
+  "rows": [
+    {
+      "state_po": "FL",
+      "year": 2020,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "FL",
+      "year": 2022,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "FL",
+      "year": 2024,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "CA",
+      "year": 2020,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "CA",
+      "year": 2022,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "CA",
+      "year": 2024,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "PA",
+      "year": 2020,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "PA",
+      "year": 2022,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "PA",
+      "year": 2024,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "TX",
+      "year": 2020,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "TX",
+      "year": 2022,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "TX",
+      "year": 2024,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "OH",
+      "year": 2020,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "OH",
+      "year": 2022,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "OH",
+      "year": 2024,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "GA",
+      "year": 2020,
+      "raw_file_count": 1,
+      "raw_files": [
+        "data/raw/official/georgia/november_3_2020_-_general_election_recount.zip"
+      ],
+      "status": "files_present"
+    },
+    {
+      "state_po": "GA",
+      "year": 2022,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "GA",
+      "year": 2024,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "NC",
+      "year": 2020,
+      "raw_file_count": 1,
+      "raw_files": [
+        "data/raw/official/north-carolina/results_pct_20201103.zip"
+      ],
+      "status": "files_present"
+    },
+    {
+      "state_po": "NC",
+      "year": 2022,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "NC",
+      "year": 2024,
+      "raw_file_count": 1,
+      "raw_files": [
+        "data/raw/official/north-carolina/results_pct_20241105.zip"
+      ],
+      "status": "files_present"
+    },
+    {
+      "state_po": "VA",
+      "year": 2020,
+      "raw_file_count": 1,
+      "raw_files": [
+        "data/raw/official/virginia/va_2020_president.csv"
+      ],
+      "status": "files_present"
+    },
+    {
+      "state_po": "VA",
+      "year": 2022,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "VA",
+      "year": 2024,
+      "raw_file_count": 1,
+      "raw_files": [
+        "data/raw/official/virginia/va_2024_president.csv"
+      ],
+      "status": "files_present"
+    },
+    {
+      "state_po": "WI",
+      "year": 2020,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "WI",
+      "year": 2022,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "WI",
+      "year": 2024,
+      "raw_file_count": 1,
+      "raw_files": [
+        "data/raw/official/wisconsin/county_by_county_report_potus_2024.pdf"
+      ],
+      "status": "files_present"
+    },
+    {
+      "state_po": "KY",
+      "year": 2020,
+      "raw_file_count": 1,
+      "raw_files": [
+        "data/raw/official/kentucky/2020_general_election_results.pdf"
+      ],
+      "status": "files_present"
+    },
+    {
+      "state_po": "KY",
+      "year": 2022,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    },
+    {
+      "state_po": "KY",
+      "year": 2024,
+      "raw_file_count": 0,
+      "raw_files": [],
+      "status": "needs_source"
+    }
+  ],
+  "summary": {
+    "state_year_batches": 30,
+    "files_present": 7,
+    "needs_source": 23
+  }
+}

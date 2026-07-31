@@ -1,0 +1,228 @@
+{
+  "state": "Texas",
+  "state_po": "TX",
+  "entries": [
+    {
+      "id": "tx-sos-historical-static-2018",
+      "scope": "statewide",
+      "offices": ["U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"],
+      "years": [2018],
+      "status": "imported",
+      "format": "static-html-race-county-canvass",
+      "geography": "county",
+      "quality_grade": "A",
+      "parser": "scripts/generate_texas_summary.py",
+      "urls": [
+        "https://www.sos.state.tx.us/elections/historical/index.shtml",
+        "https://elections.sos.state.tx.us/index.htm",
+        "https://www.sos.state.tx.us/elections/historical/elections-results-archive.shtml",
+        "https://elections.sos.state.tx.us/elchist331_raceselect.htm"
+      ],
+      "notes": "Imported 203 contests from the official 2018 general-election static historical race pages, including county rows for statewide and district contests."
+    },
+    {
+      "id": "tx-sos-modern-results-2019-2024",
+      "scope": "statewide",
+      "offices": ["President", "U.S. Senate", "Governor"],
+      "years": [2020, 2022, 2024],
+      "status": "imported",
+      "format": "texas-county-canvass-pdf",
+      "geography": "county",
+      "quality_grade": "B",
+      "parser": "scripts/generate_texas_summary.py",
+      "urls": [
+        "https://www.sos.state.tx.us/elections/historical/elections-results-archive.shtml",
+        "https://results.texas-election.com/"
+      ],
+      "notes": "Imported 5 statewide contests from browser-supplied official Texas County by County Canvass Report PDFs: 2020 President and U.S. Senate, 2022 Governor, and 2024 President and U.S. Senate. Direct non-browser requests to the newer results portal encounter a Cloudflare challenge page with cf-mitigated: challenge. PDF-derived candidate labels are quality grade B."
+    },
+    {
+      "id": "tx-sos-county-canvass-pdf-districts-2020-2024",
+      "scope": "district",
+      "offices": ["U.S. House", "State Senate", "State House"],
+      "years": [2020, 2022, 2024],
+      "status": "imported",
+      "format": "texas-county-canvass-pdf",
+      "geography": "county",
+      "quality_grade": "B",
+      "parser": "scripts/generate_texas_summary.py",
+      "urls": [
+        "https://www.sos.state.tx.us/elections/historical/elections-results-archive.shtml",
+        "https://results.texas-election.com/"
+      ],
+      "notes": "Imported 556 district contests from browser-supplied official Texas County by County Canvass Report PDFs: 2020 U.S. House, State Senate, and State House; 2022 U.S. House plus validated State Senate/State House contests present with nonzero county totals; and 2024 U.S. House, State Senate, and State House. PDF-derived candidate labels are quality grade B."
+    },
+    {
+      "id": "tx-sos-current-results-2025-current",
+      "scope": "statewide",
+      "offices": ["U.S. Senate", "U.S. House", "State Senate", "State House"],
+      "years": [2026],
+      "status": "imported",
+      "format": "current-results-html",
+      "geography": "statewide",
+      "quality_grade": "B",
+      "parser": "scripts/generate_texas_current_summary.py",
+      "urls": [
+        "https://www.sos.state.tx.us/elections/historical/elections-results-archive.shtml",
+        "https://goelect.txelections.civixapps.com/",
+        "https://electionresults.sos.state.tx.us/results.html"
+      ],
+      "notes": "Imported 30 statewide-only contests from the official May 26, 2026 Texas primary runoff public HTML page. The page exposes contest totals but not county rows; the Civix app APIs expose route names but return 401 Bearer without an authenticated session."
+    },
+    {
+      "id": "tx-major-city-mayors",
+      "scope": "mayor",
+      "offices": ["Mayor"],
+      "years": [2021, 2023],
+      "status": "source_identified",
+      "format": "mixed-county-city-archives",
+      "geography": "citywide",
+      "quality_grade": null,
+      "parser": "planned:municipal-summary",
+      "urls": [
+        "https://www.harrisvotes.com/Election-Results/Archives",
+        "https://www.dallascountyvotes.org/election-results/historical/",
+        "https://dallascityhall.com/government/citysecretary/elections/Pages/historical-data.aspx",
+        "https://votetravis.gov/current-election-information/election-results-and-reconciliation-forms/",
+        "https://www.bexar.org/2186/Historical-Election-Results",
+        "https://www.tarrantcountytx.gov/en/elections/past-election-information.html"
+      ],
+      "notes": "Remaining Houston/San Antonio/Fort Worth archive work. Fort Worth citywide mayor totals, San Antonio 1999-2025 mayor totals, Houston 1999, 2001, 2003, 2005, 2007, 2009, 2011, 2013, 2015, 2019, and 2023 mayor totals, Austin 2022/2024 mayor totals, and Dallas 1981-1999, 2002, 2007, 2011, 2015, 2019, and 2023 mayor totals are now imported separately from official city/county pages."
+    },
+    {
+      "id": "tx-austin-city-clerk-mayors",
+      "scope": "mayor",
+      "offices": ["Mayor"],
+      "years": [2022, 2024],
+      "status": "imported",
+      "format": "city-canvass-resolution-pdf",
+      "geography": "citywide",
+      "quality_grade": "B",
+      "parser": "scripts/generate_texas_mayor_summary.py",
+      "urls": [
+        "https://www.austintexas.gov/department/city-clerk",
+        "https://services.austintexas.gov/edims/document.cfm?id=397765",
+        "https://services.austintexas.gov/edims/document.cfm?id=399837",
+        "https://services.austintexas.gov/edims/document.cfm?id=441389"
+      ],
+      "notes": "Imported Austin 2022 general, 2022 runoff, and 2024 general mayor contests from official City Clerk canvass resolution PDFs. The 2024 source is a redline council backup; the parser keeps the final post-bracket vote values."
+    },
+    {
+      "id": "tx-dallas-city-secretary-mayors",
+      "scope": "mayor",
+      "offices": ["Mayor"],
+      "years": [2007, 2011, 2015, 2019, 2023],
+      "status": "imported",
+      "format": "city-canvass-resolution-pdf",
+      "geography": "citywide",
+      "quality_grade": "B",
+      "parser": "scripts/generate_texas_mayor_summary.py",
+      "urls": [
+        "https://dallascityhall.com/government/citysecretary/elections/Pages/historical-data.aspx",
+        "https://citysecretary2.dallascityhall.com/pdf/Elections/electmasterlist.pdf",
+        "https://citysecretary2.dallascityhall.com/resolutions/2007/05-23-07/07-1602.pdf",
+        "https://citysecretary2.dallascityhall.com/resolutions/2011/05-25-11/11-1386.pdf",
+        "https://citysecretary2.dallascityhall.com/resolutions/2011/06-27-11/11-1900.pdf",
+        "https://citysecretary2.dallascityhall.com/resolutions/2015/05-20-15/15-0905.pdf",
+        "https://citysecretary2.dallascityhall.com/resolutions/2019/05-15-19/19-0735.pdf",
+        "https://citysecretary2.dallascityhall.com/resolutions/2019/06-17-19/19-0955.pdf",
+        "https://citysecretary2.dallascityhall.com/resolutions/2023/05-17-23/23-0665.pdf"
+      ],
+      "notes": "Imported Dallas 2007 general, 2011 general, 2011 runoff, 2015 general, 2019 general, 2019 runoff, and 2023 general mayor contests from official City Secretary canvass resolution PDFs. The 2011 scans require OCR. The City Secretary master list is used as source discovery for resolution numbers and election context. PDF extraction includes numeric OCR and page-number artifact corrections for Dallas vote tokens."
+    },
+    {
+      "id": "tx-dallas-city-secretary-master-list-mayors",
+      "scope": "mayor",
+      "offices": ["Mayor"],
+      "years": [2002],
+      "status": "imported",
+      "format": "city-secretary-master-list-pdf",
+      "geography": "citywide",
+      "quality_grade": "C",
+      "parser": "scripts/generate_texas_mayor_summary.py",
+      "urls": [
+        "https://citysecretary2.dallascityhall.com/pdf/Elections/electmasterlist.pdf",
+        "https://citysecretary2.dallascityhall.com/pdf/CC2002/cc022002.pdf"
+      ],
+      "notes": "Imported Dallas January 19, 2002 special mayor election and February 16, 2002 special runoff from the official City Secretary master list. Original resolution numbers 02-0380 and 02-0711 are identified in the master list; the February 20, 2002 City Council minutes confirm action item 02-0711 for the runoff canvass, but direct original resolution PDF URLs were not found in this pass."
+    },
+    {
+      "id": "tx-fort-worth-city-election-history-mayors",
+      "scope": "mayor",
+      "offices": ["Mayor"],
+      "years": [2007, 2009, 2011, 2017, 2019, 2021, 2023, 2025],
+      "status": "imported",
+      "format": "city-election-history-html",
+      "geography": "citywide",
+      "quality_grade": "A",
+      "parser": "scripts/generate_texas_mayor_summary.py",
+      "urls": [
+        "https://www.fortworthtexas.gov/departments/citysecretary/elections/election-history"
+      ],
+      "notes": "Imported 10 Fort Worth mayor contests from official City Secretary election-history tables. Candidate totals use the official citywide Vote Total column; county portion splits are retained where the page provides them."
+    },
+    {
+      "id": "tx-bexar-san-antonio-mayors",
+      "scope": "mayor",
+      "offices": ["Mayor"],
+      "years": [2005, 2007, 2009, 2011, 2013, 2015, 2017, 2019, 2021, 2023, 2025],
+      "status": "imported",
+      "format": "electionware-csv-pdf",
+      "geography": "citywide",
+      "quality_grade": "B",
+      "parser": "scripts/generate_texas_mayor_summary.py",
+      "urls": [
+        "https://www.bexar.org/2186/Historical-Election-Results",
+        "https://webapp9.sanantonio.gov/FileNetArchive/%7B0A936726-A7B0-4649-A0B3-369A7D0925E3%7D/%7B0A936726-A7B0-4649-A0B3-369A7D0925E3%7D.pdf",
+        "https://webapp9.sanantonio.gov/FileNetArchive/%7B37D24024-9732-4700-A3F4-94F73CC118FD%7D/%7B37D24024-9732-4700-A3F4-94F73CC118FD%7D.pdf",
+        "https://webapp9.sanantonio.gov/FileNetArchive/%7B248A1F79-FCBE-4EA7-83EB-C9CD7F96C378%7D/%7B248A1F79-FCBE-4EA7-83EB-C9CD7F96C378%7D.pdf",
+        "https://www.bexar.org/DocumentCenter/View/8946/May-9-2009-Media-Report",
+        "https://www.bexar.org/DocumentCenter/View/7502/May-14-2011-Media-Report",
+        "https://www.bexar.org/DocumentCenter/View/7471/May-11-2013-Media-Report",
+        "https://www.bexar.org/DocumentCenter/View/7424/May-9-2015-Media-Report",
+        "https://www.bexar.org/DocumentCenter/View/7428/June-13-2015-Media-Report",
+        "https://www.bexar.org/DocumentCenter/View/11655/May-6-2017-Media-Report",
+        "https://www.bexar.org/DocumentCenter/View/12347/June-10-2017-Media-Report",
+        "https://www.bexar.org/DocumentCenter/View/21819/May-4-2019-Media-Report",
+        "https://www.bexar.org/DocumentCenter/View/22149/June-8-2019-Media-Report",
+        "https://www.bexar.org/DocumentCenter/View/30033/May-1-2021-Joint-General-Special-and-Charter-Election-Media-Report",
+        "https://www.bexar.org/DocumentCenter/View/38278/May-6-2023-Joint-General---Official-Summary-Results-Report",
+        "https://www.bexar.org/DocumentCenter/View/48371/May-Summary-Precincts",
+        "https://www.bexar.org/DocumentCenter/View/48398"
+      ],
+      "notes": "Imported San Antonio 1999, 2003, 2005, 2007, 2009, 2011, 2013, 2015, 2017, 2019, 2021, 2023, and 2025 mayor contests from official City canvass PDFs and Bexar County historical results. The 1999, 2003, 2005, and 2007 contests use official City canvass PDFs, most later contests use official media-report HTML, the 2025 general totals aggregate the official precinct CSV, and 2021, 2023, and the 2025 runoff use candidate-line totals from official summary PDFs, so the imported entry is quality grade B."
+    },
+    {
+      "id": "tx-harris-houston-mayors",
+      "scope": "mayor",
+      "offices": ["Mayor"],
+      "years": [1999, 2001, 2003, 2005, 2007, 2009, 2011, 2013, 2015, 2019, 2023],
+      "status": "imported",
+      "format": "city-county-cumulative-pdf",
+      "geography": "citywide",
+      "quality_grade": "B",
+      "parser": "scripts/generate_texas_mayor_summary.py",
+      "urls": [
+        "https://www.houstontx.gov/citysec/elections/",
+        "https://www.harrisvotes.com/Election-Results/Archives",
+        "https://houstontx.gov/citysec/elections/110299.pdf",
+        "https://houstontx.gov/citysec/elections/110601.pdf",
+        "https://houstontx.gov/citysec/elections/120101.pdf",
+        "https://houstontx.gov/citysec/elections/110403.pdf",
+        "https://houstontx.gov/citysec/elections/110805.pdf",
+        "https://houstontx.gov/citysec/elections/110607.pdf",
+        "https://files.harrisvotes.com/harrisvotes/prd/HISTORY/110309/Cumulative/cumulative.pdf",
+        "https://files.harrisvotes.com/harrisvotes/prd/HISTORY/121209/Cumulative/cumulative.pdf",
+        "https://files.harrisvotes.com/harrisvotes/prd/HISTORY/20111108/cumulative/cumulative.pdf",
+        "https://files.harrisvotes.com/harrisvotes/prd/HISTORY/20131105/cumulative/cumulative.pdf",
+        "https://files.harrisvotes.com/harrisvotes/prd/HISTORY/20151103/cumulative/cumulative.pdf",
+        "https://files.harrisvotes.com/harrisvotes/prd/HISTORY/20151212/cumulative/cumulative.pdf",
+        "https://files.harrisvotes.com/harrisvotes/prd/HISTORY/20191105/cumulative.pdf",
+        "https://files.harrisvotes.com/harrisvotes/prd/HISTORY/20191214/cumulative.pdf",
+        "https://files.harrisvotes.com/harrisvotes/prd/Reports/Official-Cumulative-Results-11-14-2023_03-17-PM.pdf",
+        "https://files.harrisvotes.com/harrisvotes/prd/docs/Uploads/Official%20Cumulative%20Results-12-15-2023%2005-54-05%20PM.pdf"
+      ],
+      "notes": "Imported Houston 1999, 2001, 2003, 2005, and 2007 mayor contests from official City Secretary combined Harris/Fort Bend/Montgomery PDFs, plus Houston 2009, 2011, 2013, 2015, 2019, and 2023 mayor contests from official Harris County cumulative result PDFs using the final Total column for the City of Houston mayor contest. The 1999, 2005, 2011, and 2013 runoff archives did not contain mayor contests and are intentionally not imported."
+    }
+  ]
+}

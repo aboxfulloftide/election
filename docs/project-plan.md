@@ -23,7 +23,7 @@ Data comes first. The interface should not depend on raw election files or one-o
 
 ### Years
 
-Target election data back to the 1950s where obtainable.
+Active national target: even-year general elections from 2000 through 2026. Older elections are future archival work, not part of the current completion target.
 
 The practical expectation is uneven coverage by office, state, and geography. The database should preserve that uncertainty instead of pretending all years are equally complete.
 
@@ -47,11 +47,9 @@ State:
 - State Senate
 - State House / Assembly
 
-Local:
+Active scope excludes local offices. Existing mayor outputs are retained as archived artifacts only.
 
-- Major city mayor
-
-### Mayor Pilot Cities
+### Archived Mayor Pilot Cities
 
 Florida:
 
@@ -149,12 +147,24 @@ Completed:
 - MIT county presidential general-election returns from 2000 through 2024.
 - Florida official precinct-level general-election returns from 2012 through 2024 for President, U.S. Senate, U.S. House, Governor, State Senate, and State House where on ballot.
 - Florida 2022 congressional, State Senate, and State House district geometry from official EDR shapefile/block-equivalency files.
+- Florida official municipal mayor summaries from Election Night Reporting pages for Miami-Dade cities, Tampa, Jacksonville, and Orlando.
+- California 2018, 2020, 2022, and 2024 Statement of Vote summaries for statewide and district contests.
+- California 2022 congressional, State Senate, and State Assembly district geometry from official CRC final map shapefiles.
+- Pennsylvania official 2020, 2022, and 2024 general-election precinct returns aggregated to statewide and county-by-district contest summaries.
+- Ohio official 2020, 2022, and 2024 statewide results-by-county workbooks aggregated to statewide and county-by-district contest summaries.
+- Texas 2018 official Secretary of State historical race/county canvass summaries.
+- Texas Fort Worth official mayor summaries from the City Secretary election-history page.
+- Texas San Antonio mayor summaries from 2005 through 2025 from City canvass PDFs and Bexar County official historical results.
+- Texas Houston 1999, 2001, 2003, 2005, and 2007 mayor summaries from City Secretary combined canvass PDFs, plus 2009, 2011, 2013, 2015, 2019, and 2023 mayor summaries from Harris County official cumulative result PDFs.
+- Texas Austin 2022 and 2024 mayor summaries from City Clerk official canvass resolution PDFs.
+- Texas Dallas 1981 through 1999, 2002, 2007, 2011, 2015, 2019, and 2023 mayor summaries from the City Secretary official master list and canvass resolution PDFs.
+- Texas 2026 primary runoff statewide-only summaries from SOS current public HTML.
 
 Next collection targets:
 
-- Florida mayor contests for Miami, Jacksonville, Tampa, and Orlando.
-- Florida district and precinct geometry joins.
-- California statewide/district Statement of Vote import.
+- Backfill additional mayor years from structured official archives.
+- Florida and California precinct geometry/results where county-by-district detail is not enough.
+- Texas 2020/2022/2024 County by County Canvass PDF statewide and district contests are imported. Texas 2025-current public HTML is imported for statewide-only current totals.
 
 Collect pilot-state data for the scoped offices and years.
 
@@ -211,10 +221,21 @@ Implemented generated products:
 - Florida district GeoJSON files: `public/results/geometry/fl-2022-*.geojson`.
 - Florida 2022 and 2024 district contest summaries linked to geometry layer keys and geometry IDs.
 - Florida district/county drilldown bundles: `public/results/districts/florida-*.json`.
+- Florida precinct geometry pilot: `public/results/florida-precinct-geometry-layers.json` and Miami-Dade GeoJSON layers under `public/results/geometry/`.
+- Florida Miami-Dade precinct result bundles: `public/results/precincts/florida-miami-dade-{year}-precincts.json` for 2012 and 2014.
+- Florida Broward precinct result bundles: 2020 and 2024 join completely to official geometry; `florida-broward-2022-precincts.json` preserves a documented numeric/lettered namespace mismatch.
+- Florida mayor summary: `public/results/florida-mayor-summary.json`.
+- California combined summary: `public/results/california-statewide-summary.json`.
+- Pennsylvania combined summary: `public/results/pennsylvania-statewide-summary.json`.
+- Ohio combined summary: `public/results/ohio-statewide-summary.json`.
+- Texas statewide summary: `public/results/texas-statewide-summary.json`.
+- Texas mayor summary: `public/results/texas-mayor-summary.json`.
+- California geometry layer manifest: `public/results/california-geometry-layers.json`.
+- California district GeoJSON files: `public/results/geometry/ca-2022-*.geojson`.
+- California district/county drilldown bundle: `public/results/districts/california-district-drilldown.json`.
 
 Still needed:
 
-- Mayor contest summary.
 - Source index.
 - Data quality index.
 
@@ -230,7 +251,7 @@ Later generated products:
 
 The first serious interface should be a decision-desk map, not a landing page.
 
-Status: national presidential interface exists with country, state, and county comparison cards. Florida 2022/2024 district map mode exists for U.S. House, State Senate, and State House contests using generated district drilldown bundles and GeoJSON, including winner and 2024-vs-2022 shift modes. The next interface work should deepen drilldown behavior and add precinct-aware views after precinct geometry is sourced.
+Status: national presidential interface exists with country, state, and county comparison cards. Official-state mode supports Florida and California. Florida 2022/2024 district map mode and California 2022/2024 district map mode exist for geometry-linked district contests. Florida 2012/2014 Miami-Dade precinct mode now renders official precinct geometry and candidate totals with contest selection and click/hover details.
 
 Core views:
 
@@ -272,7 +293,7 @@ Use [handoff.md](handoff.md) as the current next-step script.
 
 Current recommended order:
 
-1. Add richer frontend Florida drilldown behavior and identify county/year precinct geometry sources.
-2. Add Florida mayor imports for Miami, Jacksonville, Tampa, and Orlando.
-3. Add California Statement of Vote import as the second pilot-state structured import.
-4. Update the interface to read Florida contest summaries and support contest/year selection beyond presidential county maps.
+1. Process the first ten-state 2020-2024 federal/state cohort from `docs/national-backfill-plan.md`.
+2. Process the remaining four state cohorts for 2020-2024 before starting older waves.
+3. Regenerate `public/results/national-coverage-matrix.json` after every batch and require source, parser, tests, and quality status for each imported cell.
+4. Backfill 2010-2018, then 2000-2008, with 2026 general results added after certification.

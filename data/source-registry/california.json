@@ -1,0 +1,58 @@
+{
+  "state": "California",
+  "state_po": "CA",
+  "entries": [
+    {
+      "id": "ca-sos-sov-2018-2024",
+      "scope": "statewide",
+      "offices": ["President", "Governor", "U.S. Senate", "U.S. House", "State Senate", "State Assembly"],
+      "years": [2018, 2020, 2022, 2024],
+      "status": "imported",
+      "format": "spreadsheet-statement-of-vote",
+      "geography": "county-by-district",
+      "quality_grade": "A",
+      "parser": "scripts/generate_california_statewide_summary.py",
+      "urls": [
+        "https://www.sos.ca.gov/elections/prior-elections/statewide-election-results/general-election-november-6-2018/statement-vote",
+        "https://www.sos.ca.gov/elections/prior-elections/statewide-election-results/general-election-november-3-2020/statement-vote",
+        "https://www.sos.ca.gov/elections/prior-elections/statewide-election-results/general-election-nov-5-2024/statement-vote",
+        "https://www.sos.ca.gov/elections/prior-elections/statewide-election-results/general-election-nov-8-2022/statement-vote"
+      ],
+      "notes": "619 statewide and district contests across 2018, 2020, 2022, and 2024. Geometry-linked district drilldown remains limited to 2022/2024 until pre-2022 district geometry is imported."
+    },
+    {
+      "id": "ca-crc-2020-district-geometry",
+      "scope": "geometry",
+      "offices": ["U.S. House", "State Senate", "State Assembly"],
+      "years": [2022, 2024],
+      "status": "imported",
+      "format": "shapefile-zip",
+      "geography": "district",
+      "quality_grade": "A",
+      "parser": "scripts/generate_california_geometry_geojson.py",
+      "urls": ["https://wedrawthelines.ca.gov/final-maps/"],
+      "notes": "2020 CRC final congressional, State Senate, and State Assembly maps."
+    },
+    {
+      "id": "ca-major-city-mayors",
+      "scope": "mayor",
+      "offices": ["Mayor"],
+      "years": [2020, 2022, 2024],
+      "status": "source_identified",
+      "format": "mixed-county-city-archives",
+      "geography": "citywide",
+      "quality_grade": null,
+      "parser": "planned:municipal-summary",
+      "urls": [
+        "https://www.lavote.gov/home/voting-elections/current-elections/election-results/past-election-results",
+        "https://clerk.lacity.gov/clerk-services/elections/election-archives",
+        "https://www.sf.gov/past-election-results",
+        "https://www.sdvote.com/content/rov/en/past-election-info.html",
+        "https://www.sandiego.gov/city-clerk/elections/city/past/results",
+        "https://vote.santaclaracounty.gov/elections/past-election-information-and-results",
+        "https://elections.saccounty.gov/content/vre/us/en/election-information/archived-elections.html"
+      ],
+      "notes": "Los Angeles, San Francisco, San Diego, San Jose, and Sacramento mayor archives."
+    }
+  ]
+}

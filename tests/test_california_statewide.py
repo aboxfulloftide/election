@@ -14,8 +14,20 @@ from generate_california_statewide_summary import build_contest, contest_county_
 
 
 class CaliforniaStatewideTests(TestCase):
+    def source(self, office: str, label: str, file_name: str, *, district: bool = False) -> CaliforniaContestSource:
+        return CaliforniaContestSource(
+            2024,
+            "2024-11-05",
+            "https://example.test/statement-vote",
+            office,
+            label,
+            f"https://example.test/{file_name}",
+            file_name,
+            district=district,
+        )
+
     def test_contest_county_rows_parses_county_rows_and_skips_percent_rows(self) -> None:
-        source = CaliforniaContestSource(2024, "President", "President", "https://example.test/pres.xlsx", "pres.xlsx")
+        source = self.source("President", "President", "pres.xlsx")
         rows = [
             [None, "Kamala D.\nHarris", "Donald J.\nTrump", "Chase\nOliver"],
             [None, "DEM", "REP", "LIB"],
@@ -26,7 +38,7 @@ class CaliforniaStatewideTests(TestCase):
             ["State Totals", 13, 12, 1],
         ]
 
-        with patch("generate_california_statewide_summary.read_first_sheet", return_value=rows):
+        with patch("generate_california_statewide_summary.read_first_spreadsheet_sheet", return_value=rows):
             counties = contest_county_rows(source)
 
         self.assertEqual(len(counties), 2)
@@ -37,7 +49,7 @@ class CaliforniaStatewideTests(TestCase):
         self.assertEqual(counties[1]["winner"]["party"], "REPUBLICAN")
 
     def test_build_contest_aggregates_candidate_totals(self) -> None:
-        source = CaliforniaContestSource(2024, "U.S. Senate", "U.S. Senate", "https://example.test/senate.xlsx", "senate.xlsx")
+        source = self.source("U.S. Senate", "U.S. Senate", "senate.xlsx")
         counties = [
             {
                 "county_name": "ALAMEDA",
@@ -70,16 +82,10 @@ class CaliforniaStatewideTests(TestCase):
         self.assertEqual(contest["margin_votes"], 1)
 
     def test_district_contests_parse_official_block_format(self) -> None:
-        source = CaliforniaContestSource(
-            2024,
-            "U.S. House",
-            "U.S. House",
-            "https://example.test/house.xlsx",
-            "house.xlsx",
-            district=True,
-        )
+        source = self.source("U.S. House", "U.S. House", "house.xlsx", district=True)
         rows = [
             ["1st Congressional District", None, None],
+            [],
             [None, "Jane\nDoe*", "John Smith"],
             [None, "DEM", "REP"],
             ["Butte", 10, 20],
@@ -89,7 +95,7 @@ class CaliforniaStatewideTests(TestCase):
             [],
         ]
 
-        with patch("generate_california_statewide_summary.read_first_sheet", return_value=rows):
+        with patch("generate_california_statewide_summary.read_first_spreadsheet_sheet", return_value=rows):
             contests = district_contests(source, 12)
 
         self.assertEqual(len(contests), 1)

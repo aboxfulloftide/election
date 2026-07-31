@@ -1,0 +1,19 @@
+{
+  "state": "Kentucky",
+  "state_po": "KY",
+  "entries": [
+    {
+      "id": "ky-sbe-federal-state-2020-2024",
+      "scope": "statewide",
+      "offices": ["President", "U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"],
+      "years": [2020, 2022, 2024],
+      "status": "source_identified",
+      "format": "sbe-canvass-archive",
+      "geography": "county-or-district",
+      "quality_grade": null,
+      "parser": "planned:kentucky-state-federal-import",
+      "urls": ["https://elect.ky.gov/results/2020-2029/Pages/2020.aspx"],
+      "notes": "Official Kentucky State Board of Elections results archive identified for the first cohort; current parser covers the certified 2020 presidential PDF override only."
+    }
+  ]
+}

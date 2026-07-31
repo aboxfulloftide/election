@@ -1,0 +1,19 @@
+{
+  "state": "Virginia",
+  "state_po": "VA",
+  "entries": [
+    {
+      "id": "va-doe-federal-state-2020-2024",
+      "scope": "statewide",
+      "offices": ["President", "U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"],
+      "years": [2020, 2022, 2024],
+      "status": "source_identified",
+      "format": "doe-contest-csv",
+      "geography": "locality-or-district",
+      "quality_grade": null,
+      "parser": "planned:virginia-state-federal-import",
+      "urls": ["https://historical.elections.virginia.gov/"],
+      "notes": "Official Virginia historical contest archive identified for the first cohort; current parser covers presidential CSV overrides only."
+    }
+  ]
+}

@@ -25,6 +25,63 @@ FLORIDA_OFFICE_GEOMETRY_LAYERS = {
     "State Senate": "fl-2022-state-senate-districts",
 }
 FLORIDA_DISTRICT_DRILLDOWN_YEARS = {2022, 2024}
+CALIFORNIA_YEARS = {2018, 2020, 2022, 2024}
+CALIFORNIA_GEOMETRY_LINKED_YEARS = {2022, 2024}
+CALIFORNIA_GEOMETRY_LAYERS = {
+    "ca-2022-congressional-districts": ("congressional_district", 52),
+    "ca-2022-state-assembly-districts": ("state_assembly_district", 80),
+    "ca-2022-state-senate-districts": ("state_senate_district", 40),
+}
+CALIFORNIA_DISTRICT_OFFICES = {"U.S. House", "State Senate", "State Assembly"}
+FLORIDA_MAYOR_PLACES = {"Hialeah", "Jacksonville", "Miami", "Miami Beach", "Orlando", "Sunny Isles Beach", "Tampa"}
+PENNSYLVANIA_YEARS = {2020, 2022, 2024}
+PENNSYLVANIA_EXPECTED_OFFICE_COUNTS = {
+    2024: {"President": 1, "U.S. Senate": 1, "U.S. House": 17, "State Senate": 25, "State House": 203},
+    2022: {"Governor": 1, "U.S. Senate": 1, "U.S. House": 17, "State Senate": 25, "State House": 203},
+    2020: {"President": 1, "U.S. House": 18, "State Senate": 25, "State House": 203},
+}
+TEXAS_YEARS = {2018, 2020, 2022, 2024}
+TEXAS_EXPECTED_OFFICE_COUNTS = {
+    2018: {"Governor": 1, "U.S. Senate": 1, "U.S. House": 36, "State Senate": 15, "State House": 150},
+    2020: {"President": 1, "U.S. Senate": 1, "U.S. House": 36, "State Senate": 16, "State House": 150},
+    2022: {"Governor": 1, "U.S. House": 38, "State Senate": 21, "State House": 92},
+    2024: {"President": 1, "U.S. Senate": 1, "U.S. House": 38, "State Senate": 15, "State House": 150},
+}
+TEXAS_MAYOR_YEARS = {
+    1981,
+    1983,
+    1985,
+    1987,
+    1989,
+    1991,
+    1995,
+    1999,
+    2001,
+    2002,
+    2003,
+    2005,
+    2007,
+    2009,
+    2011,
+    2013,
+    2015,
+    2017,
+    2019,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+}
+TEXAS_MAYOR_PLACES = {"Austin", "Dallas", "Fort Worth", "Houston", "San Antonio"}
+TEXAS_CURRENT_YEAR = 2026
+TEXAS_CURRENT_OFFICES = {"U.S. Senate", "U.S. House", "State Senate", "State House"}
+OHIO_YEARS = {2020, 2022, 2024}
+OHIO_EXPECTED_OFFICE_COUNTS = {
+    2020: {"President": 1, "U.S. House": 16, "State Senate": 16, "State House": 99},
+    2022: {"Governor": 1, "U.S. Senate": 1, "U.S. House": 15, "State Senate": 17, "State House": 99},
+    2024: {"President": 1, "U.S. Senate": 1, "U.S. House": 15, "State Senate": 16, "State House": 99},
+}
 
 
 class CheckFailure(Exception):
@@ -231,13 +288,15 @@ def validate_california_combined(path: Path) -> None:
     require_source(summary.get("source"), path)
     elections = summary.get("elections")
     require(isinstance(elections, list) and elections, f"{path_label}.elections must be non-empty")
+    years = {election.get("election", {}).get("year") for election in elections if isinstance(election, dict)}
+    require(years == CALIFORNIA_YEARS, f"{path_label}.elections must cover {sorted(CALIFORNIA_YEARS)}")
     for election_index, election_summary in enumerate(elections):
         election_label = f"{path_label}.elections[{election_index}]"
         require(isinstance(election_summary, dict), f"{election_label} must be an object")
         require_source(election_summary.get("source"), Path(election_label))
         election = election_summary.get("election")
         require(isinstance(election, dict), f"{election_label}.election must be an object")
-        require(election.get("year") == 2024, f"{election_label}.election.year must be 2024")
+        require(election.get("year") in CALIFORNIA_YEARS, f"{election_label}.election.year must be a supported California year")
         require(election.get("state") == "California", f"{election_label}.election.state must be California")
         contests = election_summary.get("contests")
         require(isinstance(contests, list) and contests, f"{election_label}.contests must be non-empty")
@@ -279,6 +338,349 @@ def validate_california_combined(path: Path) -> None:
             require(county_total == contest["total_votes"], f"{label}.counties must sum to contest total_votes")
 
 
+def validate_florida_mayors(path: Path) -> None:
+    summary = load_json(path)
+    path_label = display_path(path)
+    require(isinstance(summary, dict), f"{path_label} must be an object")
+    require_source(summary.get("source"), path)
+    require(summary.get("state_po") == "FL", f"{path_label}.state_po must be FL")
+    elections = summary.get("elections")
+    require(isinstance(elections, list) and elections, f"{path_label}.elections must be non-empty")
+    seen_contest_ids: set[int] = set()
+    seen_places: set[str] = set()
+    contest_total = 0
+    for election_index, election_summary in enumerate(elections):
+        election_label = f"{path_label}.elections[{election_index}]"
+        require(isinstance(election_summary, dict), f"{election_label} must be an object")
+        require_source(election_summary.get("source"), Path(election_label))
+        election = election_summary.get("election")
+        require(isinstance(election, dict), f"{election_label}.election must be an object")
+        require(election.get("state_po") == "FL", f"{election_label}.election.state_po must be FL")
+        require(isinstance(election.get("county"), str) and election["county"], f"{election_label}.election.county is required")
+        require(isinstance(election.get("county_fips"), str) and len(election["county_fips"]) == 5, f"{election_label}.election.county_fips is required")
+        contests = election_summary.get("contests")
+        require(isinstance(contests, list), f"{election_label}.contests must be a list")
+        for contest_index, contest in enumerate(contests):
+            contest_total += 1
+            label = f"{election_label}.contests[{contest_index}]"
+            require(isinstance(contest, dict), f"{label} must be an object")
+            require_int(contest.get("contest_id"), f"{label}.contest_id", minimum=1)
+            require(contest["contest_id"] not in seen_contest_ids, f"{label}.contest_id is duplicated")
+            seen_contest_ids.add(contest["contest_id"])
+            require(contest.get("state_po") == "FL", f"{label}.state_po must be FL")
+            require(contest.get("county") == election["county"], f"{label}.county must match election county")
+            require(contest.get("county_fips") == election["county_fips"], f"{label}.county_fips must match election county_fips")
+            require(isinstance(contest.get("place"), str) and contest["place"], f"{label}.place is required")
+            seen_places.add(contest["place"])
+            require(contest.get("office") == "Mayor", f"{label}.office must be Mayor")
+            require(contest.get("election_stage") in {"general", "runoff", "special"}, f"{label}.election_stage is invalid")
+            require(isinstance(contest.get("source_url"), str) and contest["source_url"].startswith("https://"), f"{label}.source_url is required")
+            candidates = contest.get("candidates")
+            require(isinstance(candidates, list) and candidates, f"{label}.candidates must be non-empty")
+            votes = [validate_candidate(candidate, f"{label}.candidates[{candidate_index}]") for candidate_index, candidate in enumerate(candidates)]
+            require(votes == sorted(votes, reverse=True), f"{label}.candidates must be sorted by votes desc")
+            require_int(contest.get("total_votes"), f"{label}.total_votes", minimum=1)
+            require(sum(votes) == contest["total_votes"], f"{label}.total_votes must equal candidate vote sum")
+            require(contest.get("winner") == candidates[0], f"{label}.winner must be the top candidate")
+            expected_margin = votes[0] - votes[1] if len(votes) > 1 else 0
+            require(contest.get("margin_votes") == expected_margin, f"{label}.margin_votes is incorrect")
+    require(contest_total >= 17, f"{path_label} should contain at least seventeen mayor contests")
+    require(FLORIDA_MAYOR_PLACES <= seen_places, f"{path_label} is missing expected places: {sorted(FLORIDA_MAYOR_PLACES - seen_places)}")
+
+
+def validate_pennsylvania_combined(path: Path) -> None:
+    summary = load_json(path)
+    path_label = display_path(path)
+    require(isinstance(summary, dict), f"{path_label} must be an object")
+    require_source(summary.get("source"), path)
+    elections = summary.get("elections")
+    require(isinstance(elections, list) and elections, f"{path_label}.elections must be non-empty")
+    years = {election.get("election", {}).get("year") for election in elections if isinstance(election, dict)}
+    require(years == PENNSYLVANIA_YEARS, f"{path_label}.elections must cover {sorted(PENNSYLVANIA_YEARS)}")
+    for election_index, election_summary in enumerate(elections):
+        election_label = f"{path_label}.elections[{election_index}]"
+        require(isinstance(election_summary, dict), f"{election_label} must be an object")
+        require_source(election_summary.get("source"), Path(election_label))
+        election = election_summary.get("election")
+        require(isinstance(election, dict), f"{election_label}.election must be an object")
+        year = election.get("year")
+        require(year in PENNSYLVANIA_YEARS, f"{election_label}.election.year is unsupported")
+        require(election.get("state_po") == "PA", f"{election_label}.election.state_po must be PA")
+        contests = election_summary.get("contests")
+        require(isinstance(contests, list) and contests, f"{election_label}.contests must be non-empty")
+        office_counts: dict[str, int] = {}
+        for contest_index, contest in enumerate(contests):
+            label = f"{election_label}.contests[{contest_index}]"
+            require(isinstance(contest, dict), f"{label} must be an object")
+            require(contest.get("state_po") == "PA", f"{label}.state_po must be PA")
+            office = contest.get("office")
+            require(isinstance(office, str) and office, f"{label}.office is required")
+            office_counts[office] = office_counts.get(office, 0) + 1
+            require_int(contest.get("contest_id"), f"{label}.contest_id", minimum=1)
+            candidates = contest.get("candidates")
+            require(isinstance(candidates, list) and candidates, f"{label}.candidates must be non-empty")
+            votes = [validate_candidate(candidate, f"{label}.candidates[{candidate_index}]") for candidate_index, candidate in enumerate(candidates)]
+            require(votes == sorted(votes, reverse=True), f"{label}.candidates must be sorted by votes desc")
+            require_int(contest.get("total_votes"), f"{label}.total_votes", minimum=1)
+            require(sum(votes) == contest["total_votes"], f"{label}.total_votes must equal candidate vote sum")
+            require(contest.get("winner") == candidates[0], f"{label}.winner must be the top candidate")
+            expected_margin = votes[0] - votes[1] if len(votes) > 1 else 0
+            require(contest.get("margin_votes") == expected_margin, f"{label}.margin_votes is incorrect")
+            if office in {"U.S. House", "State Senate", "State House"}:
+                require(isinstance(contest.get("district_label"), str) and contest["district_label"], f"{label}.district_label is required")
+                require_int(contest.get("district_number"), f"{label}.district_number", minimum=1)
+            counties = contest.get("counties")
+            require(isinstance(counties, list) and counties, f"{label}.counties must be non-empty")
+            if office in {"President", "Governor", "U.S. Senate"}:
+                require(len(counties) == 67, f"{label}.counties must include all 67 counties")
+            county_total = 0
+            for county_index, county in enumerate(counties):
+                county_label = f"{label}.counties[{county_index}]"
+                require(isinstance(county, dict), f"{county_label} must be an object")
+                require(isinstance(county.get("fips"), str) and county["fips"].startswith("42"), f"{county_label}.fips must be a Pennsylvania FIPS")
+                require(isinstance(county.get("county_name"), str) and county["county_name"], f"{county_label}.county_name is required")
+                county_candidates = county.get("candidates")
+                require(isinstance(county_candidates, list) and county_candidates, f"{county_label}.candidates must be non-empty")
+                county_votes = [validate_candidate(candidate, f"{county_label}.candidates[{candidate_index}]") for candidate_index, candidate in enumerate(county_candidates)]
+                require_int(county.get("total_votes"), f"{county_label}.total_votes")
+                require(sum(county_votes) == county["total_votes"], f"{county_label}.total_votes must equal candidate vote sum")
+                county_total += county["total_votes"]
+            require(county_total == contest["total_votes"], f"{label}.counties must sum to contest total_votes")
+        require(office_counts == PENNSYLVANIA_EXPECTED_OFFICE_COUNTS[year], f"{election_label}.office counts are incorrect: {office_counts}")
+
+
+def validate_texas_combined(path: Path) -> None:
+    summary = load_json(path)
+    path_label = display_path(path)
+    require(isinstance(summary, dict), f"{path_label} must be an object")
+    require_source(summary.get("source"), path)
+    elections = summary.get("elections")
+    require(isinstance(elections, list) and elections, f"{path_label}.elections must be non-empty")
+    years = {election.get("election", {}).get("year") for election in elections if isinstance(election, dict)}
+    require(years == TEXAS_YEARS, f"{path_label}.elections must cover {sorted(TEXAS_YEARS)}")
+    for election_index, election_summary in enumerate(elections):
+        election_label = f"{path_label}.elections[{election_index}]"
+        require(isinstance(election_summary, dict), f"{election_label} must be an object")
+        require_source(election_summary.get("source"), Path(election_label))
+        election = election_summary.get("election")
+        require(isinstance(election, dict), f"{election_label}.election must be an object")
+        year = election.get("year")
+        require(year in TEXAS_YEARS, f"{election_label}.election.year is unsupported")
+        require(election.get("state_po") == "TX", f"{election_label}.election.state_po must be TX")
+        contests = election_summary.get("contests")
+        require(isinstance(contests, list) and contests, f"{election_label}.contests must be non-empty")
+        office_counts: dict[str, int] = {}
+        seen_contest_ids: set[int] = set()
+        for contest_index, contest in enumerate(contests):
+            label = f"{election_label}.contests[{contest_index}]"
+            require(isinstance(contest, dict), f"{label} must be an object")
+            require(contest.get("state_po") == "TX", f"{label}.state_po must be TX")
+            office = contest.get("office")
+            require(isinstance(office, str) and office, f"{label}.office is required")
+            office_counts[office] = office_counts.get(office, 0) + 1
+            require_int(contest.get("contest_id"), f"{label}.contest_id", minimum=1)
+            require(contest["contest_id"] not in seen_contest_ids, f"{label}.contest_id is duplicated")
+            seen_contest_ids.add(contest["contest_id"])
+            candidates = contest.get("candidates")
+            require(isinstance(candidates, list) and candidates, f"{label}.candidates must be non-empty")
+            votes = [validate_candidate(candidate, f"{label}.candidates[{candidate_index}]") for candidate_index, candidate in enumerate(candidates)]
+            require(votes == sorted(votes, reverse=True), f"{label}.candidates must be sorted by votes desc")
+            require_int(contest.get("total_votes"), f"{label}.total_votes", minimum=1)
+            require(sum(votes) == contest["total_votes"], f"{label}.total_votes must equal candidate vote sum")
+            require(contest.get("winner") == candidates[0], f"{label}.winner must be the top candidate")
+            expected_margin = votes[0] - votes[1] if len(votes) > 1 else 0
+            require(contest.get("margin_votes") == expected_margin, f"{label}.margin_votes is incorrect")
+            if office in {"U.S. House", "State Senate", "State House"}:
+                require(isinstance(contest.get("district_label"), str) and contest["district_label"], f"{label}.district_label is required")
+                require_int(contest.get("district_number"), f"{label}.district_number", minimum=1)
+            counties = contest.get("counties")
+            require(isinstance(counties, list) and counties, f"{label}.counties must be non-empty")
+            if office in {"President", "Governor", "U.S. Senate"}:
+                require(len(counties) == 254, f"{label}.counties must include all 254 Texas counties")
+            county_total = 0
+            for county_index, county in enumerate(counties):
+                county_label = f"{label}.counties[{county_index}]"
+                require(isinstance(county, dict), f"{county_label} must be an object")
+                require(isinstance(county.get("fips"), str) and county["fips"].startswith("48"), f"{county_label}.fips must be a Texas FIPS")
+                require(isinstance(county.get("county_name"), str) and county["county_name"], f"{county_label}.county_name is required")
+                county_candidates = county.get("candidates")
+                require(isinstance(county_candidates, list) and county_candidates, f"{county_label}.candidates must be non-empty")
+                county_votes = [validate_candidate(candidate, f"{county_label}.candidates[{candidate_index}]") for candidate_index, candidate in enumerate(county_candidates)]
+                require_int(county.get("total_votes"), f"{county_label}.total_votes")
+                require(sum(county_votes) == county["total_votes"], f"{county_label}.total_votes must equal candidate vote sum")
+                county_total += county["total_votes"]
+            require(county_total == contest["total_votes"], f"{label}.counties must sum to contest total_votes")
+        require(office_counts == TEXAS_EXPECTED_OFFICE_COUNTS[year], f"{election_label}.office counts are incorrect: {office_counts}")
+
+
+def validate_texas_mayors(path: Path) -> None:
+    summary = load_json(path)
+    path_label = display_path(path)
+    require(isinstance(summary, dict), f"{path_label} must be an object")
+    require_source(summary.get("source"), path)
+    require(summary.get("state_po") == "TX", f"{path_label}.state_po must be TX")
+    places = summary.get("places")
+    require(isinstance(places, list) and places, f"{path_label}.places must be non-empty")
+    seen_places: set[str] = set()
+    seen_years: set[int] = set()
+    seen_contest_ids: set[int] = set()
+    contest_total = 0
+    for place_index, place_summary in enumerate(places):
+        place_label = f"{path_label}.places[{place_index}]"
+        require(isinstance(place_summary, dict), f"{place_label} must be an object")
+        require_source(place_summary.get("source"), Path(place_label))
+        require(place_summary.get("state_po") == "TX", f"{place_label}.state_po must be TX")
+        place = place_summary.get("place")
+        require(isinstance(place, str) and place, f"{place_label}.place is required")
+        seen_places.add(place)
+        contests = place_summary.get("contests")
+        require(isinstance(contests, list) and contests, f"{place_label}.contests must be non-empty")
+        for contest_index, contest in enumerate(contests):
+            contest_total += 1
+            label = f"{place_label}.contests[{contest_index}]"
+            require(isinstance(contest, dict), f"{label} must be an object")
+            require_int(contest.get("contest_id"), f"{label}.contest_id", minimum=1)
+            require(contest["contest_id"] not in seen_contest_ids, f"{label}.contest_id is duplicated")
+            seen_contest_ids.add(contest["contest_id"])
+            require(contest.get("state_po") == "TX", f"{label}.state_po must be TX")
+            require(contest.get("place") == place, f"{label}.place must match parent place")
+            require(contest.get("office") == "Mayor", f"{label}.office must be Mayor")
+            require(contest.get("election_stage") in {"general", "runoff", "special"}, f"{label}.election_stage is invalid")
+            year = contest.get("year")
+            require(year in TEXAS_MAYOR_YEARS, f"{label}.year is unsupported")
+            seen_years.add(year)
+            require(isinstance(contest.get("election_date"), str) and contest["election_date"], f"{label}.election_date is required")
+            require(isinstance(contest.get("source_url"), str) and contest["source_url"].startswith("https://"), f"{label}.source_url is required")
+            candidates = contest.get("candidates")
+            require(isinstance(candidates, list) and candidates, f"{label}.candidates must be non-empty")
+            votes = [validate_candidate(candidate, f"{label}.candidates[{candidate_index}]") for candidate_index, candidate in enumerate(candidates)]
+            require(votes == sorted(votes, reverse=True), f"{label}.candidates must be sorted by votes desc")
+            require_int(contest.get("total_votes"), f"{label}.total_votes", minimum=1)
+            require(sum(votes) == contest["total_votes"], f"{label}.total_votes must equal candidate vote sum")
+            require(contest.get("winner") == candidates[0], f"{label}.winner must be the top candidate")
+            expected_margin = votes[0] - votes[1] if len(votes) > 1 else 0
+            require(contest.get("margin_votes") == expected_margin, f"{label}.margin_votes is incorrect")
+            county_portions = contest.get("county_portions")
+            require(isinstance(county_portions, list), f"{label}.county_portions must be a list")
+    require(TEXAS_MAYOR_PLACES <= seen_places, f"{path_label} is missing expected places: {sorted(TEXAS_MAYOR_PLACES - seen_places)}")
+    require(TEXAS_MAYOR_YEARS <= seen_years, f"{path_label} is missing expected years: {sorted(TEXAS_MAYOR_YEARS - seen_years)}")
+    require(contest_total >= 63, f"{path_label} should contain at least sixty-three mayor contests")
+
+
+def validate_texas_current(path: Path) -> None:
+    summary = load_json(path)
+    path_label = display_path(path)
+    require(isinstance(summary, dict), f"{path_label} must be an object")
+    require_source(summary.get("source"), path)
+    require(summary.get("scope") == "statewide_current", f"{path_label}.scope must be statewide_current")
+    require(summary.get("geography") == "statewide", f"{path_label}.geography must be statewide")
+    election = summary.get("election")
+    require(isinstance(election, dict), f"{path_label}.election must be an object")
+    require(election.get("state_po") == "TX", f"{path_label}.election.state_po must be TX")
+    require(election.get("year") == TEXAS_CURRENT_YEAR, f"{path_label}.election.year must be {TEXAS_CURRENT_YEAR}")
+    contests = summary.get("contests")
+    require(isinstance(contests, list) and contests, f"{path_label}.contests must be non-empty")
+    seen_contest_ids: set[int] = set()
+    offices: set[str] = set()
+    for contest_index, contest in enumerate(contests):
+        label = f"{path_label}.contests[{contest_index}]"
+        require(isinstance(contest, dict), f"{label} must be an object")
+        require_int(contest.get("contest_id"), f"{label}.contest_id", minimum=1)
+        require(contest["contest_id"] not in seen_contest_ids, f"{label}.contest_id is duplicated")
+        seen_contest_ids.add(contest["contest_id"])
+        require(contest.get("state_po") == "TX", f"{label}.state_po must be TX")
+        office = contest.get("office")
+        require(office in TEXAS_CURRENT_OFFICES, f"{label}.office is unsupported")
+        offices.add(office)
+        require(contest.get("year") == TEXAS_CURRENT_YEAR, f"{label}.year must be {TEXAS_CURRENT_YEAR}")
+        require(contest.get("election_stage") == "primary_runoff", f"{label}.election_stage must be primary_runoff")
+        require(contest.get("source_format") == "current-results-html", f"{label}.source_format is incorrect")
+        candidates = contest.get("candidates")
+        require(isinstance(candidates, list) and len(candidates) >= 2, f"{label}.candidates must contain at least two candidates")
+        votes = [validate_candidate(candidate, f"{label}.candidates[{candidate_index}]") for candidate_index, candidate in enumerate(candidates)]
+        require(votes == sorted(votes, reverse=True), f"{label}.candidates must be sorted by votes desc")
+        require_int(contest.get("total_votes"), f"{label}.total_votes", minimum=1)
+        require(sum(votes) == contest["total_votes"], f"{label}.total_votes must equal candidate vote sum")
+        require(contest.get("winner") == candidates[0], f"{label}.winner must be the top candidate")
+        expected_margin = votes[0] - votes[1]
+        require(contest.get("margin_votes") == expected_margin, f"{label}.margin_votes is incorrect")
+        require(contest.get("counties") == [], f"{label}.counties must be empty for statewide-only current HTML")
+        if office in {"U.S. House", "State Senate", "State House"}:
+            require_int(contest.get("district_number"), f"{label}.district_number", minimum=1)
+            require(isinstance(contest.get("district_label"), str) and contest["district_label"], f"{label}.district_label is required")
+    require("U.S. Senate" in offices, f"{path_label} must include U.S. Senate")
+    require("U.S. House" in offices, f"{path_label} must include U.S. House")
+
+
+def validate_ohio_combined(path: Path) -> None:
+    summary = load_json(path)
+    path_label = display_path(path)
+    require(isinstance(summary, dict), f"{path_label} must be an object")
+    require_source(summary.get("source"), path)
+    require(summary.get("state_po") == "OH", f"{path_label}.state_po must be OH")
+    elections = summary.get("elections")
+    require(isinstance(elections, list) and elections, f"{path_label}.elections must be non-empty")
+    years = {election.get("election", {}).get("year") for election in elections if isinstance(election, dict)}
+    require(years == OHIO_YEARS, f"{path_label}.elections must cover {sorted(OHIO_YEARS)}")
+    seen_contest_ids: set[int] = set()
+    for election_index, election_summary in enumerate(elections):
+        election_label = f"{path_label}.elections[{election_index}]"
+        require(isinstance(election_summary, dict), f"{election_label} must be an object")
+        require_source(election_summary.get("source"), Path(election_label))
+        election = election_summary.get("election")
+        require(isinstance(election, dict), f"{election_label}.election must be an object")
+        year = election.get("year")
+        require(year in OHIO_YEARS, f"{election_label}.election.year is unsupported")
+        require(election.get("state_po") == "OH", f"{election_label}.election.state_po must be OH")
+        contests = election_summary.get("contests")
+        require(isinstance(contests, list) and contests, f"{election_label}.contests must be non-empty")
+        office_counts: dict[str, int] = {}
+        for contest_index, contest in enumerate(contests):
+            label = f"{election_label}.contests[{contest_index}]"
+            require(isinstance(contest, dict), f"{label} must be an object")
+            require(contest.get("state_po") == "OH", f"{label}.state_po must be OH")
+            require(contest.get("year") == year, f"{label}.year must match election year")
+            office = contest.get("office")
+            require(isinstance(office, str) and office, f"{label}.office is required")
+            office_counts[office] = office_counts.get(office, 0) + 1
+            require_int(contest.get("contest_id"), f"{label}.contest_id", minimum=1)
+            require(contest["contest_id"] not in seen_contest_ids, f"{label}.contest_id is duplicated")
+            seen_contest_ids.add(contest["contest_id"])
+            candidates = contest.get("candidates")
+            require(isinstance(candidates, list) and candidates, f"{label}.candidates must be non-empty")
+            votes = [validate_candidate(candidate, f"{label}.candidates[{candidate_index}]") for candidate_index, candidate in enumerate(candidates)]
+            require(votes == sorted(votes, reverse=True), f"{label}.candidates must be sorted by votes desc")
+            require_int(contest.get("total_votes"), f"{label}.total_votes", minimum=1)
+            require(sum(votes) == contest["total_votes"], f"{label}.total_votes must equal candidate vote sum")
+            require(contest.get("winner") == candidates[0], f"{label}.winner must be the top candidate")
+            expected_margin = votes[0] - votes[1] if len(votes) > 1 else 0
+            require(contest.get("margin_votes") == expected_margin, f"{label}.margin_votes is incorrect")
+            if office in {"U.S. House", "State Senate", "State House"}:
+                require(isinstance(contest.get("district_label"), str) and contest["district_label"], f"{label}.district_label is required")
+                require_int(contest.get("district_number"), f"{label}.district_number", minimum=1)
+            counties = contest.get("counties")
+            require(isinstance(counties, list) and counties, f"{label}.counties must be a list")
+            if office in {"President", "U.S. Senate"}:
+                require(len(counties) == 88, f"{label}.counties must include all 88 Ohio counties")
+            require(counties, f"{label}.counties must be non-empty")
+            county_total = 0
+            for county_index, county in enumerate(counties):
+                county_label = f"{label}.counties[{county_index}]"
+                require(isinstance(county, dict), f"{county_label} must be an object")
+                require(isinstance(county.get("fips"), str) and county["fips"].startswith("39"), f"{county_label}.fips must be an Ohio FIPS")
+                require(isinstance(county.get("county_name"), str) and county["county_name"], f"{county_label}.county_name is required")
+                county_candidates = county.get("candidates")
+                require(isinstance(county_candidates, list) and county_candidates, f"{county_label}.candidates must be non-empty")
+                county_votes = [validate_candidate(candidate, f"{county_label}.candidates[{candidate_index}]") for candidate_index, candidate in enumerate(county_candidates)]
+                require(county_votes == sorted(county_votes, reverse=True), f"{county_label}.candidates must be sorted by votes desc")
+                require_int(county.get("total_votes"), f"{county_label}.total_votes")
+                require(sum(county_votes) == county["total_votes"], f"{county_label}.total_votes must equal candidate vote sum")
+                require(county.get("winner") == county_candidates[0], f"{county_label}.winner must be the top candidate")
+                county_total += county["total_votes"]
+            require(county_total == contest["total_votes"], f"{label}.counties must sum to contest total_votes")
+        require(office_counts == OHIO_EXPECTED_OFFICE_COUNTS[year], f"{election_label}.office counts are incorrect: {office_counts}")
+
+
 def validate_geometry_manifest(path: Path) -> None:
     manifest = load_json(path)
     require(isinstance(manifest, dict), f"{path.relative_to(ROOT_DIR)} must be an object")
@@ -303,6 +705,64 @@ def validate_geometry_manifest(path: Path) -> None:
         validate_geometry_geojson(RESULTS_DIR / "geometry" / f"{layer_key}.geojson", layer, int(layer["feature_count"]))
         require(isinstance(layer.get("source_file_url"), str) and layer["source_file_url"].startswith("https://"), f"{label}.source_file_url is required")
         require(isinstance(layer.get("checksum_sha256"), str) and len(layer["checksum_sha256"]) == 64, f"{label}.checksum_sha256 must be SHA-256")
+
+
+def validate_california_geometry_manifest(path: Path) -> None:
+    manifest = load_json(path)
+    path_label = display_path(path)
+    require(isinstance(manifest, dict), f"{path_label} must be an object")
+    require_source(manifest.get("source"), path)
+    layers = manifest.get("layers")
+    require(isinstance(layers, list), f"{path_label}.layers must be a list")
+    layer_keys = {layer.get("layer_key") for layer in layers if isinstance(layer, dict)}
+    require(layer_keys == set(CALIFORNIA_GEOMETRY_LAYERS), f"{path_label}.layers must contain all configured California layers")
+    for index, layer in enumerate(layers):
+        label = f"{path_label}.layers[{index}]"
+        require(isinstance(layer, dict), f"{label} must be an object")
+        layer_key = layer.get("layer_key")
+        require(layer_key in CALIFORNIA_GEOMETRY_LAYERS, f"{label}.layer_key is unknown")
+        expected_geo_type, expected_count = CALIFORNIA_GEOMETRY_LAYERS[layer_key]
+        require(layer.get("geo_type") == expected_geo_type, f"{label}.geo_type is incorrect")
+        require(layer.get("state_po") == "CA", f"{label}.state_po must be CA")
+        require(layer.get("valid_from") == 2022, f"{label}.valid_from must be 2022")
+        require_int(layer.get("feature_count"), f"{label}.feature_count", minimum=1)
+        require(layer["feature_count"] == expected_count, f"{label}.feature_count must be {expected_count}")
+        require(layer.get("geometry_url") == f"/results/geometry/{layer_key}.geojson", f"{label}.geometry_url is incorrect")
+        require(layer.get("office") in CALIFORNIA_DISTRICT_OFFICES, f"{label}.office is incorrect")
+        require(isinstance(layer.get("source_file_url"), str) and layer["source_file_url"].startswith("https://"), f"{label}.source_file_url is required")
+        validate_california_geometry_geojson(RESULTS_DIR / "geometry" / f"{layer_key}.geojson", layer, expected_count)
+
+
+def validate_california_geometry_geojson(path: Path, layer: dict[str, Any], expected_feature_count: int) -> None:
+    collection = load_json(path)
+    path_label = display_path(path)
+    require(collection.get("type") == "FeatureCollection", f"{path_label}.type must be FeatureCollection")
+    features = collection.get("features")
+    require(isinstance(features, list), f"{path_label}.features must be a list")
+    require(len(features) == expected_feature_count, f"{path_label}.features length must match expected count")
+    seen_ids: set[str] = set()
+    seen_numbers: set[int] = set()
+    for index, feature in enumerate(features):
+        label = f"{path_label}.features[{index}]"
+        require(isinstance(feature, dict), f"{label} must be an object")
+        feature_id = feature.get("id")
+        require(isinstance(feature_id, str) and feature_id.startswith("CA:CRC2020:"), f"{label}.id must be a California CRC id")
+        require(feature_id not in seen_ids, f"{label}.id is duplicated")
+        seen_ids.add(feature_id)
+        properties = feature.get("properties")
+        require(isinstance(properties, dict), f"{label}.properties must be an object")
+        require(properties.get("layer_key") == layer["layer_key"], f"{label}.properties.layer_key must match manifest")
+        require(properties.get("geo_type") == layer["geo_type"], f"{label}.properties.geo_type must match manifest")
+        require(properties.get("state_po") == "CA", f"{label}.properties.state_po must be CA")
+        require_int(properties.get("geometry_id"), f"{label}.properties.geometry_id", minimum=1)
+        require_int(properties.get("district_number"), f"{label}.properties.district_number", minimum=1)
+        require(properties["district_number"] not in seen_numbers, f"{label}.properties.district_number is duplicated")
+        seen_numbers.add(properties["district_number"])
+        require(isinstance(properties.get("district_label"), str) and properties["district_label"], f"{label}.properties.district_label is required")
+        geometry = feature.get("geometry")
+        require(isinstance(geometry, dict), f"{label}.geometry must be an object")
+        require(geometry.get("type") == "MultiPolygon", f"{label}.geometry.type must be MultiPolygon")
+        require(isinstance(geometry.get("coordinates"), list) and geometry["coordinates"], f"{label}.geometry.coordinates must be non-empty")
 
 
 def validate_geometry_geojson(path: Path, layer: dict[str, Any], expected_feature_count: int) -> None:
@@ -401,6 +861,62 @@ def validate_florida_district_drilldown_object(bundle: dict[str, Any], path_labe
     require(isinstance(bundle.get("layers"), list) and bundle["layers"], f"{path_label}.layers must be non-empty")
 
 
+def validate_california_district_drilldown(path: Path) -> None:
+    bundle = load_json(path)
+    path_label = display_path(path)
+    require(isinstance(bundle, dict), f"{path_label} must be an object")
+    require_source(bundle.get("source"), path)
+    require(bundle.get("state_po") == "CA", f"{path_label}.state_po must be CA")
+    elections = bundle.get("elections")
+    require(isinstance(elections, list) and elections, f"{path_label}.elections must be non-empty")
+    years = {election.get("election", {}).get("year") for election in elections if isinstance(election, dict)}
+    require(years == CALIFORNIA_GEOMETRY_LINKED_YEARS, f"{path_label}.elections must cover {sorted(CALIFORNIA_GEOMETRY_LINKED_YEARS)}")
+    expected_contests = {
+        "ca-2022-congressional-districts": 52,
+        "ca-2022-state-senate-districts": 20,
+        "ca-2022-state-assembly-districts": 80,
+    }
+    for election_index, election in enumerate(elections):
+        election_label = f"{path_label}.elections[{election_index}]"
+        require(isinstance(election, dict), f"{election_label} must be an object")
+        require(election.get("state_po") == "CA", f"{election_label}.state_po must be CA")
+        require(election.get("election", {}).get("year") in CALIFORNIA_GEOMETRY_LINKED_YEARS, f"{election_label}.election.year must be a geometry-linked California year")
+        layers = election.get("layers")
+        require(isinstance(layers, list) and layers, f"{election_label}.layers must be non-empty")
+        layer_keys = {layer.get("layer_key") for layer in layers if isinstance(layer, dict)}
+        require(layer_keys == set(CALIFORNIA_GEOMETRY_LAYERS), f"{election_label}.layers must include all California district layers")
+        for layer_index, layer in enumerate(layers):
+            layer_label = f"{election_label}.layers[{layer_index}]"
+            require(isinstance(layer, dict), f"{layer_label} must be an object")
+            layer_key = layer.get("layer_key")
+            require(layer_key in CALIFORNIA_GEOMETRY_LAYERS, f"{layer_label}.layer_key is unknown")
+            require(layer.get("geometry_url") == f"/results/geometry/{layer_key}.geojson", f"{layer_label}.geometry_url is incorrect")
+            require_int(layer.get("feature_count"), f"{layer_label}.feature_count", minimum=1)
+            require(layer["feature_count"] == CALIFORNIA_GEOMETRY_LAYERS[layer_key][1], f"{layer_label}.feature_count is incorrect")
+            contests = layer.get("contests")
+            require(isinstance(contests, list), f"{layer_label}.contests must be a list")
+            require(layer.get("contest_count") == len(contests), f"{layer_label}.contest_count must equal contests length")
+            require(len(contests) == expected_contests[layer_key], f"{layer_label}.contests length is incorrect")
+            seen_districts: set[int] = set()
+            for contest_index, contest in enumerate(contests):
+                contest_label = f"{layer_label}.contests[{contest_index}]"
+                require(isinstance(contest, dict), f"{contest_label} must be an object")
+                require(contest.get("office") == layer["office"], f"{contest_label}.office must match layer")
+                require_int(contest.get("district_number"), f"{contest_label}.district_number", minimum=1)
+                require(contest["district_number"] not in seen_districts, f"{contest_label}.district_number is duplicated")
+                seen_districts.add(contest["district_number"])
+                require_int(contest.get("geometry_id"), f"{contest_label}.geometry_id", minimum=1)
+                require(isinstance(contest.get("geometry_official_id"), str) and contest["geometry_official_id"].startswith("CA:CRC2020:"), f"{contest_label}.geometry_official_id is required")
+                require_int(contest.get("total_votes"), f"{contest_label}.total_votes", minimum=1)
+                candidates = contest.get("candidates")
+                require(isinstance(candidates, list) and candidates, f"{contest_label}.candidates must be non-empty")
+                votes = [validate_candidate(candidate, f"{contest_label}.candidates[{candidate_index}]") for candidate_index, candidate in enumerate(candidates)]
+                require(sum(votes) == contest["total_votes"], f"{contest_label}.total_votes must equal candidate vote sum")
+                require(contest.get("winner") == candidates[0], f"{contest_label}.winner must be the top candidate")
+                counties = contest.get("counties")
+                require(isinstance(counties, list) and counties, f"{contest_label}.counties must be non-empty")
+
+
 def main() -> int:
     checks = [
         lambda: validate_county_presidential(RESULTS_DIR / "county-presidential-summary.json"),
@@ -408,7 +924,15 @@ def main() -> int:
         lambda: validate_florida_combined(RESULTS_DIR / "florida-statewide-summary.json"),
         lambda: validate_california_combined(RESULTS_DIR / "california-statewide-summary.json"),
         lambda: validate_geometry_manifest(RESULTS_DIR / "florida-geometry-layers.json"),
+        lambda: validate_california_geometry_manifest(RESULTS_DIR / "california-geometry-layers.json"),
         lambda: validate_florida_district_drilldown_combined(RESULTS_DIR / "districts/florida-district-drilldown.json"),
+        lambda: validate_california_district_drilldown(RESULTS_DIR / "districts/california-district-drilldown.json"),
+        lambda: validate_florida_mayors(RESULTS_DIR / "florida-mayor-summary.json"),
+        lambda: validate_pennsylvania_combined(RESULTS_DIR / "pennsylvania-statewide-summary.json"),
+        lambda: validate_ohio_combined(RESULTS_DIR / "ohio-statewide-summary.json"),
+        lambda: validate_texas_combined(RESULTS_DIR / "texas-statewide-summary.json"),
+        lambda: validate_texas_current(RESULTS_DIR / "texas-current-summary.json"),
+        lambda: validate_texas_mayors(RESULTS_DIR / "texas-mayor-summary.json"),
     ]
     checks.extend(lambda path=path: validate_florida_year_file(path) for path in sorted(RESULTS_DIR.glob("florida-20??-statewide-summary.json")))
     checks.extend(

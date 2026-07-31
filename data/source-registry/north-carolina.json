@@ -1,0 +1,32 @@
+{
+  "state": "North Carolina",
+  "state_po": "NC",
+  "entries": [
+    {
+      "id": "nc-sbe-federal-state-2020-2024-imported",
+      "scope": "statewide",
+      "offices": ["President", "U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"],
+      "years": [2020, 2024],
+      "status": "imported",
+      "format": "sbe-precinct-archive",
+      "geography": "precinct-or-district",
+      "quality_grade": "A",
+      "parser": "scripts/generate_north_carolina_statewide_summary.py",
+      "urls": ["https://www.ncsbe.gov/results-data/election-results/historical-election-results-data"],
+      "notes": "Official NCSBE precinct result files aggregated into 372 normalized federal/state contests across 2020 and 2024. 2024 has no U.S. Senate contest because that office was not on the ballot."
+    },
+    {
+      "id": "nc-sbe-federal-state-2022-source",
+      "scope": "statewide",
+      "offices": ["President", "U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"],
+      "years": [2022],
+      "status": "source_identified",
+      "format": "sbe-precinct-archive",
+      "geography": "precinct-or-district",
+      "quality_grade": null,
+      "parser": "planned:nc-state-federal-import",
+      "urls": ["https://www.ncsbe.gov/results-data/election-results/historical-election-results-data"],
+      "notes": "Official source identified; 2022 raw result file has not yet been staged."
+    }
+  ]
+}

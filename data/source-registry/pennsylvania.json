@@ -1,0 +1,40 @@
+{
+  "state": "Pennsylvania",
+  "state_po": "PA",
+  "entries": [
+    {
+      "id": "pa-state-election-data",
+      "scope": "statewide",
+      "offices": ["President", "U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"],
+      "years": [2020, 2022, 2024],
+      "status": "imported",
+      "format": "csv-precinct-returns",
+      "geography": "precinct",
+      "quality_grade": "A",
+      "parser": "scripts/generate_pennsylvania_summary.py",
+      "urls": [
+        "https://www.pa.gov/agencies/dos/resources/voting-and-elections-resources/voting-and-election-statistics/election-data",
+        "https://www.pa.gov/content/dam/copapwp-pagov/en/dos/resources/voting-and-elections/bulk-data/2024-general-election/er/erstat_2024_g_268768_20250129.txt",
+        "https://www.pa.gov/content/dam/copapwp-pagov/en/dos/resources/voting-and-elections/bulk-data/ElectionReturns_2022_General_PrecinctReturns.txt",
+        "https://www.pa.gov/content/dam/copapwp-pagov/en/dos/resources/voting-and-elections/bulk-data/ElectionReturns_2020_General_PrecinctReturns.txt"
+      ],
+      "notes": "Official precinct return files imported and aggregated to statewide/county-by-district contest summaries."
+    },
+    {
+      "id": "pa-major-city-mayors",
+      "scope": "mayor",
+      "offices": ["Mayor"],
+      "years": [2021, 2023],
+      "status": "source_identified",
+      "format": "mixed-county-city-archives",
+      "geography": "citywide",
+      "quality_grade": null,
+      "parser": "planned:municipal-summary",
+      "urls": [
+        "https://vote.phila.gov/resources-data/past-election-results/archived-data-sets/",
+        "https://www.alleghenycounty.us/Government/Elections/Election-Results"
+      ],
+      "notes": "Philadelphia and Pittsburgh mayor archives."
+    }
+  ]
+}

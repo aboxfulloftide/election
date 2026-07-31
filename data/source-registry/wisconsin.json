@@ -1,0 +1,19 @@
+{
+  "state": "Wisconsin",
+  "state_po": "WI",
+  "entries": [
+    {
+      "id": "wi-wec-federal-state-2020-2024",
+      "scope": "statewide",
+      "offices": ["President", "U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"],
+      "years": [2020, 2022, 2024],
+      "status": "source_identified",
+      "format": "wec-canvass-archive",
+      "geography": "county-or-district",
+      "quality_grade": null,
+      "parser": "planned:wisconsin-state-federal-import",
+      "urls": ["https://elections.wi.gov/"],
+      "notes": "Official Wisconsin Elections Commission archive identified for the first cohort; current parser covers the 2024 presidential PDF override only."
+    }
+  ]
+}

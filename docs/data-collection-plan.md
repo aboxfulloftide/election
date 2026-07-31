@@ -13,12 +13,13 @@ Pilot states:
 Election type:
 
 - General elections only.
-- Normal scheduled mayor elections only.
-- Runoffs only when they determine the winner.
+- Runoffs only when they determine the winner of a normally scheduled state/federal election.
 
 Years:
 
-- Target back to the 1950s where obtainable.
+- Active target: even-year general elections from 2000 through 2026.
+- 2026 general results are added after certification; current primary/current data is tracked separately.
+- Pre-2000 elections are future archival work.
 
 Offices:
 
@@ -28,7 +29,8 @@ Offices:
 - Governor
 - State Senate
 - State House / Assembly
-- Major city mayor
+
+Municipal elections are archived but excluded from the active national collection target.
 
 ## Collection Principles
 
@@ -158,9 +160,11 @@ Current outputs:
 Next work:
 
 - Add county/year official Florida precinct geometry sources.
-- Add Florida mayor contests from county/city archives.
-- Add frontend access for California Statement of Vote contests.
-- Add California county or precinct geometry sources for district-aware maps.
+- Miami-Dade official 2012 and 2014/2015 precinct shapefile vintages are now converted to WGS84 as the first pilot; extend the same pipeline to other Florida counties and vintages.
+- Backfill additional Florida mayor years from county/city archives where structured official results are available.
+- Texas 2018 static historical race/county pages are imported. Texas 2020/2022/2024 County by County Canvass PDF statewide and district contests are imported. Texas 2025-current public HTML is imported for statewide-only current totals. Ohio 2020, 2022, and 2024 official XLSX workbooks are imported.
+- Fort Worth mayor citywide totals are imported from the official City Secretary election-history page. San Antonio mayor totals from 1999 through 2025 are imported from City canvass PDFs and Bexar County official results. Houston 1999, 2001, 2003, 2005, and 2007 mayor totals are imported from City Secretary combined canvass PDFs, and Houston 2009, 2011, 2013, 2015, 2019, and 2023 mayor totals are imported from Harris County official cumulative result PDFs. Austin 2022 and 2024 mayor totals are imported from City Clerk canvass resolution PDFs. Dallas 1981 through 1999, 2002, 2007, 2011, 2015, 2019, and 2023 mayor totals are imported from the City Secretary master list and canvass resolution PDFs. Continue Texas mayor work with older San Antonio years or direct Dallas resolution PDFs that expose usable official reports.
+- Add California precinct-level or county registrar sources where Statement of Vote county-by-district detail is not enough.
 
 ### Step 3: Other Pilot-State Governor and U.S. Senate
 
@@ -240,6 +244,15 @@ Priority:
 4. Historical PDFs or scans.
 
 Mayor data should preserve city-specific election rules, including nonpartisan races and runoffs.
+
+Current imported mayor coverage:
+
+- Florida configured Miami-Dade cities, Tampa, Jacksonville, and Orlando.
+- Texas Fort Worth, 10 contests from 2007 through 2025.
+- Texas San Antonio, 2005 through 2025 general/runoff contests where mayor was on the ballot.
+- Texas Houston, 1999, 2001, 2003, 2005, 2007, 2009, 2011, 2013, 2015, 2019, and 2023 mayor contests.
+- Texas Austin, 2022 general/runoff and 2024 general mayor contests.
+- Texas Dallas, 2002 special/runoff, 2007 general, 2011 general/runoff, 2015 general, 2019 general/runoff, and 2023 general mayor contests.
 
 ## Source Registry Fields
 
@@ -334,4 +347,4 @@ Completed:
 
 Next milestone:
 
-Expose the imported California Statement of Vote contests in the frontend, then continue with either Florida mayor contests or California geometry/back-year expansion.
+Continue with structured mayor archives beyond Austin/Dallas/Fort Worth/San Antonio/Houston or manually downloaded official TX/OH files. For map precision beyond district totals, identify precinct-level geometry/results sources by state and county.
