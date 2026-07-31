@@ -37,6 +37,7 @@
     "data:official:ky:download": "python3 scripts/download_kentucky_presidential.py",
     "data:official:ky:merge": "python3 scripts/merge_kentucky_presidential.py",
     "data:official:ky": "npm run data:official:ky:download && npm run data:official:ky:merge",
+    "kentucky:recaps:download": "python3 scripts/download_kentucky_general_recaps.py",
     "data:official:wi:download": "python3 scripts/download_wisconsin_presidential.py",
     "data:official:wi:merge": "python3 scripts/merge_wisconsin_presidential.py",
     "data:official:wi": "npm run data:official:wi:download && npm run data:official:wi:merge",
