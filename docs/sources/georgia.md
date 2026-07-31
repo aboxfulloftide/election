@@ -28,6 +28,7 @@ Current coverage:
 - 2022: 159 county summary ZIPs normalized into 252 official Governor, U.S. Senate, U.S. House, State Senate, and State House contests by `npm run georgia:2022:generate`.
 - 2024: 251 official contest totals normalized by `npm run georgia:2024:generate`: President, 14 U.S. House, 56 State Senate, and 180 State House contests. The PDF has no regular U.S. Senate contest for this year.
 - 2020: 253 official contest totals are normalized by `npm run georgia:2020:generate`: President, regular and special U.S. Senate, 14 U.S. House, 56 State Senate, and 180 State House contests. Georgia had no regular Governor contest in 2020.
+- Applicability: the national matrix records 2020 Governor and 2024 regular U.S. Senate as `not_on_ballot` rather than missing source lanes.
 - The 2020-2024 cohort is not complete until the remaining 2020 Governor applicability/source lane is recorded and the state batch is reconciled.
 
 The 2022 normalized artifact is `public/results/georgia-2022-official-contests.json`. It is kept separate from the county-presidential merger because the 2022 archive contains many non-presidential contest names.

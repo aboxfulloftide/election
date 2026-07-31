@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from election_db import ROOT_DIR
+from parse_kentucky_certified import extract_state_candidate_headers
 
 
 SUMMARY_PATH = ROOT_DIR / "public/results/kentucky-statewide-summary.json"
@@ -16,7 +17,7 @@ CERTIFIED_PATH = ROOT_DIR / "data/raw/official/kentucky/2022_certified_senate_re
 OUTPUT_PATH = ROOT_DIR / "public/results/kentucky-2022-state-candidate-readiness.json"
 
 
-def build_report(summary: dict[str, Any], certified: dict[str, Any]) -> dict[str, Any]:
+def build_report(summary: dict[str, Any], certified: dict[str, Any], certified_text: str) -> dict[str, Any]:
     report: dict[str, Any] = {"state_po": "KY", "year": 2022, "offices": {}}
     for office, key in (("State Senate", "state_senate_county_rows"), ("State House", "state_house_county_rows")):
         contests = {
@@ -27,20 +28,26 @@ def build_report(summary: dict[str, Any], certified: dict[str, Any]) -> dict[str
             if contest["office"] == office
         }
         certified_rows = {row["district"]: row for row in certified[key]}
+        headers = {row["district"]: row for row in extract_state_candidate_headers(certified_text, office)}
         lanes = []
         for district in sorted(certified_rows):
             existing = contests.get(district)
             width = len(certified_rows[district].get("summed_columns", []))
             candidate_count = len(existing.get("candidates", [])) if existing else 0
+            extracted_candidates = headers.get(district, {}).get("candidates", [])
+            extracted_count = len(extracted_candidates)
             lanes.append({
                 "district": district,
-                "candidate_metadata": "recap_summary" if existing and candidate_count == width else "needs_header_extraction",
+                "candidate_metadata": "certified_header" if extracted_count == width else "recap_summary" if existing and candidate_count == width else "needs_header_extraction",
                 "candidate_count": candidate_count,
+                "extracted_candidates": extracted_candidates,
                 "certified_columns": width,
                 "certified_totals_reconciled": certified_rows[district].get("all_columns_match") is True,
             })
         report["offices"][office] = {
             "expected_districts": len(certified_rows),
+            "candidate_metadata_ready": sum(item["candidate_metadata"] in {"recap_summary", "certified_header"} for item in lanes),
+            "certified_header_ready": sum(item["candidate_metadata"] == "certified_header" for item in lanes),
             "recap_metadata_ready": sum(item["candidate_metadata"] == "recap_summary" for item in lanes),
             "header_extraction_needed": sum(item["candidate_metadata"] == "needs_header_extraction" for item in lanes),
             "districts": lanes,
@@ -54,7 +61,8 @@ def main() -> int:
     args = parser.parse_args()
     summary = json.loads(SUMMARY_PATH.read_text(encoding="utf-8"))
     certified = json.loads(CERTIFIED_PATH.read_text(encoding="utf-8"))
-    report = build_report(summary, certified)
+    certified_text = (CERTIFIED_PATH.parent / "2022_certified_general_election_results_ocr.txt").read_text(encoding="utf-8")
+    report = build_report(summary, certified, certified_text)
     output = args.output if args.output.is_absolute() else ROOT_DIR / args.output
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, separators=(",", ":")), encoding="utf-8")

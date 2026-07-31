@@ -16,6 +16,34 @@
       "notes": "Official Georgia historical results page identified for the remaining 2020 and 2024 federal/state lanes. The 2022 lane is imported separately from the official county summary ZIP."
     },
     {
+      "id": "ga-no-regular-governor-2020",
+      "scope": "statewide",
+      "offices": ["Governor"],
+      "years": [2020],
+      "status": "source_identified",
+      "format": "not-on-ballot",
+      "geography": "statewide",
+      "quality_grade": null,
+      "parser": "not-applicable",
+      "not_on_even_year_ballot": true,
+      "urls": ["https://sos.ga.gov/page/historical-elections-results"],
+      "notes": "Georgia's regular gubernatorial general election was held in 2018 and 2022, not 2020."
+    },
+    {
+      "id": "ga-no-regular-us-senate-2024",
+      "scope": "statewide",
+      "offices": ["U.S. Senate"],
+      "years": [2024],
+      "status": "source_identified",
+      "format": "not-on-ballot",
+      "geography": "statewide",
+      "quality_grade": null,
+      "parser": "not-applicable",
+      "not_on_even_year_ballot": true,
+      "urls": ["https://sos.ga.gov/page/historical-elections-results"],
+      "notes": "Georgia's regular U.S. Senate seat was not on the 2024 general-election ballot; the 2024 official contest PDF contains no regular Senate contest."
+    },
+    {
       "id": "ga-sos-federal-state-2020-imported",
       "scope": "statewide",
       "offices": ["President", "U.S. Senate", "U.S. House", "State Senate", "State House"],

@@ -24,4 +24,6 @@ Current coverage:
 - The next Wisconsin work item is locating the official 2020 and 2022 county/district canvass exports and the 2024 non-presidential canvass exports. The homepage is confirmed as the official source hub, but no additional direct export URLs have been staged yet.
 - Direct scripted access to the WEC site currently returns a Cloudflare challenge, so Wisconsin remains source-identified until the official exports are obtained through the browser workflow or a stable public file URL.
 
+The browser staging contract expects the official WEC reports named `Canvass Results for 2020 General Election.pdf`, `Canvass Results for 2022 General Election.pdf`, and `County by County Report 2024 General Election.pdf` in the project root. Run `npm run wisconsin:stage` after staging them; it validates and copies them into ignored `data/raw/official/wisconsin/` paths for the importer.
+
 Rows written to `public/results/county-presidential-summary.json` are marked with `official: true`, Wisconsin Elections Commission source metadata, and quality grade `B`.

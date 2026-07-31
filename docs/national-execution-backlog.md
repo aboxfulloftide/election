@@ -10,8 +10,8 @@ Municipal and city elections remain archived project material and are outside th
 
 ### 1. Finalize Kentucky
 
-- Extract candidate names for the remaining 8 State Senate and 47 State House contests; `npm run kentucky:candidates:audit` tracks the readiness split.
-- Promote validated 2022 state legislative contests into the published summary.
+- Candidate names are extracted for all 19 State Senate and 100 State House contests; `npm run kentucky:candidates:audit` verifies the readiness split.
+- Validated 2022 State Senate and State House contests are promoted into the published summary.
 - Validate and import Kentucky 2020 and 2024 federal/state contests.
 - Resolve remaining Kentucky Senate write-in validation.
 - Move Kentucky from `source_identified` to `imported` only after all applicable cells pass reconciliation.

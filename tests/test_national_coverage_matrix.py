@@ -94,8 +94,8 @@ class NationalCoverageMatrixTests(TestCase):
         report = json.loads((ROOT_DIR / "public/results/kentucky-2022-state-candidate-readiness.json").read_text())
         self.assertEqual(report["offices"]["State Senate"]["expected_districts"], 19)
         self.assertEqual(report["offices"]["State House"]["expected_districts"], 100)
-        self.assertGreater(report["offices"]["State Senate"]["header_extraction_needed"], 0)
-        self.assertGreater(report["offices"]["State House"]["header_extraction_needed"], 0)
+        self.assertEqual(report["offices"]["State Senate"]["candidate_metadata_ready"], 19)
+        self.assertEqual(report["offices"]["State House"]["candidate_metadata_ready"], 100)
 
     def test_georgia_2020_full_archive_preserves_two_senate_contests(self) -> None:
         summary = json.loads((ROOT_DIR / "public/results/georgia-2020-official-contests.json").read_text())
@@ -105,3 +105,9 @@ class NationalCoverageMatrixTests(TestCase):
         self.assertEqual({contest["name"] for contest in senate}, {"Georgia 2020 Regular", "Georgia 2020 Special"})
         for contest in contests:
             self.assertEqual(sum(candidate["votes"] for candidate in contest["candidates"]), contest["total_votes"])
+
+    def test_georgia_non_ballot_lanes_are_explicit(self) -> None:
+        registry = json.loads((ROOT_DIR / "data/source-registry/georgia.json").read_text())
+        lanes = {entry["id"]: entry for entry in registry["entries"]}
+        self.assertTrue(lanes["ga-no-regular-governor-2020"]["not_on_even_year_ballot"])
+        self.assertTrue(lanes["ga-no-regular-us-senate-2024"]["not_on_even_year_ballot"])

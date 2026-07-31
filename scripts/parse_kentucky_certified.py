@@ -292,6 +292,60 @@ def parse_state_legislative_rows(text: str, office: str) -> list[dict[str, Any]]
     return districts
 
 
+def extract_state_candidate_headers(text: str, office: str) -> list[dict[str, Any]]:
+    """Extract candidate names from certified table headers using party-column anchors."""
+    if office not in {"State Senate", "State House"}:
+        raise ValueError("office must be State Senate or State House")
+    county_names = {
+        row["county_name"].casefold()
+        for row in json.loads((ROOT_DIR / "public/results/county-presidential-summary.json").read_text())["counties"]
+        if row["state_po"] == "KY"
+    }
+    lines = text.splitlines()
+    section_heading = "State Senator" if office == "State Senate" else "State Representative"
+    start = next((index for index, line in enumerate(lines) if line.strip().lower() == section_heading.lower()), None)
+    if start is None:
+        return []
+    end = next((index for index in range(start + 1, len(lines)) if lines[index].strip().lower() == "for the office of"), len(lines))
+    district_matches = [
+        (index, re.match(r"(\d+)(?:st|nd|rd|th) (Senatorial|Representative) District", lines[index].strip(), re.I))
+        for index in range(start, end)
+    ]
+    district_matches = [(index, match) for index, match in district_matches if match]
+    extracted: list[dict[str, Any]] = []
+    for position, (district_start, district_match) in enumerate(district_matches):
+        district_end = district_matches[position + 1][0] if position + 1 < len(district_matches) else end
+        party_line_index = next((index for index in range(district_start + 1, district_end) if any(label in lines[index] for label in ("Republican Party", "Democratic Party", "Write-In"))), None)
+        if party_line_index is None:
+            continue
+        party_labels = [(label, lines[party_line_index].find(label)) for label in ("Republican Party", "Democratic Party", "Write-In") if lines[party_line_index].find(label) >= 0]
+        first_county = next(
+            (
+                index
+                for index in range(party_line_index + 1, district_end)
+                if lines[index].strip()
+                and lines[index].strip().split()[0].casefold() in county_names
+                and re.search(r"\d", lines[index])
+            ),
+            district_end,
+        )
+        candidates: list[dict[str, str]] = []
+        for label, anchor in sorted(party_labels, key=lambda item: item[1]):
+            fragments: list[str] = []
+            for line in lines[party_line_index + 1:first_county]:
+                for token in re.finditer(r"\S+", line):
+                    value = token.group()
+                    if any(character.isalpha() for character in value):
+                        nearest = min(sorted(party_labels, key=lambda item: item[1]), key=lambda item: abs(token.start() - item[1]))
+                        if nearest[0] == label:
+                            fragments.append(value)
+            if fragments:
+                party = "REPUBLICAN" if label == "Republican Party" else "DEMOCRAT" if label == "Democratic Party" else "OTHER"
+                candidates.append({"candidate": re.sub(r"\s+", " ", " ".join(fragments)).strip(), "party": party})
+        extracted.append({"office": office, "district": int(district_match.group(1)), "candidates": candidates})
+    return extracted
+
+
 def parse_certified_totals(text: str) -> list[dict[str, Any]]:
     """Collect every printed contest total across federal and state offices."""
     totals: list[dict[str, Any]] = []
@@ -336,6 +390,8 @@ def main() -> int:
     result["us_house_contests"] = build_us_house_contests(text)
     result["state_senate_county_rows"] = parse_state_legislative_rows(text, "State Senate")
     result["state_house_county_rows"] = parse_state_legislative_rows(text, "State House")
+    result["state_senate_candidate_headers"] = extract_state_candidate_headers(text, "State Senate")
+    result["state_house_candidate_headers"] = extract_state_candidate_headers(text, "State House")
     result["contest_totals"] = parse_certified_totals(text)
     house = next((section for section in result["sections"] if section["office"].lower().startswith("united states representative")), None)
     state_senate = next((section for section in result["sections"] if section["office"].lower() == "state senator"), None)
