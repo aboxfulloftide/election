@@ -1,0 +1,10 @@
+{
+  "wave": "2010-2018",
+  "scope": "federal-and-state",
+  "years": [2010, 2012, 2014, 2016, 2018],
+  "offices": ["President", "U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"],
+  "states": ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"],
+  "status": "inventory_ready",
+  "source_priority": ["official structured archive", "official canvass PDF", "official scan/OCR", "reputable compiled reference with quality grade C"],
+  "completion_rule": "Preserve election-cycle district boundaries, source citations, quality grades, candidate/party totals, winners, margins, and explicit not-on-ballot status."
+}

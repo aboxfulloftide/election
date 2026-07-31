@@ -42,6 +42,15 @@ class NationalCoverageMatrixTests(TestCase):
         self.assertEqual(len(preflight["rows"]), 30)
         self.assertTrue(all(row["status"] in {"files_present", "needs_source"} for row in preflight["rows"]))
 
+    def test_remaining_modern_and_legacy_inventories_cover_the_unprocessed_states(self) -> None:
+        modern = json.loads((ROOT_DIR / "data/national-cohorts/modern-remaining-2020-2024.json").read_text())
+        legacy = json.loads((ROOT_DIR / "data/national-cohorts/legacy-2010-2018.json").read_text())
+        modern_states = [state for cohort in modern["cohorts"] for state in cohort["states"]]
+        self.assertEqual(len(modern_states), 40)
+        self.assertEqual(len(set(modern_states)), 40)
+        self.assertEqual(set(modern["offices"]), set(legacy["offices"]))
+        self.assertEqual(len(legacy["states"]), 50)
+
     def test_north_carolina_summary_contains_only_active_offices(self) -> None:
         summary = json.loads(
             (ROOT_DIR / "public/results/north-carolina-statewide-summary.json").read_text()

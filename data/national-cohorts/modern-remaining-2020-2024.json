@@ -1,0 +1,13 @@
+{
+  "wave": "2020-2024",
+  "scope": "federal-and-state",
+  "years": [2020, 2022, 2024],
+  "offices": ["President", "U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"],
+  "cohorts": [
+    {"id": "cohort-02", "states": ["AL", "AK", "AZ", "AR", "CO", "CT", "DE", "HI", "ID", "IL"], "status": "queued"},
+    {"id": "cohort-03", "states": ["IN", "IA", "KS", "LA", "ME", "MD", "MA", "MI", "MN", "MS"], "status": "queued"},
+    {"id": "cohort-04", "states": ["MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "ND", "OK"], "status": "queued"},
+    {"id": "cohort-05", "states": ["OR", "RI", "SC", "SD", "TN", "UT", "VT", "WA", "WV", "WY"], "status": "queued"}
+  ],
+  "completion_rule": "Every applicable state/year/office cell must have an official source, normalized contests, reconciliation checks, tests, and generated output before its cohort is imported. Non-ballot offices must be recorded explicitly."
+}

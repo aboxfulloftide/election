@@ -18,15 +18,16 @@
     { "state_po": "TX", "status": "imported" },
     { "state_po": "OH", "status": "imported" },
     { "state_po": "GA", "status": "source_identified" },
-    { "state_po": "NC", "status": "source_identified" },
+    { "state_po": "NC", "status": "imported" },
     { "state_po": "VA", "status": "source_identified" },
     { "state_po": "WI", "status": "source_identified" },
     { "state_po": "KY", "status": "source_identified" }
   ],
   "years": [2020, 2022, 2024],
   "next_actions": [
-    "Import official Georgia, North Carolina, Virginia, Wisconsin, and Kentucky files.",
-    "Normalize candidate, party, totals, winners, and margins for all six offices.",
+    "Complete Georgia and Wisconsin federal/state source acquisition beyond their current presidential files.",
+    "Promote Kentucky validated state legislative contests after candidate extraction.",
+    "Record Virginia state-office non-ballot applicability and complete any applicable cells.",
     "Run reconciliation and focused regression tests before marking each state imported.",
     "Regenerate the national coverage matrix and source registry report."
   ]

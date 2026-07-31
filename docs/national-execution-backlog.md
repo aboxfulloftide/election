@@ -68,3 +68,9 @@ npm run build
 ```
 
 Current execution begins with Work Packages 1, 2, and 3. Work proceeds in state/year cohorts rather than individual contest-sized changes.
+
+Machine-readable execution inventories:
+
+- `data/national-cohorts/cohort-01-2020-2024.json`: pilot/first cohort in progress.
+- `data/national-cohorts/modern-remaining-2020-2024.json`: four queued ten-state modern cohorts.
+- `data/national-cohorts/legacy-2010-2018.json`: all-state legacy-wave inventory.
