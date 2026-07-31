@@ -40,6 +40,7 @@
     "kentucky:recaps:download": "python3 scripts/download_kentucky_general_recaps.py",
     "kentucky:recaps:audit": "python3 scripts/audit_kentucky_recap_schema.py",
     "kentucky:recaps:check": "python3 scripts/audit_kentucky_recap_schema.py --check",
+    "kentucky:recaps:ocr": "python3 scripts/ocr_kentucky_recaps.py",
     "kentucky:generate": "python3 scripts/generate_kentucky_statewide_summary.py",
     "kentucky:check": "python3 scripts/check_kentucky_summary.py",
     "virginia:inventory": "python3 scripts/inventory_virginia_official_contests.py",

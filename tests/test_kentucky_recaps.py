@@ -10,6 +10,7 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT_DIR / "scripts"))
 
 from download_kentucky_general_recaps import LinkParser, destination
+from ocr_kentucky_recaps import candidates, output_path
 
 
 class KentuckyRecapDownloaderTests(TestCase):
@@ -40,3 +41,8 @@ class KentuckyRecapDownloaderTests(TestCase):
         self.assertEqual(audit["summary"]["2022"]["content_status_counts"]["blank"], 67)
         self.assertEqual(audit["summary"]["2024"]["blank_files"], ["data/raw/official/kentucky/2024_Elliott.pdf"])
         self.assertEqual(audit["summary"]["2024"]["mail_in_only_files"], ["data/raw/official/kentucky/2024_Magoffin.pdf"])
+
+    def test_ocr_selects_blank_reports_without_reprocessing_usable_reports(self) -> None:
+        selected = candidates(2022, ["2022_Allen_County.pdf"])
+        self.assertEqual(selected, [ROOT_DIR / "data/raw/official/kentucky/2022_Allen_County.pdf"])
+        self.assertEqual(output_path(selected[0]), ROOT_DIR / "data/raw/official/kentucky/ocr/2022_Allen_County.txt")

@@ -12,6 +12,7 @@ from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 RAW_DIR = ROOT_DIR / "data/raw/official/kentucky"
+OCR_DIR = RAW_DIR / "ocr"
 OUTPUT_JSON = ROOT_DIR / "public/results/kentucky-recap-schema-audit.json"
 OUTPUT_MD = ROOT_DIR / "docs/sources/kentucky-recap-schema-audit.md"
 
@@ -26,6 +27,9 @@ OFFICE_PATTERNS = (
 
 
 def extract_text(path: Path) -> str:
+    ocr_path = OCR_DIR / f"{path.stem}.txt"
+    if ocr_path.exists():
+        return ocr_path.read_text(encoding="utf-8")
     result = subprocess.run(
         ["pdftotext", "-layout", str(path), "-"],
         check=True,

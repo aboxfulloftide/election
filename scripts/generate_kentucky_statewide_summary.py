@@ -12,6 +12,7 @@ from typing import Any
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 RAW_DIR = ROOT_DIR / "data/raw/official/kentucky"
+OCR_DIR = RAW_DIR / "ocr"
 OUTPUT_PATH = ROOT_DIR / "public/results/kentucky-statewide-summary.json"
 
 PARTY_MAP = {"DEM": "DEMOCRAT", "REP": "REPUBLICAN", "LIB": "LIBERTARIAN", "IND": "INDEPENDENT", "KY": "OTHER", "KEN": "OTHER"}
@@ -42,7 +43,10 @@ def office_for_heading(line: str) -> tuple[str, int | None, str] | None:
 
 
 def parse_file(path: Path) -> dict[tuple[str, int | None], dict[tuple[str, str], int]]:
-    text = subprocess.run(["pdftotext", "-layout", str(path), "-"], check=True, capture_output=True, text=True, errors="replace").stdout
+    ocr_path = OCR_DIR / f"{path.stem}.txt"
+    text = ocr_path.read_text(encoding="utf-8") if ocr_path.exists() else subprocess.run(
+        ["pdftotext", "-layout", str(path), "-"], check=True, capture_output=True, text=True, errors="replace"
+    ).stdout
     totals: dict[tuple[str, int | None], dict[tuple[str, str], int]] = defaultdict(lambda: defaultdict(int))
     current: tuple[str, int | None] | None = None
     pending: tuple[str, int | None] | None = None
