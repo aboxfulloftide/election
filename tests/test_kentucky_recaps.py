@@ -13,7 +13,7 @@ from download_kentucky_general_recaps import LinkParser, destination
 from download_kentucky_certified import SOURCES
 from ocr_kentucky_certified import OCR_PDF_PATH, SOURCE_PATH, TEXT_PATH
 from ocr_kentucky_recaps import candidates, output_path
-from parse_kentucky_certified import certified_sections, parse_certified_totals, parse_senate, parse_us_house_totals
+from parse_kentucky_certified import certified_sections, parse_certified_totals, parse_senate, parse_us_house_county_rows, parse_us_house_totals
 
 
 class KentuckyRecapDownloaderTests(TestCase):
@@ -149,3 +149,15 @@ For the office of
                 {"office": "State House", "district": 21, "official_total_votes": [3000, 2000]},
             ],
         )
+
+    def test_certified_house_rows_are_grouped_by_district(self) -> None:
+        text = """United States Representative in Congress
+1st Congressional District
+Allen 4,931 2,091
+Total Votes 4,931 2,091
+For the office of
+"""
+        result = parse_us_house_county_rows(text)
+        self.assertEqual(result[0]["district"], 1)
+        self.assertEqual(result[0]["row_count"], 1)
+        self.assertTrue(result[0]["party_columns_match"])

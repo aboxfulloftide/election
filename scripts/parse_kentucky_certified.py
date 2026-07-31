@@ -128,6 +128,47 @@ def parse_us_house_totals(text: str) -> list[dict[str, Any]]:
     return districts
 
 
+def parse_us_house_county_rows(text: str) -> list[dict[str, Any]]:
+    """Extract county rows for each U.S. House district without publishing OCR values."""
+    county_names = {
+        row["county_name"].casefold()
+        for row in json.loads((ROOT_DIR / "public/results/county-presidential-summary.json").read_text())["counties"]
+        if row["state_po"] == "KY"
+    }
+    lines = text.splitlines()
+    start = next((index for index, line in enumerate(lines) if line.strip().lower() == "united states representative in congress"), None)
+    if start is None:
+        return []
+    end = next((index for index in range(start + 1, len(lines)) if lines[index].strip().lower() == "for the office of"), len(lines))
+    districts: list[dict[str, Any]] = []
+    current: dict[str, Any] | None = None
+    for raw_line in lines[start:end]:
+        line = re.sub(r"\s+", " ", raw_line.replace("\f", " ")).strip()
+        if "district" in line.lower() and ("congressional" in line.lower() or "representative" in line.lower()):
+            match = DISTRICT_RE.search(line)
+            current = {"district": int(match.group(1)) if match else len(districts) + 1, "rows": [], "official_total_votes": None}
+            districts.append(current)
+            continue
+        if not current:
+            continue
+        line = " ".join("0" if token in ZERO_OCR_TOKENS else token for token in line.split())
+        if line.lower().startswith("total votes"):
+            current["official_total_votes"] = [value for value in (number(match) for match in NUMBER_RE.findall(line)) if value is not None]
+            continue
+        matches = NUMBER_RE.findall(line)
+        values = [value for value in (number(match) for match in matches) if value is not None]
+        if len(values) < 2:
+            continue
+        county = line[:line.find(matches[0])].strip(" _|:;-")
+        if county.casefold() in county_names:
+            current["rows"].append({"county": county, "values": values, "raw": line})
+    for district in districts:
+        district["row_count"] = len(district["rows"])
+        district["summed_columns"] = [sum(row["values"][index] for row in district["rows"] if len(row["values"]) > index) for index in range(4)]
+        district["party_columns_match"] = district["summed_columns"][:2] == (district["official_total_votes"] or [])[:2]
+    return districts
+
+
 def parse_certified_totals(text: str) -> list[dict[str, Any]]:
     """Collect every printed contest total across federal and state offices."""
     totals: list[dict[str, Any]] = []
@@ -168,6 +209,7 @@ def main() -> int:
     result = parse_senate(text)
     result["sections"] = certified_sections(text)
     result["us_house_totals"] = parse_us_house_totals(text)
+    result["us_house_county_rows"] = parse_us_house_county_rows(text)
     result["contest_totals"] = parse_certified_totals(text)
     house = next((section for section in result["sections"] if section["office"].lower().startswith("united states representative")), None)
     state_senate = next((section for section in result["sections"] if section["office"].lower() == "state senator"), None)
@@ -179,8 +221,11 @@ def main() -> int:
         "expected_us_house_districts": 6,
         "us_house_districts_detected": len(house["districts"]) if house else 0,
         "us_house_districts_inferred": bool(house and house["districts_inferred"]),
+        "us_house_county_rows_complete": len(result["us_house_county_rows"]) == 6 and all(item["row_count"] > 0 for item in result["us_house_county_rows"]),
+        "us_house_party_totals_match": len(result["us_house_county_rows"]) == 6 and all(item["party_columns_match"] for item in result["us_house_county_rows"]),
         "expected_state_senate_districts": 19,
         "state_senate_districts_detected": len(state_senate["districts"]) if state_senate else 0,
+        "state_house_districts_detected": sum(1 for item in result["contest_totals"] if item["office"] == "State House"),
     }
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
