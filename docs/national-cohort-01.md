@@ -27,7 +27,7 @@ Raw-file availability is reported by `npm run national:cohort:preflight` in [`do
 | Ohio | Imported | Maintain regression coverage |
 | Georgia | Source identified | Download and normalize official files |
 | North Carolina | Source identified | Download and normalize official files |
-| Virginia | Source identified | Download and normalize official files |
+| Virginia | Federal contests imported; state-office lane open | Extend official inventory to applicable state-office election years |
 | Wisconsin | Source identified | Download and normalize official files |
 | Kentucky | Source identified | Download and normalize official files |
 

@@ -19,9 +19,12 @@ npm run virginia:inventory -- --year 2020 --start 144560 --end 144580
 npm run virginia:inventory -- --year 2024 --start 161250 --end 161400
 npm run virginia:download
 npm run virginia:generate
+npm run virginia:check
 ```
 
 The generated federal summary is `public/results/virginia-statewide-summary.json` with 26 contests. State legislative offices require separate odd-year election coverage and are not represented by the current even-year federal inventory.
+
+`npm run virginia:check` verifies that every contest's candidate totals reconcile to total votes, the recorded winner and margin are mathematically correct, contest IDs are unique, and both years contain all 11 U.S. House districts.
 
 Implemented commands:
 

@@ -83,6 +83,7 @@ npm run data:official:va        # replace VA 2020/2024 locality rows with offici
 npm run data:official:wi        # replace WI 2024 county rows with official Wisconsin canvass PDF data
 npm run data:supplement         # fill missing 2020/2024 county rows from supplemental CSVs
 npm run check:official          # compare official state source files against generated JSON rows
+npm run virginia:check          # validate Virginia federal contest totals and coverage
 npm run sources:report          # validate source registry and write docs/source-registry-report.md
 npm run coverage:national       # rebuild the 50-state federal/state coverage matrix
 npm run florida:fetch           # Florida 2012-2024: download/import/validate/generate
@@ -104,7 +105,7 @@ npm run texas:mayors:generate   # Texas official municipal mayor summaries
 npm run db:apply                # apply MySQL schema and seed data
 npm run lint                    # type-check the frontend
 npm test                        # run DB-free Python unit tests
-npm run check                   # type-check, unit-test, compile scripts, and validate generated JSON
+npm run check                   # type-check, unit-test, compile scripts, and validate generated JSON and Virginia contests
 npm run build                   # production build
 ```
 
