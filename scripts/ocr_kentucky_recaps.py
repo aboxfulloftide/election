@@ -28,7 +28,7 @@ def output_path(path: Path) -> Path:
     return OCR_DIR / f"{path.stem}.txt"
 
 
-def ocr_pdf(path: Path, dpi: int = 150) -> Path:
+def ocr_pdf(path: Path, dpi: int = 100) -> Path:
     destination = output_path(path)
     if destination.exists() and destination.stat().st_size > 100:
         return destination
