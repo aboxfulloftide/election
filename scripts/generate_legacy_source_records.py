@@ -29,6 +29,12 @@ STATES = [
 ]
 OFFICES = ["President", "U.S. Senate", "U.S. House", "Governor", "State Senate", "State House"]
 YEARS = [2000, 2002, 2004, 2006, 2008, 2010, 2012, 2014, 2016, 2018]
+IMPORTED_LANES = {
+    ("ID", 2014): (["U.S. Senate", "U.S. House", "Governor"], "scripts/generate_legacy_structured_summaries.py", "B"),
+    ("ID", 2016): (["President", "U.S. Senate", "U.S. House"], "scripts/generate_legacy_structured_summaries.py", "B"),
+    ("ID", 2018): (["U.S. House", "Governor"], "scripts/generate_legacy_structured_summaries.py", "B"),
+    ("DE", 2018): (["U.S. Senate", "U.S. House", "State Senate", "State House"], "scripts/generate_legacy_structured_summaries.py", "B"),
+}
 
 
 def build_registry(state_po: str, state: str, url: str, format_note: str) -> dict:
@@ -50,6 +56,24 @@ def build_registry(state_po: str, state: str, url: str, format_note: str) -> dic
                 "notes": f"{state} official {year} general-election archive identified for the {wave} wave. File acquisition, format audit, district-cycle review, and reconciliation are still required before import.",
             }
         )
+        imported = IMPORTED_LANES.get((state_po, year))
+        if imported:
+            offices, parser, quality_grade = imported
+            entries.append(
+                {
+                    "id": f"{state_po.lower()}-official-{year}-structured-imported",
+                    "scope": "statewide",
+                    "offices": offices,
+                    "years": [year],
+                    "status": "imported",
+                    "format": format_note,
+                    "geography": "statewide-county-or-district",
+                    "quality_grade": quality_grade,
+                    "parser": parser,
+                    "urls": [url],
+                    "notes": f"Validated official {year} contests generated from staged structured legacy files."
+                }
+            )
     return {"state": state, "state_po": state_po, "entries": entries}
 
 

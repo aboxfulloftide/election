@@ -111,7 +111,7 @@ The legacy waves are now operationally partitioned into five ten-state cohorts e
 
 The first legacy cohort (`AL, AK, AZ, AR, CO, CT, DE, HI, ID, IL`) now has year-level official source records for 2000–2008 and 2010–2018. Run `npm run legacy:sources` to regenerate them and review `docs/sources/legacy-cohort-01.md`; these records are source-identified only until files are staged and reconciled.
 
-Acquisition has started for the structured lanes. `npm run legacy:acquisition:audit` reports the staged-file boundary: Delaware 2018, Idaho 2014/2016/2018, and Illinois 2018 currently pass the format audit. Idaho portal shells for 2000–2012 and a rejected Delaware 2010 response are retained as invalid audit evidence and must not be parsed.
+Acquisition and parsing have started for the structured lanes. `npm run legacy:acquisition:audit` reports the staged-file boundary, and `npm run legacy:structured:generate` writes `public/results/idaho-legacy-2014-2018-summary.json`, `public/results/delaware-legacy-2018-summary.json`, and `public/results/illinois-legacy-2018-summary.json`. Idaho’s validated federal/Governor lanes and Delaware’s complete 2018 target lanes are promoted to `imported`; Illinois remains partial. Idaho portal shells for 2000–2012 and a rejected Delaware 2010 response are retained as invalid audit evidence and must not be parsed.
 
 Use [national-backfill-plan.md](national-backfill-plan.md) for the batch contract and wave order. The first execution batch is ten states for 2020-2024, followed by the remaining four cohorts before older years.
 

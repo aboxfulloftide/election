@@ -241,6 +241,28 @@
         "https://elections.delaware.gov/elections/election_archive.html"
       ],
       "notes": "Delaware official 2018 general-election archive identified for the 2010-2018 wave. File acquisition, format audit, district-cycle review, and reconciliation are still required before import."
+    },
+    {
+      "id": "de-official-2018-structured-imported",
+      "scope": "statewide",
+      "offices": [
+        "U.S. Senate",
+        "U.S. House",
+        "State Senate",
+        "State House"
+      ],
+      "years": [
+        2018
+      ],
+      "status": "imported",
+      "format": "official raw-data and results archive",
+      "geography": "statewide-county-or-district",
+      "quality_grade": "B",
+      "parser": "scripts/generate_legacy_structured_summaries.py",
+      "urls": [
+        "https://elections.delaware.gov/elections/election_archive.html"
+      ],
+      "notes": "Validated official 2018 contests generated from staged structured legacy files."
     }
   ]
 }

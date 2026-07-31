@@ -195,6 +195,27 @@
       "notes": "Idaho official 2014 general-election archive identified for the 2010-2018 wave. File acquisition, format audit, district-cycle review, and reconciliation are still required before import."
     },
     {
+      "id": "id-official-2014-structured-imported",
+      "scope": "statewide",
+      "offices": [
+        "U.S. Senate",
+        "U.S. House",
+        "Governor"
+      ],
+      "years": [
+        2014
+      ],
+      "status": "imported",
+      "format": "official statewide, county, and Excel archive",
+      "geography": "statewide-county-or-district",
+      "quality_grade": "B",
+      "parser": "scripts/generate_legacy_structured_summaries.py",
+      "urls": [
+        "https://sos.idaho.gov/elections-division/idaho-election-results/"
+      ],
+      "notes": "Validated official 2014 contests generated from staged structured legacy files."
+    },
+    {
       "id": "id-official-2016-legacy-source",
       "scope": "statewide",
       "offices": [
@@ -219,6 +240,27 @@
       "notes": "Idaho official 2016 general-election archive identified for the 2010-2018 wave. File acquisition, format audit, district-cycle review, and reconciliation are still required before import."
     },
     {
+      "id": "id-official-2016-structured-imported",
+      "scope": "statewide",
+      "offices": [
+        "President",
+        "U.S. Senate",
+        "U.S. House"
+      ],
+      "years": [
+        2016
+      ],
+      "status": "imported",
+      "format": "official statewide, county, and Excel archive",
+      "geography": "statewide-county-or-district",
+      "quality_grade": "B",
+      "parser": "scripts/generate_legacy_structured_summaries.py",
+      "urls": [
+        "https://sos.idaho.gov/elections-division/idaho-election-results/"
+      ],
+      "notes": "Validated official 2016 contests generated from staged structured legacy files."
+    },
+    {
       "id": "id-official-2018-legacy-source",
       "scope": "statewide",
       "offices": [
@@ -241,6 +283,26 @@
         "https://sos.idaho.gov/elections-division/idaho-election-results/"
       ],
       "notes": "Idaho official 2018 general-election archive identified for the 2010-2018 wave. File acquisition, format audit, district-cycle review, and reconciliation are still required before import."
+    },
+    {
+      "id": "id-official-2018-structured-imported",
+      "scope": "statewide",
+      "offices": [
+        "U.S. House",
+        "Governor"
+      ],
+      "years": [
+        2018
+      ],
+      "status": "imported",
+      "format": "official statewide, county, and Excel archive",
+      "geography": "statewide-county-or-district",
+      "quality_grade": "B",
+      "parser": "scripts/generate_legacy_structured_summaries.py",
+      "urls": [
+        "https://sos.idaho.gov/elections-division/idaho-election-results/"
+      ],
+      "notes": "Validated official 2018 contests generated from staged structured legacy files."
     }
   ]
 }
