@@ -12,6 +12,7 @@ sys.path.insert(0, str(ROOT_DIR / "scripts"))
 from download_kentucky_general_recaps import LinkParser, destination
 from download_kentucky_certified import SOURCES
 from ocr_kentucky_recaps import candidates, output_path
+from parse_kentucky_certified import parse_senate
 
 
 class KentuckyRecapDownloaderTests(TestCase):
@@ -51,3 +52,18 @@ class KentuckyRecapDownloaderTests(TestCase):
     def test_certified_source_uses_official_2022_results_page(self) -> None:
         self.assertEqual(SOURCES[2022]["filename"], "2022_certified_general_election_results.pdf")
         self.assertIn("2022.aspx", SOURCES[2022]["page"])
+
+    def test_certified_senate_parser_extracts_county_columns(self) -> None:
+        text = """United States Senator
+Republican Party Democratic Party Write-in Write-in
+Rand PAUL Charles BOOKER
+Allen 4,931 2,091 0 0
+Anderson 6,887 2,091 0 0
+Ballard 2.408 630 0 0
+Total Votes 11,818 4,182 0 0
+For the office of
+United States Representative in Congress
+"""
+        result = parse_senate(text)
+        self.assertEqual(result["row_count"], 3)
+        self.assertEqual(result["column_totals"], [14226, 4812, 0, 0])

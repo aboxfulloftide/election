@@ -61,6 +61,8 @@ def offices_in_text(text: str) -> set[str]:
 def build_audit() -> dict:
     rows = []
     for path in sorted(RAW_DIR.glob("20*_*.pdf")):
+        if "certified" in path.stem.lower():
+            continue
         match = re.match(r"(20\d{2})_", path.name)
         if not match:
             continue
