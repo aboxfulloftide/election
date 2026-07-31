@@ -128,6 +128,35 @@ def parse_us_house_totals(text: str) -> list[dict[str, Any]]:
     return districts
 
 
+def parse_certified_totals(text: str) -> list[dict[str, Any]]:
+    """Collect every printed contest total across federal and state offices."""
+    totals: list[dict[str, Any]] = []
+    office = ""
+    district: int | None = None
+    for raw_line in text.splitlines():
+        line = re.sub(r"\s+", " ", raw_line).strip()
+        lowered = line.lower()
+        if lowered == "for the office of":
+            office, district = "", None
+        elif lowered == "united states senator":
+            office, district = "U.S. Senate", None
+        elif lowered == "united states representative in congress":
+            office, district = "U.S. House", None
+        elif lowered == "state senator":
+            office, district = "State Senate", None
+        elif lowered == "state representative":
+            office, district = "State House", None
+        elif office and "district" in lowered:
+            match = DISTRICT_RE.search(line)
+            if match:
+                district = int(match.group(1))
+        if office and lowered.startswith("total votes"):
+            line = " ".join("0" if token in ZERO_OCR_TOKENS else token for token in line.split())
+            values = [value for value in (number(match) for match in NUMBER_RE.findall(line)) if value is not None]
+            totals.append({"office": office, "district": district, "official_total_votes": values})
+    return totals
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path, default=OCR_PATH)
@@ -139,6 +168,7 @@ def main() -> int:
     result = parse_senate(text)
     result["sections"] = certified_sections(text)
     result["us_house_totals"] = parse_us_house_totals(text)
+    result["contest_totals"] = parse_certified_totals(text)
     house = next((section for section in result["sections"] if section["office"].lower().startswith("united states representative")), None)
     state_senate = next((section for section in result["sections"] if section["office"].lower() == "state senator"), None)
     result["validation"] = {

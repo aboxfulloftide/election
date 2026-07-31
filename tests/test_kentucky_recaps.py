@@ -13,7 +13,7 @@ from download_kentucky_general_recaps import LinkParser, destination
 from download_kentucky_certified import SOURCES
 from ocr_kentucky_certified import OCR_PDF_PATH, SOURCE_PATH, TEXT_PATH
 from ocr_kentucky_recaps import candidates, output_path
-from parse_kentucky_certified import certified_sections, parse_senate, parse_us_house_totals
+from parse_kentucky_certified import certified_sections, parse_certified_totals, parse_senate, parse_us_house_totals
 
 
 class KentuckyRecapDownloaderTests(TestCase):
@@ -126,5 +126,26 @@ For the office of
             [
                 {"district": 1, "official_total_votes": [4931, 2091]},
                 {"district": 2, "official_total_votes": [5617, 1660]},
+            ],
+        )
+
+    def test_certified_total_inventory_tracks_state_and_federal_offices(self) -> None:
+        text = """United States Representative in Congress
+1st Congressional District
+Total Votes 4,931 2,091
+State Senator
+16th Senatorial District
+Total Votes 7,576
+State Representative
+21st Representative District
+Total Votes 3,000 2,000
+For the office of
+"""
+        self.assertEqual(
+            parse_certified_totals(text),
+            [
+                {"office": "U.S. House", "district": 1, "official_total_votes": [4931, 2091]},
+                {"office": "State Senate", "district": 16, "official_total_votes": [7576]},
+                {"office": "State House", "district": 21, "official_total_votes": [3000, 2000]},
             ],
         )
