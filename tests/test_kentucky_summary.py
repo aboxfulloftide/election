@@ -10,6 +10,7 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT_DIR / "scripts"))
 
 from generate_kentucky_statewide_summary import office_for_heading
+from check_kentucky_summary import validate_summary
 
 
 class KentuckySummaryTests(TestCase):
@@ -44,3 +45,17 @@ class KentuckySummaryTests(TestCase):
         self.assertNotIn("Republican Party", candidates)
         self.assertNotIn("Democratic Party", candidates)
         self.assertEqual(summary["source"]["completeness"], "partial")
+
+    def test_source_file_counts_reflect_each_contest_scope(self) -> None:
+        summary = json.loads(
+            (ROOT_DIR / "public/results/kentucky-statewide-summary.json").read_text()
+        )
+        contests = {
+            (contest["year"], contest["office"], contest.get("district_number")): contest
+            for election in summary["elections"]
+            for contest in election["contests"]
+        }
+        self.assertEqual(contests[(2022, "U.S. Senate", None)]["source_files"], 49)
+        self.assertEqual(contests[(2024, "President", None)]["source_files"], 119)
+        self.assertLess(contests[(2022, "U.S. House", 1)]["source_files"], 118)
+        self.assertEqual(validate_summary(summary), [])

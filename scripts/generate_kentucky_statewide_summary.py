@@ -109,8 +109,10 @@ def build_summary() -> dict[str, Any]:
     for year in (2022, 2024):
         files = sorted(RAW_DIR.glob(f"{year}_*.pdf"))
         contest_totals: dict[tuple[str, int | None], dict[tuple[str, str], int]] = defaultdict(lambda: defaultdict(int))
+        contest_files: dict[tuple[str, int | None], set[str]] = defaultdict(set)
         for path in files:
             for contest, candidates in parse_file(path).items():
+                contest_files[contest].add(path.name)
                 for candidate, votes in candidates.items():
                     contest_totals[contest][candidate] += votes
         contests = []
@@ -133,7 +135,7 @@ def build_summary() -> dict[str, Any]:
                 "winner": candidates[0],
                 "margin_votes": candidates[0]["votes"] - candidates[1]["votes"] if len(candidates) > 1 else 0,
                 "candidates": candidates,
-                "source_files": len(files),
+                "source_files": len(contest_files[(office, district)]),
             }
             if district is not None:
                 contest["district_number"] = district

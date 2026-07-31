@@ -11,9 +11,9 @@
       "format": "sbe-canvass-archive",
       "geography": "county-or-district",
       "quality_grade": null,
-      "parser": "planned:kentucky-state-federal-import",
+      "parser": "scripts/generate_kentucky_statewide_summary.py",
       "urls": ["https://elect.ky.gov/results/2020-2029/Pages/2020.aspx", "https://elect.ky.gov/results/2020-2029/Pages/2022-General-Recap-Sheets.aspx", "https://elect.ky.gov/results/2020-2029/Pages/2024General-Recap-Sheets.aspx"],
-      "notes": "Official Kentucky State Board of Elections archive identified. The resumable recap downloader stages 119 of 120 2022 county reports and all 120 2024 county reports; office-aware normalization remains pending."
+      "notes": "Official Kentucky State Board of Elections archive identified. County recap PDFs are downloaded and normalized for 2022 and 2024 federal/state contests. The generated summary is deliberately partial pending independent county/contest reconciliation; the 2022 Butler County report link remains unavailable."
     }
   ]
 }

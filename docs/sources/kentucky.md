@@ -21,6 +21,8 @@ npm run data:official:ky:download
 npm run data:official:ky:merge
 npm run data:official:ky
 npm run kentucky:recaps:download
+npm run kentucky:generate
+npm run kentucky:check
 ```
 
 Current coverage:
@@ -29,6 +31,6 @@ Current coverage:
 - 2022: 119 of 120 county recap reports staged; the official Butler County link currently returns HTTP 404.
 - 2024: all 120 county recap reports staged.
 
-The 2022 and 2024 recap PDFs are precinct-level reports. The parser now handles the county recap, precinct-summary, wrapped-ticket, and write-in layouts, but the generated statewide output remains `partial` until every county/contest total reconciles against an independent official check.
+The 2022 and 2024 recap PDFs are precinct-level reports. The parser now handles the county recap, precinct-summary, wrapped-ticket, and write-in layouts. Each generated contest records the number of county reports that actually contributed to that contest; this varies by district instead of being reported as the full statewide file count. The generated statewide output remains `partial` until every county/contest total reconciles against an independent official check.
 
 Rows written to `public/results/county-presidential-summary.json` are marked with `official: true`, Kentucky State Board of Elections source metadata, and quality grade `B`.

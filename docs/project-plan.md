@@ -198,7 +198,7 @@ Every import should be checked for:
 
 Fast local checks:
 
-- `npm run check` compiles Python scripts, type-checks the frontend, runs DB-free Python unit tests, validates committed generated JSON structure, compares official county sources, and checks Virginia statewide contest arithmetic and coverage.
+- `npm run check` compiles Python scripts, type-checks the frontend, runs DB-free Python unit tests, validates committed generated JSON structure, compares official county sources, and checks Virginia and Kentucky statewide contest arithmetic and source coverage.
 - MySQL-backed import validators remain separate because they require local database credentials and downloaded raw files.
 
 Quality grades:
