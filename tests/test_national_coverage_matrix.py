@@ -75,6 +75,16 @@ class NationalCoverageMatrixTests(TestCase):
             self.assertTrue(all(entry["quality_grade"] is None for entry in entries))
         self.assertEqual(found, expected_states)
 
+    def test_idaho_legacy_audit_rejects_portal_shells(self) -> None:
+        audit = json.loads((ROOT_DIR / "public/results/idaho-legacy-source-audit.json").read_text())
+        self.assertEqual(audit["ready_years"], [2014, 2016, 2018])
+        self.assertEqual(audit["invalid_years"], [2000, 2002, 2004, 2006, 2008, 2010, 2012])
+
+    def test_legacy_acquisition_audit_keeps_rejected_files_out(self) -> None:
+        audit = json.loads((ROOT_DIR / "public/results/legacy-acquisition-audit.json").read_text())
+        self.assertEqual(audit["summary"], {"staged": 15, "usable": 6, "rejected_or_invalid": 9})
+        self.assertTrue(any(item["status"] == "rejected_page" for item in audit["files"]))
+
     def test_north_carolina_summary_contains_only_active_offices(self) -> None:
         summary = json.loads(
             (ROOT_DIR / "public/results/north-carolina-statewide-summary.json").read_text()

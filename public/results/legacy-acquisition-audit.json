@@ -1,0 +1,116 @@
+{
+  "cohort": "legacy-cohort-01",
+  "scope": "2010-2018 and 2000-2008",
+  "files": [
+    {
+      "path": "data/raw/official/delaware/legacy/delaware_2010_election.txt",
+      "bytes": 245,
+      "format": "txt",
+      "rows_or_lines": null,
+      "status": "rejected_page"
+    },
+    {
+      "path": "data/raw/official/delaware/legacy/delaware_2018_election.txt",
+      "bytes": 17581,
+      "format": "delaware-semicolon-results",
+      "rows_or_lines": 357,
+      "status": "usable"
+    },
+    {
+      "path": "data/raw/official/delaware/legacy/delaware_2018_stwoff_kwns.txt",
+      "bytes": 1780,
+      "format": "delaware-semicolon-results",
+      "rows_or_lines": 35,
+      "status": "unexpected_schema"
+    },
+    {
+      "path": "data/raw/official/delaware/legacy/delaware_2018_stwres.txt",
+      "bytes": 254857,
+      "format": "delaware-semicolon-results",
+      "rows_or_lines": 6733,
+      "status": "usable"
+    },
+    {
+      "path": "data/raw/official/idaho/legacy/idaho_2000_general_statewide_totals.html",
+      "bytes": 46877,
+      "format": "idaho-official-html",
+      "rows_or_lines": null,
+      "status": "unexpected_schema"
+    },
+    {
+      "path": "data/raw/official/idaho/legacy/idaho_2002_general_statewide_totals.html",
+      "bytes": 46877,
+      "format": "idaho-official-html",
+      "rows_or_lines": null,
+      "status": "unexpected_schema"
+    },
+    {
+      "path": "data/raw/official/idaho/legacy/idaho_2004_general_statewide_totals.html",
+      "bytes": 46877,
+      "format": "idaho-official-html",
+      "rows_or_lines": null,
+      "status": "unexpected_schema"
+    },
+    {
+      "path": "data/raw/official/idaho/legacy/idaho_2006_general_statewide_totals.html",
+      "bytes": 46877,
+      "format": "idaho-official-html",
+      "rows_or_lines": null,
+      "status": "unexpected_schema"
+    },
+    {
+      "path": "data/raw/official/idaho/legacy/idaho_2008_general_statewide_totals.html",
+      "bytes": 46877,
+      "format": "idaho-official-html",
+      "rows_or_lines": null,
+      "status": "unexpected_schema"
+    },
+    {
+      "path": "data/raw/official/idaho/legacy/idaho_2010_general_statewide_totals.html",
+      "bytes": 46877,
+      "format": "idaho-official-html",
+      "rows_or_lines": null,
+      "status": "unexpected_schema"
+    },
+    {
+      "path": "data/raw/official/idaho/legacy/idaho_2012_general_statewide_totals.html",
+      "bytes": 46877,
+      "format": "idaho-official-html",
+      "rows_or_lines": null,
+      "status": "unexpected_schema"
+    },
+    {
+      "path": "data/raw/official/idaho/legacy/idaho_2014_general_statewide_totals.html",
+      "bytes": 10322,
+      "format": "idaho-official-html",
+      "rows_or_lines": null,
+      "status": "usable"
+    },
+    {
+      "path": "data/raw/official/idaho/legacy/idaho_2016_general_statewide_totals.html",
+      "bytes": 6990,
+      "format": "idaho-official-html",
+      "rows_or_lines": null,
+      "status": "usable"
+    },
+    {
+      "path": "data/raw/official/idaho/legacy/idaho_2018_general_statewide_totals.html",
+      "bytes": 11260,
+      "format": "idaho-official-html",
+      "rows_or_lines": null,
+      "status": "usable"
+    },
+    {
+      "path": "data/raw/official/illinois/legacy/illinois_2018_2nd_congress.csv",
+      "bytes": 112680,
+      "format": "csv-precinct-results",
+      "rows_or_lines": 1044,
+      "status": "usable"
+    }
+  ],
+  "summary": {
+    "staged": 15,
+    "usable": 6,
+    "rejected_or_invalid": 9
+  }
+}

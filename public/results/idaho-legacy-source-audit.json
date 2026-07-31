@@ -1,0 +1,101 @@
+{
+  "state_po": "ID",
+  "source": "Idaho Secretary of State official election archive",
+  "source_url": "https://archive.sos.idaho.gov/ELECT/results/index.html",
+  "files": [
+    {
+      "year": 2000,
+      "path": "data/raw/official/idaho/legacy/idaho_2000_general_statewide_totals.html",
+      "title": "Idaho Election Results",
+      "bytes": 46877,
+      "result_page": false,
+      "status": "portal_or_invalid"
+    },
+    {
+      "year": 2002,
+      "path": "data/raw/official/idaho/legacy/idaho_2002_general_statewide_totals.html",
+      "title": "Idaho Election Results",
+      "bytes": 46877,
+      "result_page": false,
+      "status": "portal_or_invalid"
+    },
+    {
+      "year": 2004,
+      "path": "data/raw/official/idaho/legacy/idaho_2004_general_statewide_totals.html",
+      "title": "Idaho Election Results",
+      "bytes": 46877,
+      "result_page": false,
+      "status": "portal_or_invalid"
+    },
+    {
+      "year": 2006,
+      "path": "data/raw/official/idaho/legacy/idaho_2006_general_statewide_totals.html",
+      "title": "Idaho Election Results",
+      "bytes": 46877,
+      "result_page": false,
+      "status": "portal_or_invalid"
+    },
+    {
+      "year": 2008,
+      "path": "data/raw/official/idaho/legacy/idaho_2008_general_statewide_totals.html",
+      "title": "Idaho Election Results",
+      "bytes": 46877,
+      "result_page": false,
+      "status": "portal_or_invalid"
+    },
+    {
+      "year": 2010,
+      "path": "data/raw/official/idaho/legacy/idaho_2010_general_statewide_totals.html",
+      "title": "Idaho Election Results",
+      "bytes": 46877,
+      "result_page": false,
+      "status": "portal_or_invalid"
+    },
+    {
+      "year": 2012,
+      "path": "data/raw/official/idaho/legacy/idaho_2012_general_statewide_totals.html",
+      "title": "Idaho Election Results",
+      "bytes": 46877,
+      "result_page": false,
+      "status": "portal_or_invalid"
+    },
+    {
+      "year": 2014,
+      "path": "data/raw/official/idaho/legacy/idaho_2014_general_statewide_totals.html",
+      "title": "Statewide Totals",
+      "bytes": 10322,
+      "result_page": true,
+      "status": "ready_for_parser"
+    },
+    {
+      "year": 2016,
+      "path": "data/raw/official/idaho/legacy/idaho_2016_general_statewide_totals.html",
+      "title": "Statewide Totals",
+      "bytes": 6990,
+      "result_page": true,
+      "status": "ready_for_parser"
+    },
+    {
+      "year": 2018,
+      "path": "data/raw/official/idaho/legacy/idaho_2018_general_statewide_totals.html",
+      "title": "Statewide Totals",
+      "bytes": 11260,
+      "result_page": true,
+      "status": "ready_for_parser"
+    }
+  ],
+  "ready_years": [
+    2014,
+    2016,
+    2018
+  ],
+  "invalid_years": [
+    2000,
+    2002,
+    2004,
+    2006,
+    2008,
+    2010,
+    2012
+  ]
+}

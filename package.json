@@ -18,6 +18,8 @@
     "legacy:status:check": "python3 scripts/report_legacy_wave_status.py --check",
     "legacy:cohorts": "python3 scripts/generate_legacy_cohort_plan.py",
     "legacy:sources": "python3 scripts/generate_legacy_source_records.py",
+    "legacy:idaho:audit": "python3 scripts/audit_idaho_legacy_sources.py",
+    "legacy:acquisition:audit": "python3 scripts/audit_legacy_acquisition.py",
     "national:cohort:preflight": "python3 scripts/report_national_cohort_preflight.py",
     "national:cohort:check": "python3 scripts/report_national_cohort_preflight.py --check",
     "north-carolina:generate": "python3 scripts/generate_north_carolina_statewide_summary.py",
